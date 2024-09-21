@@ -4,41 +4,43 @@ import type { PackageJson } from 'pkg-types'
 
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import * as fsPromise from 'node:fs/promises'
-import * as path from 'node:path'
+import { basename, join, resolve } from 'node:path'
 
 import * as v from 'valibot'
 
 const dependencySchema = v.optional(v.record(v.string(), v.string()))
 
 const packageJsonSchema = v.object({
-  author: v.union([
-    v.string(),
-    v.object({
-      email: v.optional(v.string()),
-      name: v.string(),
-      url: v.optional(v.string()),
-    }),
-  ]),
-  bin: v.optional(v.union([v.string(), v.record(v.string(), v.string())])),
-  browser: v.optional(v.string()),
-  bundledDependencies: v.optional(v.array(v.string())),
-  config: v.optional(v.unknown()),
-  dependencies: dependencySchema,
-  description: v.optional(v.string()),
-  devDependencies: dependencySchema,
-  engines: v.optional(
-    v.object({
-      node: v.optional(v.string()),
-    }),
-  ),
-  license: v.optional(v.string()),
-  main: v.optional(v.string()),
-  name: v.optional(v.string()),
-  optionalDependencies: dependencySchema,
-  peerDependencies: dependencySchema,
-  private: v.optional(v.boolean()),
-  scripts: v.optional(v.record(v.string(), v.string())),
-  version: v.optional(v.string()),
+	author: v.optional(
+		v.union([
+			v.string(),
+			v.object({
+				email: v.optional(v.string()),
+				name: v.string(),
+				url: v.optional(v.string()),
+			}),
+		]),
+	),
+	bin: v.optional(v.union([v.string(), v.record(v.string(), v.string())])),
+	browser: v.optional(v.string()),
+	bundledDependencies: v.optional(v.array(v.string())),
+	config: v.optional(v.unknown()),
+	dependencies: dependencySchema,
+	description: v.optional(v.string()),
+	devDependencies: dependencySchema,
+	engines: v.optional(
+		v.object({
+			node: v.optional(v.string()),
+		}),
+	),
+	license: v.optional(v.string()),
+	main: v.optional(v.string()),
+	name: v.optional(v.string()),
+	optionalDependencies: dependencySchema,
+	peerDependencies: dependencySchema,
+	private: v.optional(v.boolean()),
+	scripts: v.optional(v.record(v.string(), v.string())),
+	version: v.optional(v.string()),
 })
 
 // ------------------------------------------------------------------
@@ -49,12 +51,12 @@ const packageJsonSchema = v.object({
  * @returns the root package.json in the workspace.
  */
 export function getRootPackageJson(cwd: string): PackageJson {
-  const rootPackageJsonPath = path.resolve(cwd, 'package.json')
-  const rootPackageJson: unknown = JSON.parse(
-    readFileSync(rootPackageJsonPath, 'utf-8'),
-  )
-  const validated = v.parse(packageJsonSchema, rootPackageJson)
-  return validated
+	const rootPackageJsonPath = resolve(cwd, 'package.json')
+	const rootPackageJson: unknown = JSON.parse(
+		readFileSync(rootPackageJsonPath, 'utf-8'),
+	)
+	const validated = v.parse(packageJsonSchema, rootPackageJson)
+	return validated
 }
 
 // ------------------------------------------------------------------
@@ -65,18 +67,18 @@ export function getRootPackageJson(cwd: string): PackageJson {
  * @returns an array of all workspace package paths.
  */
 export function getWorkspacePackagePaths(workspaces: string[]): string[] {
-  const workspacePackagePaths: string[] = []
+	const workspacePackagePaths: string[] = []
 
-  workspaces.forEach((workspacePattern) => {
-    const workspaceDirs = workspacePattern.replace(/\/\*$/, '')
-    const absolutePath = path.resolve(process.cwd(), workspaceDirs)
-    const packages = readdirSync(absolutePath)
-      .map((pkgDir) => path.join(workspaceDirs, pkgDir))
-      .filter((pkgPath) => existsSync(path.join(pkgPath, 'package.json'))) // Filter only directories with package.json
-    workspacePackagePaths.push(...packages)
-  })
+	workspaces.forEach((workspacePattern) => {
+		const workspaceDirs = workspacePattern.replace(/\/\*$/, '')
+		const absolutePath = resolve(process.cwd(), workspaceDirs)
+		const packages = readdirSync(absolutePath)
+			.map((pkgDir) => join(workspaceDirs, pkgDir))
+			.filter((pkgPath) => existsSync(join(pkgPath, 'package.json'))) // Filter only directories with package.json
+		workspacePackagePaths.push(...packages)
+	})
 
-  return workspacePackagePaths
+	return workspacePackagePaths
 }
 
 // ------------------------------------------------------------------
@@ -87,18 +89,18 @@ export function getWorkspacePackagePaths(workspaces: string[]): string[] {
  * @returns an array of package names
  */
 export function getPackageNamesFromPaths(packagePaths: string[]): string[] {
-  const packageNames = packagePaths
-    .map((pkgPath) => {
-      const packageJsonPath = path.join(pkgPath, 'package.json')
-      const packageJson: unknown = JSON.parse(
-        readFileSync(packageJsonPath, 'utf-8'),
-      )
-      const validated = v.parse(packageJsonSchema, packageJson)
-      return validated.name
-    })
-    .filter((name): name is string => !!name) // Filter out undefined names
+	const packageNames = packagePaths
+		.map((pkgPath) => {
+			const packageJsonPath = join(pkgPath, 'package.json')
+			const packageJson: unknown = JSON.parse(
+				readFileSync(packageJsonPath, 'utf-8'),
+			)
+			const validated = v.parse(packageJsonSchema, packageJson)
+			return validated.name
+		})
+		.filter((name): name is string => !!name) // Filter out undefined names
 
-  return packageNames
+	return packageNames
 }
 
 // ------------------------------------------------------------------
@@ -109,21 +111,21 @@ export function getPackageNamesFromPaths(packagePaths: string[]): string[] {
  * @returns an array of all workspace package names
  */
 export function getWorkspacePackageNames(cwd: string): string[] {
-  const rootPackageJson = getRootPackageJson(cwd)
-  if (!rootPackageJson.workspaces) {
-    // throw new Error('No workspaces defined in the root package.json')
-    rootPackageJson.workspaces = ['apps/*', 'packages/*', 'packages/config/*']
-  }
+	const rootPackageJson = getRootPackageJson(cwd)
+	if (!rootPackageJson.workspaces) {
+		// throw new Error('No workspaces defined in the root package.json')
+		rootPackageJson.workspaces = ['apps/*', 'packages/*', 'packages/config/*']
+	}
 
-  const workspacePackagePaths = getWorkspacePackagePaths(
-    rootPackageJson.workspaces,
-  )
-  const packageNames = getPackageNamesFromPaths(workspacePackagePaths)
+	const workspacePackagePaths = getWorkspacePackagePaths(
+		rootPackageJson.workspaces,
+	)
+	const packageNames = getPackageNamesFromPaths(workspacePackagePaths)
 
-  return [
-    ...packageNames,
-    ...(rootPackageJson.name ? [rootPackageJson.name] : []),
-  ]
+	return [
+		...packageNames,
+		...(rootPackageJson.name ? [rootPackageJson.name] : []),
+	]
 }
 
 // ------------------------------------------------------------------
@@ -135,44 +137,44 @@ export function getWorkspacePackageNames(cwd: string): string[] {
  * @param includeRoot whether to include the root package.json
  */
 export async function updateWorkspacePackages(
-  cwd: string,
-  update: (
-    parsedPackageJson: PackageJson,
-    fullPath: string,
-  ) => PackageJson | Promise<PackageJson>,
-  includeRoot = false,
+	cwd: string,
+	update: (
+		parsedPackageJson: PackageJson,
+		fullPath: string,
+	) => PackageJson | Promise<PackageJson>,
+	includeRoot = false,
 ): Promise<void> {
-  const rootPackageJson = getRootPackageJson(cwd)
+	const rootPackageJson = getRootPackageJson(cwd)
 
-  if (!rootPackageJson.workspaces) {
-    rootPackageJson.workspaces = ['apps/*', 'packages/*', 'packages/config/*']
-    // throw new Error('No workspaces defined in the root package.json')
-  }
+	if (!rootPackageJson.workspaces) {
+		rootPackageJson.workspaces = ['apps/*', 'packages/*', 'packages/config/*']
+		// throw new Error('No workspaces defined in the root package.json')
+	}
 
-  const workspacePackagePaths = getWorkspacePackagePaths(
-    rootPackageJson.workspaces,
-  )
+	const workspacePackagePaths = getWorkspacePackagePaths(
+		rootPackageJson.workspaces,
+	)
 
-  if (includeRoot) {
-    workspacePackagePaths.push(cwd)
-  }
+	if (includeRoot) {
+		workspacePackagePaths.push(cwd)
+	}
 
-  await Promise.all(
-    workspacePackagePaths.map(async (pkgPath) => {
-      const packageJsonPath = path.join(pkgPath, 'package.json')
-      const packageJsonContent = await fsPromise.readFile(
-        packageJsonPath,
-        'utf-8',
-      )
-      const packageJson: unknown = JSON.parse(packageJsonContent)
-      const validated = v.parse(packageJsonSchema, packageJson)
-      const updatedPackageJson = await update(validated, pkgPath)
-      await fsPromise.writeFile(
-        packageJsonPath,
-        JSON.stringify(updatedPackageJson, null, 2) + '\n',
-      )
-    }),
-  )
+	await Promise.all(
+		workspacePackagePaths.map(async (pkgPath) => {
+			const packageJsonPath = join(pkgPath, 'package.json')
+			const packageJsonContent = await fsPromise.readFile(
+				packageJsonPath,
+				'utf-8',
+			)
+			const packageJson: unknown = JSON.parse(packageJsonContent)
+			const validated = v.parse(packageJsonSchema, packageJson)
+			const updatedPackageJson = await update(validated, pkgPath)
+			await fsPromise.writeFile(
+				packageJsonPath,
+				JSON.stringify(updatedPackageJson, null, 2) + '\n',
+			)
+		}),
+	)
 }
 
 // ------------------------------------------------------------------
@@ -184,28 +186,28 @@ export async function updateWorkspacePackages(
  * @param ignoredFiles an array of file names to ignore
  */
 export async function replaceInFile(
-  filePath: string,
-  searchReplace: Record<string, string>,
-  ignoredFiles: string[] = [],
+	filePath: string,
+	searchReplace: Record<string, string>,
+	ignoredFiles: string[] = [],
 ): Promise<void> {
-  if (ignoredFiles.includes(path.basename(filePath))) {
-    return
-  }
+	if (ignoredFiles.includes(basename(filePath))) {
+		return
+	}
 
-  try {
-    let data = await fsPromise.readFile(filePath, 'utf8')
+	try {
+		let data = await fsPromise.readFile(filePath, 'utf8')
 
-    for (const [search, replace] of Object.entries(searchReplace)) {
-      // eslint-disable-next-line security/detect-non-literal-regexp
-      const regex = new RegExp(search, 'g')
-      data = data.replace(regex, replace)
-    }
+		for (const [search, replace] of Object.entries(searchReplace)) {
+			// eslint-disable-next-line security/detect-non-literal-regexp
+			const regex = new RegExp(search, 'g')
+			data = data.replace(regex, replace)
+		}
 
-    await fsPromise.writeFile(filePath, data, 'utf8')
-    console.log(`Successfully updated ${filePath}`)
-  } catch (err) {
-    console.error(`Error processing file ${filePath}:`, err)
-  }
+		await fsPromise.writeFile(filePath, data, 'utf8')
+		console.log(`Successfully updated ${filePath}`)
+	} catch (err) {
+		console.error(`Error processing file ${filePath}:`, err)
+	}
 }
 
 // ------------------------------------------------------------------
@@ -217,28 +219,28 @@ export async function replaceInFile(
  * @param ignoredFolders an array of folder names to ignore
  */
 export async function traverseDirectory(
-  directory: string,
-  callback: (fullPath: string) => Promise<void>,
-  ignoredFolders: string[] = [],
+	directory: string,
+	callback: (fullPath: string) => Promise<void>,
+	ignoredFolders: string[] = [],
 ): Promise<void> {
-  try {
-    const files = await fsPromise.readdir(directory)
+	try {
+		const files = await fsPromise.readdir(directory)
 
-    for (const file of files) {
-      const fullPath = path.join(directory, file)
-      const stats = await fsPromise.stat(fullPath)
+		for (const file of files) {
+			const fullPath = join(directory, file)
+			const stats = await fsPromise.stat(fullPath)
 
-      if (stats.isDirectory()) {
-        if (!ignoredFolders.includes(file)) {
-          await traverseDirectory(fullPath, callback, ignoredFolders)
-        }
-      } else if (stats.isFile()) {
-        await callback(fullPath)
-      }
-    }
-  } catch (err) {
-    console.error(`Error processing directory ${directory}:`, err)
-  }
+			if (stats.isDirectory()) {
+				if (!ignoredFolders.includes(file)) {
+					await traverseDirectory(fullPath, callback, ignoredFolders)
+				}
+			} else if (stats.isFile()) {
+				await callback(fullPath)
+			}
+		}
+	} catch (err) {
+		console.error(`Error processing directory ${directory}:`, err)
+	}
 }
 
 // ------------------------------------------------------------------
@@ -249,48 +251,48 @@ export async function traverseDirectory(
  * @param newNamespace the new namespace to replace
  */
 export async function updateNamespaceInPrettierConfig(
-  cwd: string,
-  newNamespace: string,
+	cwd: string,
+	newNamespace: string,
 ): Promise<void> {
-  const filePath = path.join(cwd, 'prettier.config.js')
+	const filePath = join(cwd, 'prettier.config.js')
 
-  try {
-    const data = await fsPromise.readFile(filePath, 'utf8')
+	try {
+		const data = await fsPromise.readFile(filePath, 'utf8')
 
-    // Extract importOrder array content
-    const importOrderStart = data.indexOf('importOrder: [')
-    const importOrderEnd = data.indexOf('],', importOrderStart)
-    if (importOrderStart === -1 || importOrderEnd === -1) {
-      console.error('importOrder array not found in file')
-      return
-    }
+		// Extract importOrder array content
+		const importOrderStart = data.indexOf('importOrder: [')
+		const importOrderEnd = data.indexOf('],', importOrderStart)
+		if (importOrderStart === -1 || importOrderEnd === -1) {
+			console.error('importOrder array not found in file')
+			return
+		}
 
-    const beforeImportOrder = data.substring(0, importOrderStart)
-    const importOrderContent = data.substring(
-      importOrderStart,
-      importOrderEnd + 2,
-    ) // Include '],'
-    const afterImportOrder = data.substring(importOrderEnd + 2)
+		const beforeImportOrder = data.substring(0, importOrderStart)
+		const importOrderContent = data.substring(
+			importOrderStart,
+			importOrderEnd + 2,
+		) // Include '],'
+		const afterImportOrder = data.substring(importOrderEnd + 2)
 
-    const searchPattern = /'\^@\w+\/\(\.\*\)\$'/g
+		const searchPattern = /'\^@\w+\/\(\.\*\)\$'/g
 
-    // Replace within importOrder array content
-    const updatedImportOrderContent = importOrderContent.replace(
-      searchPattern,
-      (match) => {
-        return match.replace(/@\w+\//, `${newNamespace}/`)
-      },
-    )
+		// Replace within importOrder array content
+		const updatedImportOrderContent = importOrderContent.replace(
+			searchPattern,
+			(match) => {
+				return match.replace(/@\w+\//, `${newNamespace}/`)
+			},
+		)
 
-    // Reconstruct the file content
-    const updatedData =
-      beforeImportOrder + updatedImportOrderContent + afterImportOrder
+		// Reconstruct the file content
+		const updatedData =
+			beforeImportOrder + updatedImportOrderContent + afterImportOrder
 
-    await fsPromise.writeFile(filePath, updatedData, 'utf8')
-    console.log(`Successfully updated ${filePath}`)
-  } catch (err) {
-    console.error(`Error processing file ${filePath}:`, err)
-  }
+		await fsPromise.writeFile(filePath, updatedData, 'utf8')
+		console.log(`Successfully updated ${filePath}`)
+	} catch (err) {
+		console.error(`Error processing file ${filePath}:`, err)
+	}
 }
 
 /* eslint-enable security/detect-non-literal-fs-filename */

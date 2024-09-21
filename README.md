@@ -1,16 +1,16 @@
 <div align="center">
-  <img src="https://github.com/ixahmedxi/orbitkit/blob/main/apps/marketing/public/blog-placeholder.jpg?raw=true" alt="Cover image" width="700px">
+  <img src="https://github.com/ixahmedxi/monorepo/blob/main/apps/marketing/public/blog-placeholder.jpg?raw=true" alt="Cover image" width="700px">
 </div>
 
 ## Note
 
 > [!IMPORTANT]
-> OrbitKit is built on top of a very opinionated tech stack, which might not work for every use case/business idea. I offer monorepo architecture consulting or even building something completely custom for you, if you are interested be sure to [DM me on X/Twitter](https://twitter.com/ixahmedxii).
+> monorepo is built on top of a very opinionated tech stack, which might not work for every use case/business idea. I offer monorepo architecture consulting or even building something completely custom for you, if you are interested be sure to [DM me on X/Twitter](https://twitter.com/ixahmedxii).
 
 ## Features
 
-- [**Monorepo**](https://monorepo.tools/): OrbitKit is a monorepo, giving you the ability to scale your project with ease.
-- [**TypeScript**](https://www.typescriptlang.org/): type-safety is a core principle of OrbitKit.
+- [**Monorepo**](https://monorepo.tools/): monorepo is a monorepo, giving you the ability to scale your project with ease.
+- [**TypeScript**](https://www.typescriptlang.org/): type-safety is a core principle of monorepo.
 - [**Astrojs**](https://astro.build): for a clean slate to build your marketing website on top.
 - [**Next.js**](https://nextjs.org): Web application is included, giving you a solid foundation for your product.
 - [**Posthog**](https://posthog.com): for analytics and event tracking.
@@ -39,7 +39,7 @@ And much more!
 
 ## Documentation
 
-To get started with OrbitKit, head over to the [documentation](https://orbitkit.dev) website where you can find installation instructions and how to work with the codebase.
+To get started with monorepo, head over to the [documentation](https://monorepo.dev) website where you can find installation instructions and how to work with the codebase.
 
 ## License
 

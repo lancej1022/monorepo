@@ -1,13 +1,13 @@
 {
-  "name": "@monorepo/assets",
-  "version": "0.4.3",
-  "private": true,
-  "description": "OrbitKit's assets package",
-  "license": "MIT",
-  "author": "OrbitKit",
-  "files": [
-    "**/*"
-  ],
-  "dependencies": {},
-  "devDependencies": {}
+	"name": "@monorepo/assets",
+	"version": "0.4.3",
+	"private": true,
+	"description": "monorepo's assets package",
+	"license": "MIT",
+	"author": "monorepo",
+	"files": [
+		"**/*"
+	],
+	"dependencies": {},
+	"devDependencies": {}
 }

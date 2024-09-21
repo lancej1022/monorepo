@@ -1,12 +1,12 @@
 ---
 title: Installation
 icon: 'bars-progress'
-description: 'A guide on how to install and run OrbitKit.'
+description: 'A guide on how to install and run monorepo.'
 ---
 
 ## Introduction
 
-OrbitKit is setup as a monorepo, which comes with three applications and many packages, here is the codebase structure:
+monorepo is setup as a monorepo, which comes with three applications and many packages, here is the codebase structure:
 
 ```bash
 apps
@@ -29,7 +29,7 @@ packages
   └── utils # misc utilities.
 ```
 
-We will go more in detail about every aspect of orbitkit later on, but this should give you a good idea of what to expect.
+We will go more in detail about every aspect of monorepo later on, but this should give you a good idea of what to expect.
 
 ## Prerequisites
 
@@ -41,33 +41,33 @@ That is actually pretty much all you need!
 
 ## Installation
 
-With all that being said, we are ready to start using Orbitkit! We firstly need to clone it down to your machine and then we can install dependencies, configure environment variables and run it!
+With all that being said, we are ready to start using monorepo! We firstly need to clone it down to your machine and then we can install dependencies, configure environment variables and run it!
 
 <AccordionGroup>
   <Accordion title="1. Clone the repository" icon="github">
-    There are three ways to get OrbitKit onto your machine, it all comes down to your choice.
+    There are three ways to get monorepo onto your machine, it all comes down to your choice.
 
     1. You can use degit to download the code directly and remove the git history.
     ```bash
-    bunx degit ixahmedxi/orbitkit
+    bunx degit ixahmedxi/monorepo
     ```
 
-    2. You can [fork](https://github.com/ixahmedxi/orbitkit/fork) OrbitKit and then clone down your version of it.
+    2. You can [fork](https://github.com/ixahmedxi/monorepo/fork) monorepo and then clone down your version of it.
     ```bash
     # After forking the repository
-    git clone --depth 1 https://github.com/<your-username>/orbitkit.git <your-project-name>
+    git clone --depth 1 https://github.com/<your-username>/monorepo.git <your-project-name>
     ```
 
     3. You can clone the repository directly.
     ```bash
     # Clone the repository
-    git clone --depth 1 https://github.com/ixahmedxi/orbitkit.git <your-project-name>
+    git clone --depth 1 https://github.com/ixahmedxi/monorepo.git <your-project-name>
     ```
 
   </Accordion>
 
   <Accordion title="2. Install dependencies" icon="cube">
-    The next step is to install all of the required dependencies for OrbitKit, we use `bun` as the package manager.
+    The next step is to install all of the required dependencies for monorepo, we use `bun` as the package manager.
 
     ```bash
     # Navigate to the project directory
@@ -96,17 +96,17 @@ Here is how you can obtain each of the required values:
 
 #### Database
 
-The database that OrbitKit uses is [Neon](https://neon.tech) PostgreSQL. You should create a free account and input the database url given to you on the dashboard to be the value of the `DATABASE_URL` environment variable.
+The database that monorepo uses is [Neon](https://neon.tech) PostgreSQL. You should create a free account and input the database url given to you on the dashboard to be the value of the `DATABASE_URL` environment variable.
 
 Make sure that the `DATABASE_URL` ends with `?sslmode=require`.
 
 #### Uploadthing
 
-[Uploadthing](https://uploadthing.com) is the service of choice in OrbitKit for file uploads, you should create an account and input the api keys into the `.env.local` File.
+[Uploadthing](https://uploadthing.com) is the service of choice in monorepo for file uploads, you should create an account and input the api keys into the `.env.local` File.
 
 #### Unkey (optional)
 
-[Unkey](https://unkey.dev) is the service of choice in OrbitKit for rate limiting, it is however optional as that if the `UNKEY_ROOT_KEY` or `UNKEY_NAMESPACE` variables are not supplied, no rate limiting is applied.
+[Unkey](https://unkey.dev) is the service of choice in monorepo for rate limiting, it is however optional as that if the `UNKEY_ROOT_KEY` or `UNKEY_NAMESPACE` variables are not supplied, no rate limiting is applied.
 
 To obtain this key, head over to your unkey dashboard and create a new ratelimit namespace, then in your settings, create a new root key, that will be the value of your environment variable.
 
@@ -114,7 +114,7 @@ As for the namespace that you have created, you will need to put that as the val
 
 #### Posthog (optional)
 
-[Posthog](https://posthog.com) is the service of choice in OrbitKit for analysis, it is however optional as that if the `NEXT_PUBLIC_POSTHOG_HOST` or `NEXT_PUBLIC_POSTHOG_KEY` variables are not supplied for the web app or `PUBLIC_POSTHOG_KEY` and `PUBLIC_POSTHOG_HOST` for the marketing app, no analysis is applied.
+[Posthog](https://posthog.com) is the service of choice in monorepo for analysis, it is however optional as that if the `NEXT_PUBLIC_POSTHOG_HOST` or `NEXT_PUBLIC_POSTHOG_KEY` variables are not supplied for the web app or `PUBLIC_POSTHOG_KEY` and `PUBLIC_POSTHOG_HOST` for the marketing app, no analysis is applied.
 
 To obtain this key, head over to your posthog dashboard, then in your settings, find `Project API Key`, that will be the value of the key environment variable.
 
@@ -122,62 +122,62 @@ As for the host use `app.posthog.com` or `eu.posthog.com` depending on your regi
 
 #### OAuth
 
-OrbitKit currently ships with two authentication providers, Google and Github. You will need to create an OAuth application on the respective platforms and input the values into the `.env.local` file.
+monorepo currently ships with two authentication providers, Google and Github. You will need to create an OAuth application on the respective platforms and input the values into the `.env.local` file.
 
 <Note>
-  Based on the environment variables set, authentication will be provided. For
-  example, setting `AUTH_GITHUB_ID` and `AUTH_GITHUB_SECRET` will make it so
-  that Github OAuth is then activated on the web application. The same is true
-  for Google OAuth.
+	Based on the environment variables set, authentication will be provided. For
+	example, setting `AUTH_GITHUB_ID` and `AUTH_GITHUB_SECRET` will make it so
+	that Github OAuth is then activated on the web application. The same is true
+	for Google OAuth.
 </Note>
 
 <AccordionGroup>
-  <Accordion title='Configuring Github OAuth' icon='github'>
-    <ol>
-      <li>Go to your Github Settings.</li>
-      <li>Go to Developer Settings.</li>
-      <li>Go to OAuth Apps.</li>
-      <li>Click on New OAuth App.</li>
-      <li>
-        Fill in the details, the homepage url should be `http://localhost:3000`
-        and the authorization callback url should be
-        `http://localhost:3000/login/github/callback`.
-      </li>
-      <li>Click on Register Application.</li>
-      <li>
-        Copy the Client ID into the `AUTH_GITHUB_ID` environment variable.
-      </li>
-      <li>
-        Click on Generate a new client secret button and copy the client secret
-        into the `AUTH_GITHUB_SECRET` environment variable.
-      </li>
-    </ol>
-  </Accordion>
-  <Accordion title='Configuring Google OAuth' icon='google'>
-    <ol>
-      <li>Go to the Google Cloud Console.</li>
-      <li>Create a new project.</li>
-      <li>Configure consent screen.</li>
-      <li>Create OAuth client ID.</li>
-      <li>
-        Fill in the details, add `http://localhost:3000` in the list of
-        Authorized JavaScript origins and
-        `http://localhost:3000/login/google/callback` in the list of Authorized
-        redirect URIs.
-      </li>
-      <li>
-        Copy the Client ID into the `AUTH_GOOGLE_ID` environment variable.
-      </li>
-      <li>
-        Copy the Client Secret into the `AUTH_GOOGLE_SECRET` environment
-        variable.
-      </li>
-      <li>
-        For the `AUTH_SECRET` environment variable, you can put any random
-        string.
-      </li>
-    </ol>
-  </Accordion>
+	<Accordion title='Configuring Github OAuth' icon='github'>
+		<ol>
+			<li>Go to your Github Settings.</li>
+			<li>Go to Developer Settings.</li>
+			<li>Go to OAuth Apps.</li>
+			<li>Click on New OAuth App.</li>
+			<li>
+				Fill in the details, the homepage url should be `http://localhost:3000`
+				and the authorization callback url should be
+				`http://localhost:3000/login/github/callback`.
+			</li>
+			<li>Click on Register Application.</li>
+			<li>
+				Copy the Client ID into the `AUTH_GITHUB_ID` environment variable.
+			</li>
+			<li>
+				Click on Generate a new client secret button and copy the client secret
+				into the `AUTH_GITHUB_SECRET` environment variable.
+			</li>
+		</ol>
+	</Accordion>
+	<Accordion title='Configuring Google OAuth' icon='google'>
+		<ol>
+			<li>Go to the Google Cloud Console.</li>
+			<li>Create a new project.</li>
+			<li>Configure consent screen.</li>
+			<li>Create OAuth client ID.</li>
+			<li>
+				Fill in the details, add `http://localhost:3000` in the list of
+				Authorized JavaScript origins and
+				`http://localhost:3000/login/google/callback` in the list of Authorized
+				redirect URIs.
+			</li>
+			<li>
+				Copy the Client ID into the `AUTH_GOOGLE_ID` environment variable.
+			</li>
+			<li>
+				Copy the Client Secret into the `AUTH_GOOGLE_SECRET` environment
+				variable.
+			</li>
+			<li>
+				For the `AUTH_SECRET` environment variable, you can put any random
+				string.
+			</li>
+		</ol>
+	</Accordion>
 </AccordionGroup>
 
 ### Reset changelog and versions
@@ -197,13 +197,13 @@ The `update:workspace` command has the following options:
 ```bash
 -n, --namespace # The namespace of the project (e.g. -n "@myapp")
 -v, --ver # The version of the project (e.g. -v 1.0.0)
--a, --author # The author of the project (e.g. -a "Ahmed OrbitKit")
+-a, --author # The author of the project (e.g. -a "Ahmed monorepo")
 -l, --license # The license of the project (e.g. -l "MIT")
 --ir, --include-root # Include the root package (e.g. --ir) - boolean flag - no value needs to be passed
 -e, --exclude # Exclude packages (e.g. -e @myapp/core @myapp/db)
 ```
 
-> Note: If you want to pass special characters or spaces in the author flag, you should wrap the value in two sets of quotes `'""'` e.g. `'"Ahmed Elsakaan - https://orbitkit.dev"'`.
+> Note: If you want to pass special characters or spaces in the author flag, you should wrap the value in two sets of quotes `'""'` e.g. `'"Ahmed Elsakaan - https://monorepo.dev"'`.
 
 ### Running the project
 

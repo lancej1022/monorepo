@@ -4,7 +4,7 @@
 	"private": true,
 	"description": "A package to share ESLint configurations in workspace",
 	"license": "MIT",
-	"author": "OrbitKit",
+	"author": "monorepo",
 	"type": "module",
 	"exports": {
 		".": {
@@ -13,7 +13,7 @@
 		}
 	},
 	"scripts": {
-		"clean": "bun run rm -rf *.tsbuildinfo",
+		"clean": "rm -rf *.tsbuildinfo",
 		"lint": "eslint .  --max-warnings 0",
 		"typecheck": "tsc"
 	},

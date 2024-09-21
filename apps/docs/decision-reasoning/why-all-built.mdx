@@ -30,10 +30,10 @@ Typically, a package using this approach would be called an "Internal package".
 - **Slow TS LSP**: Let's imagine you have an `api` package that uses TS heavy libraries like `tRPC`, `drizzle-orm` add a bit of `zod` here and there. As your API grows more complex, the TS LSP (Language Server Protocol) will start taking hits. This is because TypeScript is so much faster at evaluating the `.js` and `.d.ts` combination than pure source `.ts` files.
 
 <Warning>
-  It is not uncommon to see the TS LSP taking 1.5-3 seconds for every
-  autocompletion suggestion to come up, the same goes for error reporting. This
-  absolutely kills your productivity, and switching to building those packages
-  immediately fixes it.
+	It is not uncommon to see the TS LSP taking 1.5-3 seconds for every
+	autocompletion suggestion to come up, the same goes for error reporting. This
+	absolutely kills your productivity, and switching to building those packages
+	immediately fixes it.
 </Warning>
 
 **In essence, if your consumer is referring to your package's TS source files, there will be a ceiling to hit where the TS LSP will start slowing down.**
@@ -67,7 +67,7 @@ Typically, a package using this approach would be called a "Publishable Package"
 - **Slower build step**: Because bundling not only transpiles your code from TS to JS, but it also does many optimisations like tree-shaking, minification, etc. This makes the build step slower than just transpiling the code, even with `tsup` which is very fast we have seen pure `tsc` being much faster just because it avoids that bundling step.
 - **Hard to get go to definition**: It's notoriously more difficult to get go to definition and other features in your editor with bundled code.
 
-## The OrbitKit Approach
+## The monorepo Approach
 
 - `ui package` is bundled with `vite`.
 - `env package` is shipped out as source code.
@@ -96,9 +96,9 @@ It is true that this is a really long command, but we can make it shorter by add
 
 ```json
 {
-  "scripts": {
-    "dev:web:api": "bun turbo dev --filter=@monorepo/web... --filter=!./packages/config/* --filter=!@monorepo/ui --only"
-  }
+	"scripts": {
+		"dev:web:api": "bun turbo dev --filter=@monorepo/web... --filter=!./packages/config/* --filter=!@monorepo/ui --only"
+	}
 }
 ```
 

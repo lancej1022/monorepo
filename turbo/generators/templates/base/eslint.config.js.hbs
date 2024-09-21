@@ -1,3 +1,3 @@
-import { configs, defineConfig } from '@orbitkit/eslint'
+import { configs, defineConfig } from '@monorepo/eslint'
 
 export default defineConfig(...configs.base)

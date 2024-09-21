@@ -1,32 +1,32 @@
 {
-  "name": "@monorepo/utils",
-  "version": "0.4.3",
-  "private": true,
-  "description": "Common utilities for OrbitKit",
-  "license": "MIT",
-  "author": "OrbitKit",
-  "sideEffects": false,
-  "type": "module",
-  "exports": {
-    "./filesystem": {
-      "types": "./dist/filesystem.d.ts",
-      "default": "./dist/filesystem.js"
-    },
-    "./url": {
-      "types": "./dist/url.d.ts",
-      "default": "./dist/url.js"
-    }
-  },
-  "scripts": {
-    "build": "tsc -p tsconfig.build.json",
-    "clean": "bun run rm -rf dist *.tsbuildinfo",
-    "dev": "tsc -w -p tsconfig.build.json",
-    "lint": "eslint .  --max-warnings 0",
-    "typecheck": "tsc"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "@monorepo/eslint": "workspace:^",
-    "@monorepo/tsconfig": "workspace:^"
-  }
+	"name": "@monorepo/utils",
+	"version": "0.4.3",
+	"private": true,
+	"description": "Common utilities for monorepo",
+	"license": "MIT",
+	"author": "monorepo",
+	"sideEffects": false,
+	"type": "module",
+	"exports": {
+		"./filesystem": {
+			"types": "./dist/filesystem.d.ts",
+			"default": "./dist/filesystem.js"
+		},
+		"./url": {
+			"types": "./dist/url.d.ts",
+			"default": "./dist/url.js"
+		}
+	},
+	"scripts": {
+		"build": "tsc -p tsconfig.build.json",
+		"clean": "rm -rf dist *.tsbuildinfo",
+		"dev": "tsc -w -p tsconfig.build.json",
+		"lint": "eslint .  --max-warnings 0",
+		"typecheck": "tsc"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@monorepo/eslint": "workspace:^",
+		"@monorepo/tsconfig": "workspace:^"
+	}
 }
