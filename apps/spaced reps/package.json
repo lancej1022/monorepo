@@ -26,6 +26,7 @@
 	"devDependencies": {
 		"@monorepo/eslint": "workspace:^",
 		"@monorepo/tsconfig": "workspace:^",
+		"@types/chrome": "0.0.271",
 		"@types/react": "^18.3.5",
 		"@types/react-dom": "^18.3.0"
 	}
