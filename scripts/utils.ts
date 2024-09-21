@@ -2,9 +2,44 @@
 
 import type { PackageJson } from 'pkg-types'
 
-import * as fs from 'fs'
-import * as fsPromise from 'fs/promises'
-import * as path from 'path'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import * as fsPromise from 'node:fs/promises'
+import * as path from 'node:path'
+
+import * as v from 'valibot'
+
+const dependencySchema = v.optional(v.record(v.string(), v.string()))
+
+const packageJsonSchema = v.object({
+  author: v.union([
+    v.string(),
+    v.object({
+      email: v.optional(v.string()),
+      name: v.string(),
+      url: v.optional(v.string()),
+    }),
+  ]),
+  bin: v.optional(v.union([v.string(), v.record(v.string(), v.string())])),
+  browser: v.optional(v.string()),
+  bundledDependencies: v.optional(v.array(v.string())),
+  config: v.optional(v.unknown()),
+  dependencies: dependencySchema,
+  description: v.optional(v.string()),
+  devDependencies: dependencySchema,
+  engines: v.optional(
+    v.object({
+      node: v.optional(v.string()),
+    }),
+  ),
+  license: v.optional(v.string()),
+  main: v.optional(v.string()),
+  name: v.optional(v.string()),
+  optionalDependencies: dependencySchema,
+  peerDependencies: dependencySchema,
+  private: v.optional(v.boolean()),
+  scripts: v.optional(v.record(v.string(), v.string())),
+  version: v.optional(v.string()),
+})
 
 // ------------------------------------------------------------------
 
@@ -15,10 +50,11 @@ import * as path from 'path'
  */
 export function getRootPackageJson(cwd: string): PackageJson {
   const rootPackageJsonPath = path.resolve(cwd, 'package.json')
-  const rootPackageJson = JSON.parse(
-    fs.readFileSync(rootPackageJsonPath, 'utf-8'),
-  ) as PackageJson
-  return rootPackageJson
+  const rootPackageJson: unknown = JSON.parse(
+    readFileSync(rootPackageJsonPath, 'utf-8'),
+  )
+  const validated = v.parse(packageJsonSchema, rootPackageJson)
+  return validated
 }
 
 // ------------------------------------------------------------------
@@ -34,10 +70,9 @@ export function getWorkspacePackagePaths(workspaces: string[]): string[] {
   workspaces.forEach((workspacePattern) => {
     const workspaceDirs = workspacePattern.replace(/\/\*$/, '')
     const absolutePath = path.resolve(process.cwd(), workspaceDirs)
-    const packages = fs
-      .readdirSync(absolutePath)
+    const packages = readdirSync(absolutePath)
       .map((pkgDir) => path.join(workspaceDirs, pkgDir))
-      .filter((pkgPath) => fs.existsSync(path.join(pkgPath, 'package.json'))) // Filter only directories with package.json
+      .filter((pkgPath) => existsSync(path.join(pkgPath, 'package.json'))) // Filter only directories with package.json
     workspacePackagePaths.push(...packages)
   })
 
@@ -55,10 +90,11 @@ export function getPackageNamesFromPaths(packagePaths: string[]): string[] {
   const packageNames = packagePaths
     .map((pkgPath) => {
       const packageJsonPath = path.join(pkgPath, 'package.json')
-      const packageJson = JSON.parse(
-        fs.readFileSync(packageJsonPath, 'utf-8'),
-      ) as PackageJson
-      return packageJson.name
+      const packageJson: unknown = JSON.parse(
+        readFileSync(packageJsonPath, 'utf-8'),
+      )
+      const validated = v.parse(packageJsonSchema, packageJson)
+      return validated.name
     })
     .filter((name): name is string => !!name) // Filter out undefined names
 
@@ -128,8 +164,9 @@ export async function updateWorkspacePackages(
         packageJsonPath,
         'utf-8',
       )
-      const packageJson = JSON.parse(packageJsonContent) as PackageJson
-      const updatedPackageJson = await update(packageJson, pkgPath)
+      const packageJson: unknown = JSON.parse(packageJsonContent)
+      const validated = v.parse(packageJsonSchema, packageJson)
+      const updatedPackageJson = await update(validated, pkgPath)
       await fsPromise.writeFile(
         packageJsonPath,
         JSON.stringify(updatedPackageJson, null, 2) + '\n',

@@ -70,10 +70,8 @@ export const base = defineConfig(
     },
     rules: {
       ...turboPlugin.configs.recommended.rules,
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
-      ],
+      // TS will already prevent unused variables during type generation, no need to have the linter check it
+      '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/consistent-type-assertions': [
         'error',
         { assertionStyle: 'never' },
