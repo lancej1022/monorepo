@@ -1,0 +1,4 @@
+{
+	"type": "commonjs",
+	"//": "https://github.com/vercel/turbo/issues/5657#issuecomment-2099861176 -- turborepo generators dont fully support ESM in TS monorepos, but we can work around the issue by speicifying the type as commonjs"
+}
