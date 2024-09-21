@@ -3,6 +3,7 @@ import type { PlopTypes } from '@turbo/gen'
 export default function generator(plop: PlopTypes.NodePlopAPI) {
 	// eslint-disable-next-line @typescript-eslint/no-unused-expressions -- TODO: idk why TS is so mad about this? seems like valid plop syntax
 	plop.load('./pnpm-install.ts'),
+		// TODO: the `app/package` generators can be combined into a single generator, and then just do something like `data.app || data.package` based on a prompt
 		plop.setGenerator('app', {
 			actions: function (data) {
 				if (!data) {
@@ -13,25 +14,35 @@ export default function generator(plop: PlopTypes.NodePlopAPI) {
 				const actionsToTake: PlopTypes.Actions = [
 					{
 						base: 'templates/base',
-						destination: 'packages/{{name}}',
+						destination: 'apps/{{name}}',
 						globOptions: { dot: true },
 						templateFiles: 'templates/base/**/*',
 						type: 'addMany',
 					},
 					{
-						path: 'packages/{{name}}/.eslintrc.cjs',
-						pattern: /(-- PLOP EXTENDS HERE --)/,
-						template: isReactApp
-							? '["monorepo/base", "monorepo/react"]'
-							: '["monorepo/base"]',
-						type: 'modify',
-					},
-					{
-						path: 'packages/{{name}}/tsconfig.json',
+						path: 'apps/{{name}}/tsconfig.json',
 						pattern: /(-- PLOP EXTENDS HERE --)/,
 						template: isReactApp
 							? '["@monorepo/tsconfig/react.json"]'
 							: '["@monorepo/tsconfig/base.json"]',
+						type: 'modify',
+					},
+					{
+						path: 'apps/{{name}}/package.json',
+						pattern: /(-- PLOP DEVDEPENDENCIES HERE --)/,
+						template: isReactApp
+							? `"@playwright/test": "catalog:",
+                "@tanstack/react-query": "catalog:",
+                "@tanstack/react-router": "catalog:",
+                "@testing-library/react": "catalog:",
+                "@types/node": "catalog:",
+                "@types/react": "catalog:",
+                "@types/react-dom": "catalog:",
+                "happy-dom": "catalog:",
+                "msw": "catalog:",
+                "react": "catalog:",
+                "react-dom": "catalog:",`
+							: '',
 						type: 'modify',
 					},
 				]
@@ -71,7 +82,6 @@ export default function generator(plop: PlopTypes.NodePlopAPI) {
 				},
 			],
 		}),
-		// create a new package
 		plop.setGenerator('package', {
 			actions: function (data) {
 				if (!data) {
@@ -89,6 +99,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI) {
 						templateFiles: 'templates/base/**/*',
 						type: 'addMany',
 					},
+					// TODO: outdated
 					{
 						path: 'packages/{{name}}/.eslintrc.cjs',
 						pattern: /(-- PLOP EXTENDS HERE --)/,

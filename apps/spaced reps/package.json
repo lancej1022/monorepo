@@ -1,0 +1,26 @@
+{
+	"name": "@monorepo/spaced-reps",
+	"version": "0.1.0",
+	"private": true,
+	"description": "spaced repetition practice",
+	"license": "UNLICENSED",
+	"sideEffects": false,
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		}
+	},
+	"scripts": {
+		"build": "tsc -p tsconfig.build.json",
+		"clean": "bun run rm -rf dist *.tsbuildinfo",
+		"dev": "tsc -w -p tsconfig.build.json",
+		"lint": "eslint .  --max-warnings 0",
+		"typecheck": "tsc"
+	},
+	"devDependencies": {
+		"@monorepo/eslint": "workspace:^",
+		"@monorepo/tsconfig": "workspace:^"
+	}
+}

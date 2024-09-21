@@ -1,0 +1,28 @@
+{
+  "name": "@monorepo/{{name}}",
+  "version": "0.1.0",
+  "private": true,
+  "description": "{{description}}",
+  "license": "UNLICENSED",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "bun run rm -rf dist *.tsbuildinfo",
+    "dev": "tsc -w -p tsconfig.build.json",
+    "lint": "eslint .  --max-warnings 0",
+    "typecheck": "tsc"
+    -- PLOP SCRIPTS HERE --
+  },
+  "devDependencies": {
+    -- PLOP DEVDEPENDENCIES HERE --
+    "@monorepo/eslint": "workspace:^",
+    "@monorepo/tsconfig": "workspace:^"
+  }
+}
