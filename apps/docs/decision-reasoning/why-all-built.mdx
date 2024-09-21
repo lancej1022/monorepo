@@ -89,7 +89,7 @@ To minimise the amount of processes running during dev we can do something like:
 This looks something like this, if we were to be making api changes for example:
 
 ```bash
-bun turbo dev --filter=@orbitkit/web... --filter=!./packages/config/* --filter=!@orbitkit/ui --only
+bun turbo dev --filter=@monorepo/web... --filter=!./packages/config/* --filter=!@monorepo/ui --only
 ```
 
 It is true that this is a really long command, but we can make it shorter by adding it to the root `package.json` scripts like so:
@@ -97,7 +97,7 @@ It is true that this is a really long command, but we can make it shorter by add
 ```json
 {
   "scripts": {
-    "dev:web:api": "bun turbo dev --filter=@orbitkit/web... --filter=!./packages/config/* --filter=!@orbitkit/ui --only"
+    "dev:web:api": "bun turbo dev --filter=@monorepo/web... --filter=!./packages/config/* --filter=!@monorepo/ui --only"
   }
 }
 ```

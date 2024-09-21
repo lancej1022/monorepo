@@ -1,6 +1,6 @@
 import { type StorybookConfig } from '@storybook/react-vite'
 
-import { getAbsolutePath } from '@orbitkit/utils/filesystem'
+import { getAbsolutePath } from '@monorepo/utils/filesystem'
 
 const config = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -23,7 +23,7 @@ const config = {
       strictMode: true,
     },
   },
-  staticDirs: [getAbsolutePath('@orbitkit/assets')],
+  staticDirs: [getAbsolutePath('@monorepo/assets')],
   docs: {
     autodocs: 'tag',
   },

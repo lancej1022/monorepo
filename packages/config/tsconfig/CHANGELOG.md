@@ -1,4 +1,4 @@
-# @orbitkit/tsconfig
+# @monorepo/tsconfig
 
 ## 0.4.3
 

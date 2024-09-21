@@ -75,7 +75,8 @@ export function getPackageNamesFromPaths(packagePaths: string[]): string[] {
 export function getWorkspacePackageNames(cwd: string): string[] {
   const rootPackageJson = getRootPackageJson(cwd)
   if (!rootPackageJson.workspaces) {
-    throw new Error('No workspaces defined in the root package.json')
+    // throw new Error('No workspaces defined in the root package.json')
+    rootPackageJson.workspaces = ['apps/*', 'packages/*', 'packages/config/*']
   }
 
   const workspacePackagePaths = getWorkspacePackagePaths(
@@ -108,7 +109,8 @@ export async function updateWorkspacePackages(
   const rootPackageJson = getRootPackageJson(cwd)
 
   if (!rootPackageJson.workspaces) {
-    throw new Error('No workspaces defined in the root package.json')
+    rootPackageJson.workspaces = ['apps/*', 'packages/*', 'packages/config/*']
+    // throw new Error('No workspaces defined in the root package.json')
   }
 
   const workspacePackagePaths = getWorkspacePackagePaths(

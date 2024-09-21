@@ -1,5 +1,5 @@
 {
-  "name": "@orbitkit/storybook",
+  "name": "@monorepo/storybook",
   "version": "0.4.3",
   "private": true,
   "description": "A package to share Storybook configuration preset for the workspace",
@@ -33,8 +33,8 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@orbitkit/assets": "workspace:^",
-    "@orbitkit/utils": "workspace:^",
+    "@monorepo/assets": "workspace:^",
+    "@monorepo/utils": "workspace:^",
     "@radix-ui/colors": "^3.0.0",
     "@storybook/addon-a11y": "^8.2.9",
     "@storybook/addon-essentials": "^8.2.9",
@@ -53,8 +53,8 @@
     "storybook": "^8.2.9"
   },
   "devDependencies": {
-    "@orbitkit/eslint": "workspace:^",
-    "@orbitkit/tsconfig": "workspace:^",
+    "@monorepo/eslint": "workspace:^",
+    "@monorepo/tsconfig": "workspace:^",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0"
   }

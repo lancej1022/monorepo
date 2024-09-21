@@ -1,6 +1,8 @@
 import type { PackageJson } from 'pkg-types'
 
-import { $ } from 'bun'
+import { exec } from 'node:child_process'
+
+// import { $ } from 'bun'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
@@ -283,7 +285,8 @@ if (newNamespace) {
   await findAndReplacePackageNames()
 
   // Done
-  await $`bun format && bun turbo clean && bun install`
+  // await $`bun format && bun turbo clean && bun install`
+  exec('pnpm format && pnpm turbo clean && pnpm install')
 
   console.log(
     '🎉 Done! Workspace namespaces have successfully been updated. You may wish to reload your IDE, to remove any errors.',

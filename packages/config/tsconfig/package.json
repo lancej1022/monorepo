@@ -1,5 +1,5 @@
 {
-  "name": "@orbitkit/tsconfig",
+  "name": "@monorepo/tsconfig",
   "version": "0.4.3",
   "private": true,
   "description": "A package to share tsconfig presets around the workspace",
@@ -12,5 +12,7 @@
     "./react.json",
     "./build.json",
     "./dom.json"
-  ]
+  ],
+  "dependencies": {},
+  "devDependencies": {}
 }

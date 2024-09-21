@@ -1,12 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalPassThroughEnv": [
-    "VERCEL_URL",
-    "NODE_ENV",
-    "CI",
-    "SKIP_ENV_VALIDATION",
-    "PORT"
-  ],
+  "globalPassThroughEnv": ["NODE_ENV", "CI", "SKIP_ENV_VALIDATION", "PORT"],
   "ui": "tui",
   "tasks": {
     "build": {
@@ -75,29 +69,7 @@
         ".env"
       ]
     },
-    "db:migrate": {
-      "dependsOn": ["db:generate"],
-      "passThroughEnv": ["DATABASE_URL"],
-      "inputs": ["drizzle/**"]
-    },
-    "db:generate": {
-      "passThroughEnv": ["DATABASE_URL"],
-      "inputs": ["src/schema/**", "drizzle.config.ts"],
-      "outputs": ["drizzle/**"]
-    },
-    "db:studio": {
-      "cache": false,
-      "persistent": true
-    },
-    "db:check": { "cache": false },
-    "db:migrate:drop": { "cache": false },
-    "db:pull": { "cache": false },
-    "db:push": { "cache": false },
-    "db:up": { "cache": false },
     "clean": { "cache": false },
-    "//#lint:spell": {
-      "outputs": [".cspellcache"]
-    },
     "//#lint:md": {
       "inputs": ["**/*.md"]
     },

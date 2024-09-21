@@ -1,4 +1,4 @@
-# @orbitkit/storybook
+# @monorepo/storybook
 
 ## 0.4.3
 
@@ -6,8 +6,8 @@
 
 - 9ff85db: fix: flaky e2e test & ci
 - Updated dependencies [9ff85db]
-  - @orbitkit/assets@0.4.3
-  - @orbitkit/utils@0.4.3
+  - @monorepo/assets@0.4.3
+  - @monorepo/utils@0.4.3
 
 ## 0.4.2
 
@@ -15,8 +15,8 @@
 
 - 6e07137: Fix: fixed issue with reset:changelog script
 - Updated dependencies [6e07137]
-  - @orbitkit/assets@0.4.2
-  - @orbitkit/utils@0.4.2
+  - @monorepo/assets@0.4.2
+  - @monorepo/utils@0.4.2
 
 ## 0.4.1
 
@@ -24,8 +24,8 @@
 
 - 51c0130: feat: upgrades to TypeScript 5.5
 - Updated dependencies [51c0130]
-  - @orbitkit/utils@0.4.1
-  - @orbitkit/assets@0.4.1
+  - @monorepo/utils@0.4.1
+  - @monorepo/assets@0.4.1
 
 ## 0.4.0
 
@@ -36,8 +36,8 @@
 ### Patch Changes
 
 - Updated dependencies [a111c0e]
-  - @orbitkit/assets@0.4.0
-  - @orbitkit/utils@0.4.0
+  - @monorepo/assets@0.4.0
+  - @monorepo/utils@0.4.0
 
 ## 0.3.5
 
@@ -45,8 +45,8 @@
 
 - fix: prettier imports sorting not working properly
 - Updated dependencies
-  - @orbitkit/assets@0.3.5
-  - @orbitkit/utils@0.3.5
+  - @monorepo/assets@0.3.5
+  - @monorepo/utils@0.3.5
 
 ## 0.3.4
 
@@ -54,8 +54,8 @@
 
 - e0c4bfd: refactor: switches from `tsup` to `vite` for bundling.
 - Updated dependencies [e0c4bfd]
-  - @orbitkit/utils@0.3.4
-  - @orbitkit/assets@0.3.4
+  - @monorepo/utils@0.3.4
+  - @monorepo/assets@0.3.4
 
 ## 0.3.3
 
@@ -63,8 +63,8 @@
 
 - 0bc1e1b: refactor(ui): simplifies the tsup config
 - Updated dependencies [0bc1e1b]
-  - @orbitkit/utils@0.3.3
-  - @orbitkit/assets@0.3.3
+  - @monorepo/utils@0.3.3
+  - @monorepo/assets@0.3.3
 
 ## 0.3.2
 
@@ -72,8 +72,8 @@
 
 - 1ee28cb: feat: posthog & all built packages
 - Updated dependencies [1ee28cb]
-  - @orbitkit/assets@0.3.2
-  - @orbitkit/utils@0.3.2
+  - @monorepo/assets@0.3.2
+  - @monorepo/utils@0.3.2
 
 ## 0.3.1
 
@@ -81,8 +81,8 @@
 
 - 50e9dd2: refactor: moves almost all packages to being built
 - Updated dependencies [50e9dd2]
-  - @orbitkit/utils@0.3.1
-  - @orbitkit/assets@0.3.1
+  - @monorepo/utils@0.3.1
+  - @monorepo/assets@0.3.1
 
 ## 0.3.0
 
@@ -93,7 +93,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @orbitkit/assets@0.3.0
+  - @monorepo/assets@0.3.0
 
 ## 0.2.2
 
@@ -101,7 +101,7 @@
 
 - 5b69876: feat: added new scripts for setting project metadata
 - Updated dependencies [5b69876]
-  - @orbitkit/assets@0.2.2
+  - @monorepo/assets@0.2.2
 
 ## 0.2.1
 
@@ -109,7 +109,7 @@
 
 - 870e09f: feat: eslint v9
 - Updated dependencies [870e09f]
-  - @orbitkit/assets@0.2.1
+  - @monorepo/assets@0.2.1
 
 ## 0.2.0
 
@@ -130,7 +130,7 @@
 
 - Updated dependencies [3ae31ea]
 - Updated dependencies [3ae31ea]
-  - @orbitkit/assets@0.2.0
+  - @monorepo/assets@0.2.0
 
 ## 0.1.5
 
@@ -144,7 +144,7 @@
   - adds `@storybook/test` to the `ui` package as a replacement for `@storybook/testing-library` due to deprecation.
 
 - Updated dependencies [bf709fb]
-  - @orbitkit/assets@0.1.5
+  - @monorepo/assets@0.1.5
 
 ## 0.1.4
 
@@ -161,7 +161,7 @@
   - `getBaseUrl` util now returns `window.location.origin` instead of an empty string when the `window` object is not `undefined`.
 
 - Updated dependencies [4f0f72d]
-  - @orbitkit/assets@0.1.4
+  - @monorepo/assets@0.1.4
 
 ## 0.1.3
 
@@ -169,7 +169,7 @@
 
 - feat: sets up playwright in the monorepo
 - Updated dependencies
-  - @orbitkit/assets@0.1.3
+  - @monorepo/assets@0.1.3
 
 ## 0.1.2
 
@@ -177,7 +177,7 @@
 
 - 6ef0133: docs app and optional oauth
 - Updated dependencies [6ef0133]
-  - @orbitkit/assets@0.1.2
+  - @monorepo/assets@0.1.2
 
 ## 0.1.1
 
@@ -186,4 +186,4 @@
 - 107e6dc: - Adds Github Actions
   - Updates dependencies to latest versions
 - Updated dependencies [107e6dc]
-  - @orbitkit/assets@0.1.1
+  - @monorepo/assets@0.1.1

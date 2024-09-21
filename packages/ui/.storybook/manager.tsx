@@ -1,5 +1,5 @@
-import '@orbitkit/assets/fonts/stylesheet.css'
+import '@monorepo/assets/fonts/stylesheet.css'
 
-import { registerAddons } from '@orbitkit/storybook/manager'
+import { registerAddons } from '@monorepo/storybook/manager'
 
 registerAddons()

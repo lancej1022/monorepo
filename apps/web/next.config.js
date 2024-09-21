@@ -1,13 +1,5 @@
-import { fileURLToPath } from 'node:url'
-
 import bundleAnalyzerPlugin from '@next/bundle-analyzer'
 import { withSentryConfig } from '@sentry/nextjs'
-import createJiti from 'jiti'
-
-const jiti = createJiti(fileURLToPath(import.meta.url))
-
-jiti('@orbitkit/env/web/server')
-jiti('@orbitkit/env/web/client')
 
 const withBundleAnalyzer = bundleAnalyzerPlugin({
   enabled: process.env['ANALYZE'] === 'true',
@@ -16,7 +8,6 @@ const withBundleAnalyzer = bundleAnalyzerPlugin({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['@orbitkit/env'],
   eslint: {
     ignoreDuringBuilds: true,
   },

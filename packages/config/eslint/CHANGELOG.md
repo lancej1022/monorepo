@@ -1,4 +1,4 @@
-# @orbitkit/eslint
+# @monorepo/eslint
 
 ## 0.4.3
 

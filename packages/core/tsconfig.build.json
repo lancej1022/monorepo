@@ -1,3 +1,0 @@
-{
-  "extends": ["./tsconfig.json", "@orbitkit/tsconfig/build.json"]
-}

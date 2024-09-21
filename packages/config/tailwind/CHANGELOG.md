@@ -1,4 +1,4 @@
-# @orbitkit/tailwind
+# @monorepo/tailwind
 
 ## 0.4.3
 

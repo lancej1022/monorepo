@@ -1,5 +1,5 @@
 {
-  "name": "@orbitkit/assets",
+  "name": "@monorepo/assets",
   "version": "0.4.3",
   "private": true,
   "description": "OrbitKit's assets package",
@@ -7,5 +7,7 @@
   "author": "OrbitKit",
   "files": [
     "**/*"
-  ]
+  ],
+  "dependencies": {},
+  "devDependencies": {}
 }

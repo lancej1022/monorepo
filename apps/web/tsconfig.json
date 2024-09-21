@@ -1,5 +1,5 @@
 {
-  "extends": ["@orbitkit/tsconfig/next.json"],
+  "extends": ["@monorepo/tsconfig/next.json"],
   "compilerOptions": {
     "plugins": [
       {

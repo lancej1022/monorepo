@@ -1,5 +1,5 @@
 {
-  "name": "@orbitkit/tailwind",
+  "name": "@monorepo/tailwind",
   "version": "0.4.3",
   "private": true,
   "description": "Tailwindcss preset for OrbitKit workspace",
@@ -26,7 +26,7 @@
     "windy-radix-typography": "1.0.0-beta.0"
   },
   "devDependencies": {
-    "@orbitkit/eslint": "workspace:^",
-    "@orbitkit/tsconfig": "workspace:^"
+    "@monorepo/eslint": "workspace:^",
+    "@monorepo/tsconfig": "workspace:^"
   }
 }

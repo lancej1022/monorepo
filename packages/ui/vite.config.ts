@@ -1,4 +1,4 @@
-import { buildConfig, mergeConfig, reactConfig } from '@orbitkit/vite'
+import { buildConfig, mergeConfig, reactConfig } from '@monorepo/vite'
 
 import pkg from './package.json'
 

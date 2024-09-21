@@ -49,7 +49,6 @@ export function buildConfig({
       sourcemap: true,
       rollupOptions: {
         plugins: [
-          // @ts-expect-error - version conflicts
           preserveDirectives({
             suppressPreserveModulesWarning: true,
           }),

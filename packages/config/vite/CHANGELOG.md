@@ -1,4 +1,4 @@
-# @orbitkit/vite
+# @monorepo/vite
 
 ## 0.4.3
 

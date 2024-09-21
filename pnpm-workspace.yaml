@@ -1,0 +1,35 @@
+packages:
+  - apps/*
+  - packages/*
+  - packages/config/*
+  - '!packages/config'
+
+catalog:
+  '@playwright/test': 1.44.1
+  '@tanstack/react-query-devtools': 5.51.18
+  '@tanstack/react-query-persist-client': 5.51.18
+  '@tanstack/react-query': 5.51.18
+  '@tanstack/react-router': 1.46.7
+  '@tanstack/router-devtools': 1.46.7
+  '@testing-library/jest-dom': 6.4.2
+  '@testing-library/react': 15.0.2
+  '@testing-library/user-event': 14.5.2
+  '@types/eslint': 8.56.7
+  '@types/node': 20.12.4
+  '@types/react-dom': 18.2.24
+  '@types/react': 18.2.74
+  '@vitejs/plugin-react': 4.3.1
+  '@vitest/coverage-istanbul': 2.0.4
+  happy-dom: 14.12.3
+  i18next: 23.12.2
+  msw: 2.3.5
+  react-dom: 18.3.1
+  react-i18next: 15.0.0
+  react: 18.3.1
+  typescript: 5.5.4
+  vite-plugin-dts: 3.9.1
+  vite-plugin-no-bundle: 4.0.0
+  vite-tsconfig-paths: 4.3.2
+  vite: 5.3.5
+  vitest: 2.0.4
+  zod: 3.22.4

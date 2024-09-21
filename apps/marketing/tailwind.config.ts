@@ -1,6 +1,6 @@
 import type { Config } from 'tailwindcss'
 
-import { orbitKitTailwindPreset } from '@orbitkit/tailwind'
+import { orbitKitTailwindPreset } from '@monorepo/tailwind'
 
 const config: Config = {
   content: [

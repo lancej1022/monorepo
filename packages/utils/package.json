@@ -1,5 +1,5 @@
 {
-  "name": "@orbitkit/utils",
+  "name": "@monorepo/utils",
   "version": "0.4.3",
   "private": true,
   "description": "Common utilities for OrbitKit",
@@ -24,8 +24,9 @@
     "lint": "eslint .  --max-warnings 0",
     "typecheck": "tsc"
   },
+  "dependencies": {},
   "devDependencies": {
-    "@orbitkit/eslint": "workspace:^",
-    "@orbitkit/tsconfig": "workspace:^"
+    "@monorepo/eslint": "workspace:^",
+    "@monorepo/tsconfig": "workspace:^"
   }
 }

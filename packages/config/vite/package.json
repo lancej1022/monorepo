@@ -1,5 +1,5 @@
 {
-  "name": "@orbitkit/vite",
+  "name": "@monorepo/vite",
   "version": "0.4.3",
   "private": true,
   "description": "Vite presets for the workspace",
@@ -26,8 +26,8 @@
     "vite-tsconfig-paths": "^5.0.1"
   },
   "devDependencies": {
-    "@orbitkit/eslint": "workspace:^",
-    "@orbitkit/tsconfig": "workspace:^",
+    "@monorepo/eslint": "workspace:^",
+    "@monorepo/tsconfig": "workspace:^",
     "globby": "^14.0.2",
     "rollup-plugin-preserve-directives": "^0.4.0",
     "vite-plugin-dts": "^4.1.0",
