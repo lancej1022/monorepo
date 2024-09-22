@@ -1,9 +1,9 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "React",
-  "extends": "./dom.json",
-  "compilerOptions": {
-    "target": "ES2020",
-    "jsx": "react-jsx"
-  }
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"display": "React",
+	"extends": "./dom.json",
+	"compilerOptions": {
+		"target": "ESNext",
+		"jsx": "react-jsx"
+	}
 }

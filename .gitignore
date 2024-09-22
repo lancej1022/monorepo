@@ -147,6 +147,7 @@ storybook-static
 
 # vite
 vite.config.ts.*
+routeTree.gen.ts
 
 # Playwright
 test-results/

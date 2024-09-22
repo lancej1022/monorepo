@@ -12,6 +12,7 @@ const messagesFromExtensionListener = (
 	_sender: chrome.runtime.MessageSender,
 	sendResponse: (response: DOMMessageResponse) => void,
 ) => {
+	// TODO: can we rename content-script to main.tsx?
 	console.log('[content-script.js] Message received', msg)
 
 	const headlines = Array.from(document.getElementsByTagName<'h2'>('h2')).map(

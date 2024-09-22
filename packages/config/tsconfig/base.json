@@ -25,9 +25,9 @@
 		"forceConsistentCasingInFileNames": true,
 
 		"lib": ["es2023"],
-		"module": "esnext",
-		"target": "es2022",
-		"moduleResolution": "bundler",
+		"module": "ESNext",
+		"target": "ESNext",
+		"moduleResolution": "Bundler",
 		"moduleDetection": "force",
 		"resolveJsonModule": true,
 		"noEmit": true,
