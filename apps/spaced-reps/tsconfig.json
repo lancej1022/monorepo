@@ -1,4 +1,6 @@
 {
 	"extends": ["@monorepo/tsconfig/react.json"],
-	"types": ["chrome"]
+	"compilerOptions": {
+		"types": ["chrome"]
+	}
 }

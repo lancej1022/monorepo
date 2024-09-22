@@ -6,26 +6,29 @@
 	"license": "UNLICENSED",
 	"sideEffects": false,
 	"type": "module",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"default": "./dist/index.js"
-		}
-	},
 	"scripts": {
+		"//dev": "tsc -w -p tsconfig.build.json",
+		"build": "vite build",
 		"clean": "rm -rf dist *.tsbuildinfo",
-		"dev": "tsc -w -p tsconfig.build.json",
+		"dev": "vite --port=3001",
+		"serve": "vite preview",
+		"start": "vite",
 		"typecheck": "tsc"
 	},
 	"dependencies": {
+		"@tanstack/react-router": "^1.58.3",
+		"@tanstack/router-devtools": "^1.58.3",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1"
 	},
 	"devDependencies": {
 		"@monorepo/eslint": "workspace:^",
 		"@monorepo/tsconfig": "workspace:^",
+		"@tanstack/router-plugin": "^1.58.4",
 		"@types/chrome": "0.0.271",
 		"@types/react": "^18.3.5",
-		"@types/react-dom": "^18.3.0"
+		"@types/react-dom": "^18.3.0",
+		"@vitejs/plugin-react": "^4.3.1",
+		"vite": "5.4.7"
 	}
 }
