@@ -12,7 +12,13 @@ import { compat, defineConfig } from '../utils.js'
 
 export const base = defineConfig(
 	{
-		ignores: ['.next', '.astro', 'dist', 'storybook-static'],
+		ignores: [
+			'.next',
+			'.astro',
+			'dist',
+			'storybook-static',
+			'vite.config.ts.*',
+		],
 	},
 
 	// Base JS/TS configs
@@ -63,6 +69,7 @@ export const base = defineConfig(
 		},
 		rules: {
 			...turboPlugin.configs.recommended.rules,
+			'tailwindcss/no-custom-classname': 'off',
 			// TS will already prevent unused variables during type generation, no need to have the linter check it
 			'@typescript-eslint/no-unused-vars': 'off',
 			'@typescript-eslint/consistent-type-assertions': [

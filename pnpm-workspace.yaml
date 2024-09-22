@@ -2,7 +2,6 @@ packages:
   - apps/*
   - packages/*
   - packages/config/*
-  - '!packages/config'
 
 catalog:
   '@playwright/test': 1.44.1

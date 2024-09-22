@@ -145,6 +145,9 @@ storybook-static
 # NX
 .nx
 
+# vite
+vite.config.ts.*
+
 # Playwright
 test-results/
 playwright-report/
