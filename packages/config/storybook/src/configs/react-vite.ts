@@ -5,7 +5,7 @@ import { getAbsolutePath } from '@monorepo/utils/filesystem'
 const config = {
 	stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
 	addons: [
-		getAbsolutePath('@storybook/addon-links'),
+		// getAbsolutePath('@storybook/addon-links'),
 		{
 			name: getAbsolutePath('@storybook/addon-essentials'),
 			options: {

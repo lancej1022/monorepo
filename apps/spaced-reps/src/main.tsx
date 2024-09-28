@@ -16,10 +16,10 @@ declare module '@tanstack/react-router' {
 	}
 }
 
-const rootElement = document.getElementById('app')
+const rootElement = document.getElementById('root')
 if (!rootElement)
 	throw Error(
-		'Could not locate root `#app` id on any element. Unable to mount react tree, throwing Error.',
+		'Could not locate root `#root` id on any element. Unable to mount react tree, throwing Error.',
 	)
 
 if (!rootElement.innerHTML) {

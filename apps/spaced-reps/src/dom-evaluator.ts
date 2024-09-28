@@ -25,6 +25,7 @@ const messagesFromExtensionListener = (
 	}
 
 	sendResponse(response)
+	return undefined // TODO: is this `return undefined` right?
 }
 
 /**

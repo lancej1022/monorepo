@@ -5,7 +5,7 @@
 	"manifest_version": 3,
 	"permissions": ["storage", "unlimitedStorage", "activeTab"],
 	"action": {
-		"default_popup": "popup.html",
+		"default_popup": "index.html",
 		"default_title": "Spaced Reps",
 		"default_icon": {
 			"16": "/assets/rocket16.png",

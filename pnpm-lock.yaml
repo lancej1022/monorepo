@@ -192,6 +192,9 @@ importers:
       '@tanstack/router-devtools':
         specifier: ^1.58.3
         version: 1.58.3(@tanstack/react-router@1.58.3(@tanstack/router-generator@1.58.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(csstype@3.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      lucide-react:
+        specifier: 0.446.0
+        version: 0.446.0(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -202,15 +205,18 @@ importers:
       '@monorepo/eslint':
         specifier: workspace:^
         version: link:../../packages/config/eslint
+      '@monorepo/tailwind':
+        specifier: workspace:*
+        version: link:../../packages/config/tailwind
       '@monorepo/tsconfig':
         specifier: workspace:^
         version: link:../../packages/config/tsconfig
       '@tanstack/router-plugin':
         specifier: ^1.58.4
         version: 1.58.4(vite@5.4.7(@types/node@22.5.5)(terser@5.33.0))(webpack-sources@3.2.3)(webpack@5.94.0)
-      '@types/chrome':
-        specifier: 0.0.271
-        version: 0.0.271
+      '@total-typescript/ts-reset':
+        specifier: ^0.6.1
+        version: 0.6.1
       '@types/react':
         specifier: ^18.3.5
         version: 18.3.8
@@ -220,6 +226,18 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^4.3.1
         version: 4.3.1(vite@5.4.7(@types/node@22.5.5)(terser@5.33.0))
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.47)
+      chrome-types:
+        specifier: 0.1.306
+        version: 0.1.306
+      postcss:
+        specifier: ^8.4.44
+        version: 8.4.47
+      tailwindcss:
+        specifier: ^3.4.10
+        version: 3.4.12(ts-node@10.9.2(@types/node@22.5.5)(typescript@5.6.2))
       vite:
         specifier: 5.4.7
         version: 5.4.7(@types/node@22.5.5)(terser@5.33.0)
@@ -246,13 +264,13 @@ importers:
         version: 0.6.1
       '@trpc/client':
         specifier: next
-        version: 11.0.0-rc.522(@trpc/server@11.0.0-rc.522)
+        version: 11.0.0-rc.532(@trpc/server@11.0.0-rc.532)
       '@trpc/react-query':
         specifier: next
-        version: 11.0.0-rc.522(@tanstack/react-query@5.56.2(react@18.3.1))(@trpc/client@11.0.0-rc.522(@trpc/server@11.0.0-rc.522))(@trpc/server@11.0.0-rc.522)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 11.0.0-rc.532(@tanstack/react-query@5.56.2(react@18.3.1))(@trpc/client@11.0.0-rc.532(@trpc/server@11.0.0-rc.532))(@trpc/server@11.0.0-rc.532)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@trpc/server':
         specifier: next
-        version: 11.0.0-rc.522
+        version: 11.0.0-rc.532
       '@unkey/ratelimit':
         specifier: ^0.4.4
         version: 0.4.4
@@ -689,10 +707,43 @@ importers:
       '@monorepo/vite':
         specifier: workspace:^
         version: link:../config/vite
+      '@storybook/addon-a11y':
+        specifier: ^8.2.9
+        version: 8.3.2(storybook@8.3.2)
+      '@storybook/addon-essentials':
+        specifier: ^8.2.9
+        version: 8.3.2(storybook@8.3.2)(webpack-sources@3.2.3)
+      '@storybook/addon-interactions':
+        specifier: ^8.2.9
+        version: 8.3.2(storybook@8.3.2)
+      '@storybook/addon-links':
+        specifier: ^8.2.9
+        version: 8.3.2(react@18.3.1)(storybook@8.3.2)
+      '@storybook/addon-onboarding':
+        specifier: ^8.2.9
+        version: 8.3.2(react@18.3.1)(storybook@8.3.2)
+      '@storybook/addon-themes':
+        specifier: ^8.2.9
+        version: 8.3.2(storybook@8.3.2)
+      '@storybook/addon-viewport':
+        specifier: ^8.2.9
+        version: 8.3.2(storybook@8.3.2)
+      '@storybook/manager-api':
+        specifier: ^8.2.9
+        version: 8.3.2(storybook@8.3.2)
       '@storybook/react':
         specifier: ^8.2.9
         version: 8.3.2(@storybook/test@8.3.2(storybook@8.3.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.2)(typescript@5.6.2)
+      '@storybook/react-vite':
+        specifier: ^8.2.9
+        version: 8.3.2(@storybook/test@8.3.2(storybook@8.3.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.22.3)(storybook@8.3.2)(typescript@5.6.2)(vite@5.4.7(@types/node@22.5.5)(terser@5.33.0))(webpack-sources@3.2.3)
       '@storybook/test':
+        specifier: ^8.2.9
+        version: 8.3.2(storybook@8.3.2)
+      '@storybook/theming':
+        specifier: ^8.2.9
+        version: 8.3.2(storybook@8.3.2)
+      '@storybook/types':
         specifier: ^8.2.9
         version: 8.3.2(storybook@8.3.2)
       '@types/react':
@@ -4834,30 +4885,30 @@ packages:
         integrity: sha512-cka47fVSo6lfQDIATYqb/vO1nvFfbPw7uWLayIXIhGETj0wcOOlrlkobOMDNQOFr9QOafegUPq13V2+6vtD7yg==,
       }
 
-  '@trpc/client@11.0.0-rc.522':
+  '@trpc/client@11.0.0-rc.532':
     resolution:
       {
-        integrity: sha512-MvlsLF5nVRSPRRLyqu0CUJr+yk6CNY8f1YoPHy25CDX0a/dtGohXd8UAj5pBfQTRcoRB91rGpKpxTg6qw23fVg==,
+        integrity: sha512-uQRaZbT/dYbp+kP0F8oLJTRHR7esy/Va4++GfnIBaTckLUjwLMe0QWeME+7hp6/ENmpotYGQtRB30DgbnML+8w==,
       }
     peerDependencies:
-      '@trpc/server': 11.0.0-rc.522+b99c8b036
+      '@trpc/server': 11.0.0-rc.532+476db0d8c
 
-  '@trpc/react-query@11.0.0-rc.522':
+  '@trpc/react-query@11.0.0-rc.532':
     resolution:
       {
-        integrity: sha512-cmt4B8UzRNEiY4T1eM8dLZ8YsSJpnT/bMk5xygcW3iD55Yclazadab/WUSwjrwgRdqqYepMnFo1CiZ5XpxBNuQ==,
+        integrity: sha512-5pC/iZRuqolxPm0KiooVqUqgG2zfQFsTb4UYMt7W/L5hMWAW54N48la6o2+tct/h+V5m9fT4G9/qbtVNmqSezg==,
       }
     peerDependencies:
       '@tanstack/react-query': ^5.54.1
-      '@trpc/client': 11.0.0-rc.522+b99c8b036
-      '@trpc/server': 11.0.0-rc.522+b99c8b036
+      '@trpc/client': 11.0.0-rc.532+476db0d8c
+      '@trpc/server': 11.0.0-rc.532+476db0d8c
       react: '>=18.2.0'
       react-dom: '>=18.2.0'
 
-  '@trpc/server@11.0.0-rc.522':
+  '@trpc/server@11.0.0-rc.532':
     resolution:
       {
-        integrity: sha512-a0Cei94zJM/cYFBdsPEd1QPHhSsJljz7d2NI4n2jDow9xclZfEEp71hhth+i8vrddPjadexn++tzXcdEkeMbgg==,
+        integrity: sha512-DhlNzpSS5VlliHXL8hH12cydUtRWbCE2Uk1Q+wTmKi1PlUwM4EPXwagBDt2KpVhiZ4AXHtdfoPhwo6h7So6O+g==,
       }
 
   '@tsconfig/node10@1.0.11':
@@ -4944,12 +4995,6 @@ packages:
     resolution:
       {
         integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==,
-      }
-
-  '@types/chrome@0.0.271':
-    resolution:
-      {
-        integrity: sha512-K0qgXvkwA5ic+/eygF1xiypHEvCoBgH5lwrhg3yva2mqJuCWyYm0vpZQ22GksAxgGfo0PWev9Zx3plp2clMlwg==,
       }
 
   '@types/connect@3.4.36':
@@ -5054,18 +5099,6 @@ packages:
         integrity: sha512-ejlPM315qwLpaQlQDTjPdsUFSc6ZsP4AN6AlWnogPjQ7CVi7PYF3YVz+CY3jE2pwYf7E/7HlDAN0rV2GxTG0HQ==,
       }
 
-  '@types/filesystem@0.0.36':
-    resolution:
-      {
-        integrity: sha512-vPDXOZuannb9FZdxgHnqSwAG/jvdGM8Wq+6N4D/d80z+D4HWH+bItqsZaVRQykAn6WEVeEkLm2oQigyHtgb0RA==,
-      }
-
-  '@types/filewriter@0.0.33':
-    resolution:
-      {
-        integrity: sha512-xFU8ZXTw4gd358lb2jw25nxY9QAgqn2+bKKjKOYfNCzN4DKCFetK7sPtrlpg66Ywe3vWY9FNxprZawAh9wfJ3g==,
-      }
-
   '@types/find-cache-dir@3.2.1':
     resolution:
       {
@@ -5082,12 +5115,6 @@ packages:
     resolution:
       {
         integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==,
-      }
-
-  '@types/har-format@1.2.15':
-    resolution:
-      {
-        integrity: sha512-RpQH4rXLuvTXKR0zqHq3go0RVXYv/YVqv4TnPH95VbwUxZdQlK1EtcMvQvMpDngHbt13Csh9Z4qT9AbkiQH5BA==,
       }
 
   '@types/hast@2.3.10':
@@ -6644,6 +6671,12 @@ packages:
         integrity: sha512-rNjApaLzuwaOTjCiT8lSDdGN1APCiqkChLMJxJPWLunPAt5fy8xgU9/jNOchV84wfIxrA0lRQB7oCT8jrn/wrQ==,
       }
     engines: { node: '>=6.0' }
+
+  chrome-types@0.1.306:
+    resolution:
+      {
+        integrity: sha512-wm173T0CrSBRs0vSxn5s39WIjlwzQMliCD7TALWqhYMVRC0yeWcnxeYsPGwyffkGOHdqEGIEmXE3X2LRTsZP8w==,
+      }
 
   chromium-bidi@0.6.3:
     resolution:
@@ -10409,6 +10442,14 @@ packages:
         integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==,
       }
     engines: { node: '>=12' }
+
+  lucide-react@0.446.0:
+    resolution:
+      {
+        integrity: sha512-BU7gy8MfBMqvEdDPH79VhOXSEgyG8TSPOKWaExWGCQVqnGH7wGgDngPbofu+KdtVjPQBWbEmnfMTq90CTiiDRg==,
+      }
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
 
   lz-string@1.5.0:
     resolution:
@@ -18986,19 +19027,19 @@ snapshots:
 
   '@total-typescript/ts-reset@0.6.1': {}
 
-  '@trpc/client@11.0.0-rc.522(@trpc/server@11.0.0-rc.522)':
+  '@trpc/client@11.0.0-rc.532(@trpc/server@11.0.0-rc.532)':
     dependencies:
-      '@trpc/server': 11.0.0-rc.522
+      '@trpc/server': 11.0.0-rc.532
 
-  '@trpc/react-query@11.0.0-rc.522(@tanstack/react-query@5.56.2(react@18.3.1))(@trpc/client@11.0.0-rc.522(@trpc/server@11.0.0-rc.522))(@trpc/server@11.0.0-rc.522)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@trpc/react-query@11.0.0-rc.532(@tanstack/react-query@5.56.2(react@18.3.1))(@trpc/client@11.0.0-rc.532(@trpc/server@11.0.0-rc.532))(@trpc/server@11.0.0-rc.532)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@tanstack/react-query': 5.56.2(react@18.3.1)
-      '@trpc/client': 11.0.0-rc.522(@trpc/server@11.0.0-rc.522)
-      '@trpc/server': 11.0.0-rc.522
+      '@trpc/client': 11.0.0-rc.532(@trpc/server@11.0.0-rc.532)
+      '@trpc/server': 11.0.0-rc.532
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@trpc/server@11.0.0-rc.522': {}
+  '@trpc/server@11.0.0-rc.532': {}
 
   '@tsconfig/node10@1.0.11': {}
 
@@ -19077,11 +19118,6 @@ snapshots:
       '@types/connect': 3.4.38
       '@types/node': 22.5.5
 
-  '@types/chrome@0.0.271':
-    dependencies:
-      '@types/filesystem': 0.0.36
-      '@types/har-format': 1.2.15
-
   '@types/connect@3.4.36':
     dependencies:
       '@types/node': 22.5.5
@@ -19141,12 +19177,6 @@ snapshots:
       '@types/qs': 6.9.16
       '@types/serve-static': 1.15.7
 
-  '@types/filesystem@0.0.36':
-    dependencies:
-      '@types/filewriter': 0.0.33
-
-  '@types/filewriter@0.0.33': {}
-
   '@types/find-cache-dir@3.2.1': {}
 
   '@types/fs-extra@11.0.4':
@@ -19158,8 +19188,6 @@ snapshots:
     dependencies:
       '@types/minimatch': 5.1.2
       '@types/node': 22.5.5
-
-  '@types/har-format@1.2.15': {}
 
   '@types/hast@2.3.10':
     dependencies:
@@ -20309,6 +20337,8 @@ snapshots:
   chownr@2.0.0: {}
 
   chrome-trace-event@1.0.4: {}
+
+  chrome-types@0.1.306: {}
 
   chromium-bidi@0.6.3(devtools-protocol@0.0.1312386):
     dependencies:
@@ -22803,6 +22833,10 @@ snapshots:
       yallist: 4.0.0
 
   lru-cache@7.18.3: {}
+
+  lucide-react@0.446.0(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   lz-string@1.5.0: {}
 

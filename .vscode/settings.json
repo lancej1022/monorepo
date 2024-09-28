@@ -1,40 +1,42 @@
 {
-  // Editor
-  "editor.tabSize": 2,
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "prettier.documentSelectors": ["**/*.astro"],
-  "[astro]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+	// Editor
+	"editor.tabSize": 2,
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"prettier.documentSelectors": ["**/*.astro"],
+	"[astro]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
 
-  // ESLint
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  },
-  "eslint.useFlatConfig": true,
-  "eslint.workingDirectories": [
-    { "pattern": "apps/*/" },
-    { "pattern": "packages/*/" },
-    { "pattern": "packages/config/*/" }
-  ],
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "astro",
-    "typescript",
-    "typescriptreact"
-  ],
+	// ESLint
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit"
+	},
+	"eslint.useFlatConfig": true,
+	"eslint.workingDirectories": [
+		{ "pattern": "apps/*/" },
+		{ "pattern": "packages/*/" },
+		{ "pattern": "packages/config/*/" }
+	],
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"astro",
+		"typescript",
+		"typescriptreact"
+	],
 
-  // Tailwind
-  "files.associations": {
-    "*.css": "tailwindcss"
-  },
-  "tailwindCSS.experimental.classRegex": [
-    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
-  ],
+	// Tailwind
+	"css.customData": [".vscode/tailwind.json"],
+	"files.associations": {
+		"*.css": "css"
+	},
+	// TODO: this looks busted
+	"tailwindCSS.experimental.classRegex": [
+		["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+	],
 
-  // TypeScript
-  "typescript.tsdk": "node_modules/typescript/lib"
+	// TypeScript
+	"typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -1,25 +1,15 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Vite App</title>
-		<script src="https://cdn.tailwindcss.com"></script>
-		<style type="text/tailwindcss">
-			html {
-				color-scheme: light dark;
-			}
-			* {
-				@apply border-gray-200 dark:border-gray-800;
-			}
-			body {
-				@apply bg-gray-50 text-gray-950 dark:bg-gray-900 dark:text-gray-200;
-			}
-		</style>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#000000" />
+		<link rel="shortcut icon" type="image/ico" href="/src/assets/favicon.ico" />
+		<link rel="stylesheet" href="/src/index.css" />
+		<title>Spaced Repetitions</title>
 	</head>
 	<body>
-		<div id="app"></div>
-		<!-- <script type="module" src="/src/main.tsx"></script> -->
+		<div id="root"></div>
 		<script type="module" src="/src/content-script.tsx"></script>
 	</body>
 </html>
