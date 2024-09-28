@@ -16,38 +16,28 @@ import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 // TODO: strip out the mocks when building for production because it drastically bloats the output JS bundle
 // import mocks from '../mocks/questionMocks';
 
-// /**
-//  * @description Promise wrapper around the Chrome storage.local.get functionality, which is normally callback based.
-//  * @returns Promise
-//  */
-// export function getAllStorageLocalData(): Promise<[string, ReminderInterface][]> {
-//   // Immediately return a promise and start asynchronous work
-//   return new Promise((resolve, reject) => {
-//     let itemsArr: [string, ReminderInterface][] = [];
-//     if (isLocal) {
-//       itemsArr = mocks.questionMocks.slice(0, 10);
+/**
+ * @description Promise wrapper around the Chrome storage.local.get functionality, which is normally callback based.
+ */
+async function getAllStorageLocalData() {
+	// TODO: this is returning an empty object, probably just because we havent saved anything yet
+	// @ts-expect-error -- the TSDoc says `null` is valid, but the ts types seem to conflict with that?
+	return chrome.storage.local.get(null).then((res) => {
+		console.log('local.get res:', res)
+		return res
+	})
 
-//       helpers.sortByDaysRemainingBeforeReminder(itemsArr);
-
-//       resolve(itemsArr);
-//     } else {
-//       // Asynchronously fetch all data from storage.sync.
-//       chrome.storage.local.get(null, (items) => {
-//         // Pass any observed errors down the promise chain.
-//         if (chrome.runtime.lastError) {
-//           return reject(chrome.runtime.lastError);
-//         }
-
-//         // helpers.testSize(items);
-//         console.log('saved reminders', Object.entries(items));
-//         const itemsArr: [string, ReminderInterface][] = Object.entries(items);
-//         helpers.sortByDaysRemainingBeforeReminder(itemsArr);
-//         // Pass the data retrieved from storage down the promise chain.
-//         resolve(itemsArr);
-//       });
-//     }
-//   });
-// }
+	// helpers.testSize(items);
+	// 		console.log('saved reminders', Object.entries(items))
+	// 		const itemsArr: [string, Record<string, unknown>][] =
+	// 			Object.entries(items)
+	// 		helpers.sortByDaysRemainingBeforeReminder(itemsArr)
+	// 		// Pass the data retrieved from storage down the promise chain.
+	// 		resolve(itemsArr)
+	// 	})
+	// 	// }
+	// })
+}
 
 // /**
 //  * @description Promise-based wrapper around chrome.storage.local.set. Sets or overwrites a reminder in the chrome extension storage.
@@ -142,20 +132,21 @@ async function getCurrentTabDetails() {
 					return
 				}
 
+				// TODO: what to do with this?
+				void getAllStorageLocalData()
+
+				const questionUrl = (currentTab.url ?? '').replace('/submissions', '')
+
 				const returnObject: {
 					tabs: chrome.tabs.Tab[]
-					questionUrl?: string
+					questionUrl: string
 					problemTitle?: string
 					keyToSave?: string
 				} = {
 					tabs,
+					questionUrl,
 				}
 
-				let questionUrl = currentTab.url ?? ''
-				if (questionUrl.includes('/submissions')) {
-					questionUrl = questionUrl.replace('/submissions', '')
-				}
-				returnObject.questionUrl = questionUrl
 				/*
 				  Sends a single message to the content script(s) in the specified tab,
 				  with an optional callback to run when a response is sent back.
@@ -169,7 +160,7 @@ async function getCurrentTabDetails() {
 					// Callback executed when the content script sends a response
 					(response: DOMMessageResponse) => {
 						console.log(
-							'DomEvaluator response in getCurrentTabDetails',
+							'DomEvaluator response in getCurrentTabDetails:',
 							response,
 						)
 						resolve(returnObject)

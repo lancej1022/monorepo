@@ -1,5 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createRouter, RouterProvider } from '@tanstack/react-router'
+import {
+	createMemoryHistory,
+	createRouter,
+	RouterProvider,
+} from '@tanstack/react-router'
 import ReactDOM from 'react-dom/client'
 
 import { routeTree } from './routeTree.gen'
@@ -8,6 +12,7 @@ export const queryClient = new QueryClient()
 
 // Set up a Router instance
 const router = createRouter({
+	history: createMemoryHistory(),
 	routeTree,
 	context: {
 		queryClient,

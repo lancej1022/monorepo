@@ -61,7 +61,7 @@ export function ReminderCard() {
 										toggleItem(reminder.id)
 									}}
 								>
-									<CollapsibleTrigger className='hover:bg-secondary/80 flex w-full items-center justify-between rounded-lg bg-secondary p-4 transition-colors'>
+									<CollapsibleTrigger className='hover:bg-secondary/80 bg-secondary flex w-full items-center justify-between rounded-lg p-4 transition-colors'>
 										<div className='flex items-center space-x-2'>
 											<Bell className='size-5' />
 											<span>{reminder.title}</span>
