@@ -12,7 +12,16 @@ export default defineConfig({
 				chunkFileNames: `assets/[name].js`,
 				assetFileNames: `assets/[name].[ext]`,
 			},
+			onwarn(warning, defaultHandler) {
+				if (warning.code === 'SOURCEMAP_ERROR') {
+					return
+				}
+
+				defaultHandler(warning)
+			},
 		},
+		minify: false,
+		sourcemap: true,
 	},
 	plugins: [TanStackRouterVite({}), react()],
 })

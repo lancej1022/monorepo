@@ -1,3 +1,6 @@
 {
-	"extends": ["./tsconfig.json", "@monorepo/tsconfig/build.json"]
+	"extends": ["./tsconfig.json", "@monorepo/tsconfig/build.json"],
+	"compilerOptions": {
+		"sourceMap": true
+	}
 }

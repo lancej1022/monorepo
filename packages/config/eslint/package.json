@@ -37,6 +37,7 @@
 	"devDependencies": {
 		"@monorepo/tsconfig": "workspace:^",
 		"@next/eslint-plugin-next": "^14.2.7",
+		"@tanstack/eslint-plugin-router": "1.58.6",
 		"@types/eslint-config-prettier": "^6.11.3",
 		"@typescript-eslint/utils": "^8.4.0",
 		"eslint-plugin-storybook": "^0.8.0"
