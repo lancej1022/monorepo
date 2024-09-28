@@ -3,41 +3,8 @@ import { useEffect } from 'react'
 import type { QueryClient } from '@tanstack/react-query'
 
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
-import {
-	createRootRouteWithContext,
-	Link,
-	Outlet,
-} from '@tanstack/react-router'
+import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
-
-// import { isLocal } from '~/App';
-// import { ReminderInterface } from '~/components/QuestionCard/QuestionCard';
-// import helpers from '~/helpers';
-// TODO: strip out the mocks when building for production because it drastically bloats the output JS bundle
-// import mocks from '../mocks/questionMocks';
-
-/**
- * @description Promise wrapper around the Chrome storage.local.get functionality, which is normally callback based.
- */
-async function getAllStorageLocalData() {
-	// TODO: this is returning an empty object, probably just because we havent saved anything yet
-	// @ts-expect-error -- the TSDoc says `null` is valid, but the ts types seem to conflict with that?
-	return chrome.storage.local.get(null).then((res) => {
-		console.log('local.get res:', res)
-		return res
-	})
-
-	// helpers.testSize(items);
-	// 		console.log('saved reminders', Object.entries(items))
-	// 		const itemsArr: [string, Record<string, unknown>][] =
-	// 			Object.entries(items)
-	// 		helpers.sortByDaysRemainingBeforeReminder(itemsArr)
-	// 		// Pass the data retrieved from storage down the promise chain.
-	// 		resolve(itemsArr)
-	// 	})
-	// 	// }
-	// })
-}
 
 // /**
 //  * @description Promise-based wrapper around chrome.storage.local.set. Sets or overwrites a reminder in the chrome extension storage.
@@ -92,11 +59,34 @@ async function getAllStorageLocalData() {
 // 	})
 // }
 
+export async function getAllStorageLocalData() {
+	// TODO: this is returning an empty object, probably just because we havent saved anything yet
+	// @ts-expect-error -- the TSDoc says `null` is valid, but the ts types seem to conflict with that?
+	return chrome.storage.local.get(null).then((res) => {
+		console.log('local.get res:', res)
+		return res
+	})
+
+	// helpers.testSize(items);
+	// 		console.log('saved reminders', Object.entries(items))
+	// 		const itemsArr: [string, Record<string, unknown>][] =
+	// 			Object.entries(items)
+	// 		helpers.sortByDaysRemainingBeforeReminder(itemsArr)
+	// 		// Pass the data retrieved from storage down the promise chain.
+	// 		resolve(itemsArr)
+	// 	})
+	// 	// }
+	// })
+}
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 	{
 		component: RootComponent,
 		loader: (opts) => {
-			return opts.context.queryClient.ensureQueryData(queries.getTabs)
+			return Promise.allSettled([
+				opts.context.queryClient.ensureQueryData(queries.getTabs()),
+				opts.context.queryClient.ensureQueryData(queries.getReminders()),
+			])
 		},
 	},
 )
@@ -112,10 +102,6 @@ async function getCurrentTabDetails() {
 		problemTitle?: string
 		keyToSave?: string
 	} | null>((resolve) => {
-		// if (isLocal) {
-		// 	getAllStorageLocalData();
-		// 	return;
-		// }
 		/**
 		 * We can't use "chrome.runtime.sendMessage" for sending messages from the `popup.html`.
 		 * For sending messages from React we need to specify which tab to send it to.
@@ -133,7 +119,7 @@ async function getCurrentTabDetails() {
 				}
 
 				// TODO: what to do with this?
-				void getAllStorageLocalData()
+				// void getAllStorageLocalData()
 
 				const questionUrl = (currentTab.url ?? '').replace('/submissions', '')
 
@@ -171,12 +157,18 @@ async function getCurrentTabDetails() {
 	})
 }
 
-const queries = {
-	base: ['tabs'],
-	getTabs: queryOptions({
-		queryFn: getCurrentTabDetails,
-		queryKey: ['tabs'],
-	}),
+export const queries = {
+	base: () => ['chrome'],
+	getTabs: () =>
+		queryOptions({
+			queryFn: getCurrentTabDetails,
+			queryKey: [...queries.base(), 'tabs'],
+		}),
+	getReminders: () =>
+		queryOptions({
+			queryFn: getAllStorageLocalData,
+			queryKey: [...queries.base(), 'reminders'],
+		}),
 }
 
 function parseUrl(url: string) {
@@ -217,38 +209,18 @@ function getReminderInfo(tabs: chrome.tabs.Tab[]) {
 function RootComponent() {
 	// const [reminderInfo, setReminderInfo] = useState()
 	// TODO: move this to the `index.tsx` loader so that we can at least pre-render some of the UI and a Skeleton
-	const { data } = useSuspenseQuery(queries.getTabs)
+	const { data } = useSuspenseQuery(queries.getTabs())
 
 	useEffect(() => {
 		if (!data) return
 		console.log('data:', data)
 
 		const res = getReminderInfo(data.tabs)
-		console.log({ res })
+		console.log('getReminderInfo res:', res)
 	}, [data])
 
 	return (
 		<>
-			<div className='flex gap-2 p-2 text-lg'>
-				<Link
-					to='/'
-					activeProps={{
-						className: 'font-bold',
-					}}
-					activeOptions={{ exact: true }}
-				>
-					Home
-				</Link>{' '}
-				<Link
-					to='/about'
-					activeProps={{
-						className: 'font-bold',
-					}}
-				>
-					About
-				</Link>
-			</div>
-			<hr />
 			<Outlet />
 			<TanStackRouterDevtools position='bottom-right' />
 		</>

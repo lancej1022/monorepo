@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { Bell, ChevronDown, ChevronUp, Pencil } from 'lucide-react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@monorepo/ui/card'
@@ -9,6 +10,8 @@ import {
 	CollapsibleTrigger,
 } from '@monorepo/ui/collapsible'
 import { ScrollArea } from '@monorepo/ui/scroll-area'
+
+import { queries } from '../__root'
 
 interface Reminder {
 	id: number
@@ -33,9 +36,10 @@ const initialReminders: Reminder[] = [
 ]
 
 export function ReminderCard() {
-	console.log('reminderCard mounting')
 	const [reminders, setReminders] = useState(initialReminders)
 	const [openItems, setOpenItems] = useState<number[]>([])
+
+	const { data } = useSuspenseQuery(queries.getReminders())
 
 	const toggleItem = (id: number) => {
 		setOpenItems((prevOpenItems) =>
