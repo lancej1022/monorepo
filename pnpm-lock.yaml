@@ -195,6 +195,9 @@ importers:
       '@tanstack/router-devtools':
         specifier: ^1.58.3
         version: 1.58.3(@tanstack/react-router@1.58.3(@tanstack/router-generator@1.58.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(csstype@3.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      debounce:
+        specifier: 2.1.1
+        version: 2.1.1
       lucide-react:
         specifier: 0.446.0
         version: 0.446.0(react@18.3.1)
@@ -244,6 +247,9 @@ importers:
       vite:
         specifier: 5.4.7
         version: 5.4.7(@types/node@22.5.5)(terser@5.33.0)
+      vite-bundle-visualizer:
+        specifier: 1.2.1
+        version: 1.2.1(rollup@4.22.3)
 
   apps/web:
     dependencies:
@@ -267,13 +273,13 @@ importers:
         version: 0.6.1
       '@trpc/client':
         specifier: next
-        version: 11.0.0-rc.544(@trpc/server@11.0.0-rc.544)
+        version: 11.0.0-rc.552(@trpc/server@11.0.0-rc.552)
       '@trpc/react-query':
         specifier: next
-        version: 11.0.0-rc.544(@tanstack/react-query@5.56.2(react@18.3.1))(@trpc/client@11.0.0-rc.544(@trpc/server@11.0.0-rc.544))(@trpc/server@11.0.0-rc.544)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 11.0.0-rc.552(@tanstack/react-query@5.56.2(react@18.3.1))(@trpc/client@11.0.0-rc.552(@trpc/server@11.0.0-rc.552))(@trpc/server@11.0.0-rc.552)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@trpc/server':
         specifier: next
-        version: 11.0.0-rc.544
+        version: 11.0.0-rc.552
       '@unkey/ratelimit':
         specifier: ^0.4.4
         version: 0.4.4
@@ -4899,30 +4905,30 @@ packages:
         integrity: sha512-cka47fVSo6lfQDIATYqb/vO1nvFfbPw7uWLayIXIhGETj0wcOOlrlkobOMDNQOFr9QOafegUPq13V2+6vtD7yg==,
       }
 
-  '@trpc/client@11.0.0-rc.544':
+  '@trpc/client@11.0.0-rc.552':
     resolution:
       {
-        integrity: sha512-VympvY3/j597XUNEm8ywcH9Q78rC8f7qvLRpfU6u7Bjm7YgWLNaWlBYLpnOjhej0gXjFQjRLsnF1Ffek8KDtZg==,
+        integrity: sha512-jFDclTMI4QLcLNMmEZdAXOZWTXlaSzfdOqhvj0FQLDu38T/Wt6F2EWUY51ALYv6WU0u7dIpH/yi1/XbULz4LUg==,
       }
     peerDependencies:
-      '@trpc/server': 11.0.0-rc.544+f8e8d1715
+      '@trpc/server': 11.0.0-rc.552+268308497
 
-  '@trpc/react-query@11.0.0-rc.544':
+  '@trpc/react-query@11.0.0-rc.552':
     resolution:
       {
-        integrity: sha512-lieAIbIdbwWsQcZuyUUzIGMB+ouMfkiPoK/H7N864eftiAmZgIuvtaarnO/7wTtLGsJoMOTzTJLE503UvEu0FA==,
+        integrity: sha512-E2mV9kdAPcUlFKK0HHW5LuPthuobI+ooN7eg0+KJAI2nr+yzERcreF9kXQiOtXPFDDob8hS+2zJ/H/rGYz4lHA==,
       }
     peerDependencies:
       '@tanstack/react-query': ^5.54.1
-      '@trpc/client': 11.0.0-rc.544+f8e8d1715
-      '@trpc/server': 11.0.0-rc.544+f8e8d1715
+      '@trpc/client': 11.0.0-rc.552+268308497
+      '@trpc/server': 11.0.0-rc.552+268308497
       react: '>=18.2.0'
       react-dom: '>=18.2.0'
 
-  '@trpc/server@11.0.0-rc.544':
+  '@trpc/server@11.0.0-rc.552':
     resolution:
       {
-        integrity: sha512-Hv7w6PV9MQgD+TzX1LI1P1E2siweQaf4fS/xW+b6NCC15REgcYuWNPu69YFFpwcdkl3PuAkh+DL/0NPUpHdiHg==,
+        integrity: sha512-3t8jOfs6EmZXQtwRD+FliAZW9WJmG1wC3SlFj/0hBMjwHqYtLttM/gmR1qKEeFmL5VdUhMojfaLQiGg5fxQEZw==,
       }
 
   '@tsconfig/node10@1.0.11':
@@ -6501,6 +6507,13 @@ packages:
       }
     engines: { node: '>= 0.8' }
 
+  cac@6.7.14:
+    resolution:
+      {
+        integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==,
+      }
+    engines: { node: '>=8' }
+
   cacheable-lookup@7.0.0:
     resolution:
       {
@@ -7240,6 +7253,13 @@ packages:
       {
         integrity: sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==,
       }
+
+  debounce@2.1.1:
+    resolution:
+      {
+        integrity: sha512-+xRWxgel9LgTC4PwKlm7TJUK6B6qsEK77NaiNvXmeQ7Y3e6OVVsBC4a9BSptS/mAYceyAz37Oa8JTTuPRft7uQ==,
+      }
+    engines: { node: '>=18' }
 
   debug@2.6.9:
     resolution:
@@ -9329,6 +9349,13 @@ packages:
         integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==,
       }
     engines: { node: '>=6' }
+
+  import-from-esm@1.3.4:
+    resolution:
+      {
+        integrity: sha512-7EyUlPFC0HOlBDpUFGfYstsU7XHxZJKAAMzCT8wZ0hMW7b+hG51LIKTDcsgtz8Pu6YC0HqRVbX+rVUtsGMUKvg==,
+      }
+    engines: { node: '>=16.20' }
 
   import-in-the-middle@1.11.0:
     resolution:
@@ -13276,6 +13303,19 @@ packages:
     peerDependencies:
       rollup: 2.x || 3.x || 4.x
 
+  rollup-plugin-visualizer@5.12.0:
+    resolution:
+      {
+        integrity: sha512-8/NU9jXcHRs7Nnj07PF2o4gjxmm9lXIrZ8r175bT9dK8qoLlvKTwRMArRCMgpMGlq8CTLugRvEmyMeMXIU2pNQ==,
+      }
+    engines: { node: '>=14' }
+    hasBin: true
+    peerDependencies:
+      rollup: 2.x || 3.x || 4.x
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+
   rollup@3.29.4:
     resolution:
       {
@@ -14246,6 +14286,13 @@ packages:
       }
     engines: { node: '>=0.6.0' }
 
+  tmp@0.2.3:
+    resolution:
+      {
+        integrity: sha512-nZD7m9iCPC5g0pYmcaxogYKggSfLsdxl8of3Q/oIbqCqLLIO9IAF0GWjX1z9NZRHPiXv8Wex4yDCaZsgEw0Y8w==,
+      }
+    engines: { node: '>=14.14' }
+
   to-fast-properties@2.0.0:
     resolution:
       {
@@ -15031,6 +15078,14 @@ packages:
       {
         integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==,
       }
+
+  vite-bundle-visualizer@1.2.1:
+    resolution:
+      {
+        integrity: sha512-cwz/Pg6+95YbgIDp+RPwEToc4TKxfsFWSG/tsl2DSZd9YZicUag1tQXjJ5xcL7ydvEoaC2FOZeaXOU60t9BRXw==,
+      }
+    engines: { node: ^18.19.0 || >=20.6.0 }
+    hasBin: true
 
   vite-plugin-dts@4.2.1:
     resolution:
@@ -19049,19 +19104,19 @@ snapshots:
 
   '@total-typescript/ts-reset@0.6.1': {}
 
-  '@trpc/client@11.0.0-rc.544(@trpc/server@11.0.0-rc.544)':
+  '@trpc/client@11.0.0-rc.552(@trpc/server@11.0.0-rc.552)':
     dependencies:
-      '@trpc/server': 11.0.0-rc.544
+      '@trpc/server': 11.0.0-rc.552
 
-  '@trpc/react-query@11.0.0-rc.544(@tanstack/react-query@5.56.2(react@18.3.1))(@trpc/client@11.0.0-rc.544(@trpc/server@11.0.0-rc.544))(@trpc/server@11.0.0-rc.544)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@trpc/react-query@11.0.0-rc.552(@tanstack/react-query@5.56.2(react@18.3.1))(@trpc/client@11.0.0-rc.552(@trpc/server@11.0.0-rc.552))(@trpc/server@11.0.0-rc.552)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@tanstack/react-query': 5.56.2(react@18.3.1)
-      '@trpc/client': 11.0.0-rc.544(@trpc/server@11.0.0-rc.544)
-      '@trpc/server': 11.0.0-rc.544
+      '@trpc/client': 11.0.0-rc.552(@trpc/server@11.0.0-rc.552)
+      '@trpc/server': 11.0.0-rc.552
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@trpc/server@11.0.0-rc.544': {}
+  '@trpc/server@11.0.0-rc.552': {}
 
   '@tsconfig/node10@1.0.11': {}
 
@@ -20223,6 +20278,8 @@ snapshots:
 
   bytes@3.1.2: {}
 
+  cac@6.7.14: {}
+
   cacheable-lookup@7.0.0: {}
 
   cacheable-request@10.2.14:
@@ -20655,6 +20712,8 @@ snapshots:
   de-indent@1.0.2: {}
 
   debounce@1.2.1: {}
+
+  debounce@2.1.1: {}
 
   debug@2.6.9:
     dependencies:
@@ -22281,6 +22340,13 @@ snapshots:
     dependencies:
       parent-module: 1.0.1
       resolve-from: 4.0.0
+
+  import-from-esm@1.3.4:
+    dependencies:
+      debug: 4.3.7
+      import-meta-resolve: 4.1.0
+    transitivePeerDependencies:
+      - supports-color
 
   import-in-the-middle@1.11.0:
     dependencies:
@@ -25137,6 +25203,15 @@ snapshots:
       magic-string: 0.30.11
       rollup: 4.22.3
 
+  rollup-plugin-visualizer@5.12.0(rollup@4.22.3):
+    dependencies:
+      open: 8.4.2
+      picomatch: 2.3.1
+      source-map: 0.7.4
+      yargs: 17.7.2
+    optionalDependencies:
+      rollup: 4.22.3
+
   rollup@3.29.4:
     optionalDependencies:
       fsevents: 2.3.3
@@ -25811,6 +25886,8 @@ snapshots:
     dependencies:
       os-tmpdir: 1.0.2
 
+  tmp@0.2.3: {}
+
   to-fast-properties@2.0.0: {}
 
   to-regex-range@5.0.1:
@@ -26289,6 +26366,16 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
       vfile-message: 4.0.2
+
+  vite-bundle-visualizer@1.2.1(rollup@4.22.3):
+    dependencies:
+      cac: 6.7.14
+      import-from-esm: 1.3.4
+      rollup-plugin-visualizer: 5.12.0(rollup@4.22.3)
+      tmp: 0.2.3
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
 
   vite-plugin-dts@4.2.1(@types/node@22.5.5)(rollup@4.22.3)(typescript@5.6.2)(vite@5.4.7(@types/node@22.5.5)(terser@5.33.0)):
     dependencies:
