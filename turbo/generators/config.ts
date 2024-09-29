@@ -180,6 +180,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI) {
 						type: 'addMany',
 					})
 
+					// eslint-disable-next-line no-console -- intentionally logging to the terminal
 					console.info(
 						'\nNOTE: You will need to manualy assign a UNIQUE port on line 7 of the generated playwright.config.ts file.\n',
 					)

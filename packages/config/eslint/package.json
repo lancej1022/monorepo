@@ -18,7 +18,6 @@
 		"typecheck": "tsc"
 	},
 	"dependencies": {
-		"@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
 		"@eslint/compat": "^1.1.1",
 		"@eslint/eslintrc": "^3.1.0",
 		"@eslint/js": "^9.9.1",
@@ -35,6 +34,7 @@
 		"typescript-eslint": "^8.4.0"
 	},
 	"devDependencies": {
+		"@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
 		"@monorepo/tsconfig": "workspace:^",
 		"@next/eslint-plugin-next": "^14.2.7",
 		"@tanstack/eslint-plugin-router": "1.58.6",

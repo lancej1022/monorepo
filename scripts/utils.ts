@@ -1,4 +1,4 @@
-/* eslint-disable security/detect-non-literal-fs-filename */
+/* eslint-disable security/detect-non-literal-fs-filename -- TODO: refactor later so this lint rule isnt violated */
 
 import type { PackageJson } from 'pkg-types'
 
@@ -198,12 +198,14 @@ export async function replaceInFile(
 		let data = await fsPromise.readFile(filePath, 'utf8')
 
 		for (const [search, replace] of Object.entries(searchReplace)) {
-			// eslint-disable-next-line security/detect-non-literal-regexp
+			// eslint-disable-next-line security/detect-non-literal-regexp  -- TODO: refactor later so this lint rule isnt violated
 			const regex = new RegExp(search, 'g')
 			data = data.replace(regex, replace)
 		}
 
 		await fsPromise.writeFile(filePath, data, 'utf8')
+
+		// eslint-disable-next-line no-console -- intentionally logging to the console
 		console.log(`Successfully updated ${filePath}`)
 	} catch (err) {
 		console.error(`Error processing file ${filePath}:`, err)
@@ -289,6 +291,7 @@ export async function updateNamespaceInPrettierConfig(
 			beforeImportOrder + updatedImportOrderContent + afterImportOrder
 
 		await fsPromise.writeFile(filePath, updatedData, 'utf8')
+		// eslint-disable-next-line no-console -- intentionally logging to the console
 		console.log(`Successfully updated ${filePath}`)
 	} catch (err) {
 		console.error(`Error processing file ${filePath}:`, err)

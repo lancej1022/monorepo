@@ -76,11 +76,20 @@ export const base = defineConfig(
 				'error',
 				{ assertionStyle: 'never' },
 			],
+			// https://www.totaltypescript.com/react-apps-ts-performance -- `interface` is more performant during type-checking compared to `type`, especially in large codebases
+			'@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
 
+			// this rule improves tree-shaking by ensuring types are consistently imported in a way that allows them to be removed from production bundles
 			'@typescript-eslint/consistent-type-imports': [
 				'error',
-				{ prefer: 'type-imports', fixStyle: 'separate-type-imports' },
+				{
+					disallowTypeAnnotations: false,
+					fixStyle: 'inline-type-imports',
+					prefer: 'type-imports',
+				},
 			],
+			// Explicit type annotations add unnecessary verbosity to code and in some cases can prevent TypeScript from inferring a more specific literal type (e.g. `10` instead `number`)
+			'@typescript-eslint/no-inferrable-types': 'error',
 
 			'@typescript-eslint/no-misused-promises': [
 				'error',
@@ -93,6 +102,14 @@ export const base = defineConfig(
 					allowConstantLoopConditions: true,
 				},
 			],
+
+			'@eslint-community/eslint-comments/require-description': [
+				'error',
+				{ ignore: ['eslint-enable'] },
+			],
+			'no-console': ['error', { allow: ['error'] }],
+			// improves perf and reduces bugs by ensuring devs dont write code where the operators behave differently from the way the developer thought they would
+			'no-constant-binary-expression': 'error',
 		},
 	},
 )

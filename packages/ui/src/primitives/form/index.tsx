@@ -42,7 +42,7 @@ const useFormField = () => {
 
 	const fieldState = getFieldState(fieldContext.name ?? '', formState)
 
-	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- TODO: are the types wrong here or something?
 	if (!fieldContext) {
 		throw new Error('useFormField should be used within <FormField>')
 	}
