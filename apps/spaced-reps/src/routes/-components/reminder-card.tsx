@@ -3,10 +3,11 @@ import { useState } from 'react'
 import type { ChangeEvent } from 'react'
 import type { Reminder } from '../__root'
 
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
 import debounce from 'debounce'
-import { Bell, ChevronDown, ChevronUp, Pencil } from 'lucide-react'
+import { Bell, ChevronDown, ChevronUp, Trash } from 'lucide-react'
 
+import { Button } from '@monorepo/ui/button'
 import {
 	Collapsible,
 	CollapsibleContent,
@@ -14,6 +15,7 @@ import {
 } from '@monorepo/ui/collapsible'
 import { ScrollArea } from '@monorepo/ui/scroll-area'
 import { Textarea } from '@monorepo/ui/textarea'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@monorepo/ui/tooltip'
 
 import { queries } from '../__root'
 import { Route } from '../index'
@@ -26,6 +28,12 @@ function IndividualReminder({
 	url: string
 }) {
 	const [open, setOpen] = useState(false)
+	const mutation = useMutation({
+		mutationFn: (_: unknown) => chrome.storage.local.remove(url),
+		onError: (error) => {
+			console.error(error)
+		},
+	})
 
 	const updateNote = debounce(function updateReminder(
 		event: ChangeEvent<HTMLTextAreaElement>,
@@ -61,7 +69,20 @@ function IndividualReminder({
 				{reminder.notes && (
 					<CollapsibleContent className='rounded-b-lg bg-secondary/50 p-4 pt-2'>
 						<div className='flex items-start space-x-2'>
-							<Pencil className='mt-0.5 size-5' />
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Button
+										onClick={mutation.mutate}
+										size='icon'
+										variant='outline'
+									>
+										<Trash className='mt-0.5 size-5' color='red' />
+									</Button>
+								</TooltipTrigger>
+								<TooltipContent>
+									<p>Delete reminder</p>
+								</TooltipContent>
+							</Tooltip>
 							<form className='w-full'>
 								<Textarea
 									className='min-h-24 w-full'

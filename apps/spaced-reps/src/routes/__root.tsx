@@ -4,6 +4,8 @@ import { queryOptions } from '@tanstack/react-query'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import * as v from 'valibot'
 
+import { TooltipProvider } from '@monorepo/ui/tooltip'
+
 // /**
 //  * @description Promise-based wrapper around chrome.storage.local.remove. Permanently removes a reminder from the list of reminders.
 //  * @param key the name of the reminder, as a string
@@ -183,8 +185,8 @@ function getReminderInfo(tabs: chrome.tabs.Tab[]) {
 
 function RootComponent() {
 	return (
-		<>
+		<TooltipProvider delayDuration={200}>
 			<Outlet />
-		</>
+		</TooltipProvider>
 	)
 }

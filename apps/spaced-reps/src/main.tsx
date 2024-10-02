@@ -1,4 +1,8 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {
+	MutationCache,
+	QueryClient,
+	QueryClientProvider,
+} from '@tanstack/react-query'
 import {
 	createMemoryHistory,
 	createRouter,
@@ -8,9 +12,14 @@ import ReactDOM from 'react-dom/client'
 
 import { routeTree } from './routeTree.gen'
 
-export const queryClient = new QueryClient()
+export const queryClient = new QueryClient({
+	mutationCache: new MutationCache({
+		onSuccess: () => {
+			void queryClient.invalidateQueries()
+		},
+	}),
+})
 
-// Set up a Router instance
 const router = createRouter({
 	history: createMemoryHistory(),
 	routeTree,

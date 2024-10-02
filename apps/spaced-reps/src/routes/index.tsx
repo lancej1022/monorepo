@@ -34,8 +34,8 @@ function HomeComponent() {
 	}
 
 	return (
-		<Card>
-			<CardHeader>
+		<Card className='flex flex-col gap-6 p-6'>
+			<CardHeader className='p-0'>
 				<CardTitle className='text-2xl font-bold'>Reminders</CardTitle>
 				<div className='grid w-full max-w-sm items-center gap-1.5'>
 					<Label htmlFor='reminder-search'>Search reminders</Label>
@@ -47,16 +47,15 @@ function HomeComponent() {
 					/>
 				</div>
 			</CardHeader>
-			{/* TODO: add a gap between the list + link */}
-			<CardContent>
+			<CardContent className='p-0'>
 				<ReminderList />
-				<Link
-					className={cn(buttonVariants({ variant: 'default' }), 'w-full')}
-					to='/add-reminder-form'
-				>
-					Add new reminder
-				</Link>
 			</CardContent>
+			<Link
+				className={cn(buttonVariants({ variant: 'default' }), 'w-full')}
+				to='/add-reminder-form'
+			>
+				Add new reminder
+			</Link>
 		</Card>
 	)
 }
