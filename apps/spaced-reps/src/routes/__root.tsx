@@ -1,38 +1,8 @@
-import { useEffect } from 'react'
-
 import type { QueryClient } from '@tanstack/react-query'
 
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { queryOptions } from '@tanstack/react-query'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
-
-// /**
-//  * @description Promise-based wrapper around chrome.storage.local.set. Sets or overwrites a reminder in the chrome extension storage.
-//  * @param key the name of the reminder, as a string
-//  * @param userResponse necessary form data to update a reminder
-//  * @returns void
-//  */
-// export function updateExistingReminder(
-// 	key: string,
-// 	userResponse: ReminderInterface,
-// ): Promise<void> {
-// 	return new Promise((resolve, reject) => {
-// 		if (isLocal) {
-// 			resolve()
-// 		} else {
-// 			chrome.storage.local.set({ [key]: userResponse }, function () {
-// 				// Pass any observed errors down the promise chain.
-// 				if (chrome.runtime.lastError) {
-// 					console.log('chrome.runtime.lastError:', chrome.runtime.lastError)
-// 					reject(chrome.runtime.lastError)
-// 					return
-// 				}
-
-// 				resolve()
-// 			})
-// 		}
-// 	})
-// }
+import * as v from 'valibot'
 
 // /**
 //  * @description Promise-based wrapper around chrome.storage.local.remove. Permanently removes a reminder from the list of reminders.
@@ -59,12 +29,22 @@ import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 // 	})
 // }
 
+const individualReminderSchema = v.object({
+	daysUntilDue: v.number(),
+	notes: v.optional(v.string()),
+	title: v.string(),
+	timestamp: v.string(),
+})
+
+export type Reminder = v.InferOutput<typeof individualReminderSchema>
+
+const savedRemindersSchema = v.record(v.string(), individualReminderSchema)
+
 export async function getAllStorageLocalData() {
-	// TODO: this is returning an empty object, probably just because we havent saved anything yet
 	// @ts-expect-error -- the TSDoc says `null` is valid, but the ts types seem to conflict with that?
 	return chrome.storage.local.get(null).then((res) => {
-		console.log('local.get res:', res)
-		return res
+		const parsed = v.parse(savedRemindersSchema, res)
+		return parsed
 	})
 
 	// helpers.testSize(items);
@@ -83,6 +63,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 	{
 		component: RootComponent,
 		loader: (opts) => {
+			// TODO: move this to the `index.tsx` loader so that we can at least pre-render some of the UI and a Skeleton
 			return Promise.allSettled([
 				opts.context.queryClient.ensureQueryData(queries.getTabs()),
 				opts.context.queryClient.ensureQueryData(queries.getReminders()),
@@ -102,10 +83,8 @@ async function getCurrentTabDetails() {
 		problemTitle?: string
 		keyToSave?: string
 	} | null>((resolve) => {
-		/**
-		 * We can't use "chrome.runtime.sendMessage" for sending messages from the `popup.html`.
-		 * For sending messages from React we need to specify which tab to send it to.
-		 */
+		// We can't use "chrome.runtime.sendMessage" for sending messages from the `popup.html`.
+		// For sending messages from React we need to specify which tab to send it to.
 		chrome.tabs.query(
 			{
 				active: true,
@@ -117,9 +96,6 @@ async function getCurrentTabDetails() {
 					resolve(null)
 					return
 				}
-
-				// TODO: what to do with this?
-				// void getAllStorageLocalData()
 
 				const questionUrl = (currentTab.url ?? '').replace('/submissions', '')
 
@@ -149,6 +125,7 @@ async function getCurrentTabDetails() {
 							'DomEvaluator response in getCurrentTabDetails:',
 							response,
 						)
+						// TODO: do we even need this any more?
 						resolve(returnObject)
 					},
 				)
@@ -183,6 +160,7 @@ export function parseUrl(url: string) {
 	return problemName
 }
 
+// TODO: move most of this logic directly into `parseUrl`
 function getReminderInfo(tabs: chrome.tabs.Tab[]) {
 	const currentTab = tabs[0]
 	if (!currentTab) return
@@ -204,22 +182,9 @@ function getReminderInfo(tabs: chrome.tabs.Tab[]) {
 }
 
 function RootComponent() {
-	// const [reminderInfo, setReminderInfo] = useState()
-	// TODO: move this to the `index.tsx` loader so that we can at least pre-render some of the UI and a Skeleton
-	const { data } = useSuspenseQuery(queries.getTabs())
-
-	useEffect(() => {
-		if (!data) return
-		console.log('data:', data)
-
-		const res = getReminderInfo(data.tabs)
-		console.log('getReminderInfo res:', res)
-	}, [data])
-
 	return (
 		<>
 			<Outlet />
-			{/* <TanStackRouterDevtools position='bottom-right' /> */}
 		</>
 	)
 }

@@ -70,6 +70,7 @@ function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
 	saveReminder(questionUrl, saveableReminder)
 		.then(() => {
 			form.reset()
+			// TODO: navigate back to the home page and show a success snackbar using `sonner`!
 		})
 		.catch((err) => {
 			console.error(err)
