@@ -18,6 +18,8 @@ export const react = defineConfig(
 		rules: {
 			'react/react-in-jsx-scope': 'off',
 			'react/prop-types': 'off',
+			'react/no-unescaped-entities': 'off',
+			'react/jsx-sort-props': 'error',
 		},
 	},
 )

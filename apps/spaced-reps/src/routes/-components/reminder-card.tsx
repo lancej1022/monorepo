@@ -24,17 +24,21 @@ interface Reminder {
 }
 
 const mockReminders: Reminder[] = [
-	{ id: 1, title: 'Buy groceries', notes: 'Milk, eggs, bread, and vegetables' },
-	{ id: 2, title: 'Call mom', notes: "Ask about her doctor's appointment" },
-	{ id: 3, title: 'Finish project report' },
+	{ id: 1, title: 'Two sum', notes: 'Milk, eggs, bread, and vegetables' },
+	{
+		id: 2,
+		title: 'Valid palindrome',
+		notes: "Ask about her doctor's appointment",
+	},
+	{ id: 3, title: 'Best time to buy and sell stock' },
 	{
 		id: 4,
-		title: 'Schedule dentist appointment',
+		title: 'Car fleet',
 		notes: 'Check available slots for next week',
 	},
 	{
 		id: 5,
-		title: 'Pay utility bills',
+		title: 'Binary search',
 		notes: 'Electricity and water bills due on 15th',
 	},
 ]
@@ -51,10 +55,10 @@ function IndividualReminder({ reminder }: { reminder: Reminder }) {
 	return (
 		<li key={reminder.id}>
 			<Collapsible
-				open={open}
 				onOpenChange={() => {
 					setOpen((prev) => !prev)
 				}}
+				open={open}
 			>
 				<CollapsibleTrigger className='bg-secondary hover:bg-secondary/80 flex w-full items-center justify-between rounded-lg p-4 transition-colors'>
 					<div className='flex items-center space-x-2'>
@@ -73,9 +77,9 @@ function IndividualReminder({ reminder }: { reminder: Reminder }) {
 							<Pencil className='mt-0.5 size-5' />
 							<form className='w-full'>
 								<Textarea
-									onChange={debounce(updateNote, 300)}
 									className='min-h-24 w-full'
 									defaultValue={reminder.notes}
+									onChange={debounce(updateNote, 300)}
 								/>
 							</form>
 						</div>
@@ -97,7 +101,7 @@ export function ReminderList() {
 		: mockReminders
 
 	return (
-		<ScrollArea className=' pr-4'>
+		<ScrollArea>
 			<ul className='space-y-4'>
 				{filteredReminders.map((reminder) => (
 					<IndividualReminder key={reminder.id} reminder={reminder} />

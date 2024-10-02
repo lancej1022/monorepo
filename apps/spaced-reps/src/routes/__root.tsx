@@ -171,19 +171,16 @@ export const queries = {
 		}),
 }
 
-function parseUrl(url: string) {
+// TODO: move into a centralized utility file?
+export function parseUrl(url: string) {
 	const urlObj = new URL(url)
-	const { hostname, pathname } = urlObj
+	const { pathname } = urlObj
 
 	const pathParts = pathname.split('/')
 	// TODO: rather than assign this to an empty string, we should probably throw an error or something
 	const problemName = pathParts[2] ?? ''
-	let formattedTitle = problemName.replaceAll('-', ' ')
-	// TODO: change this formatting to be `First Second Third` instead of `First second third`
-	formattedTitle =
-		(formattedTitle[0]?.toUpperCase() ?? '') + formattedTitle.slice(1)
 
-	return { pathname, hostname, unformattedTitle: problemName, formattedTitle }
+	return problemName
 }
 
 function getReminderInfo(tabs: chrome.tabs.Tab[]) {
@@ -198,11 +195,11 @@ function getReminderInfo(tabs: chrome.tabs.Tab[]) {
 		if (unformattedTitle.endsWith('-')) {
 			unformattedTitle = unformattedTitle.slice(0, -1)
 		}
-		return { title: greatFrontend, unformattedTitle }
+		return unformattedTitle
 	} else {
 		// this block handles leetcode titles
-		const { unformattedTitle, formattedTitle } = parseUrl(currentTab.url ?? '')
-		return { title: formattedTitle, unformattedTitle }
+		const unformattedTitle = parseUrl(currentTab.url ?? '')
+		return unformattedTitle
 	}
 }
 
@@ -222,7 +219,7 @@ function RootComponent() {
 	return (
 		<>
 			<Outlet />
-			<TanStackRouterDevtools position='bottom-right' />
+			{/* <TanStackRouterDevtools position='bottom-right' /> */}
 		</>
 	)
 }
