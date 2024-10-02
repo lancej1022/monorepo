@@ -72,6 +72,7 @@ export const base = defineConfig(
 			'tailwindcss/no-custom-classname': 'off',
 			// TS will already prevent unused variables during type generation, no need to have the linter check it
 			'@typescript-eslint/no-unused-vars': 'off',
+			'@typescript-eslint/triple-slash-reference': 'off',
 			'@typescript-eslint/consistent-type-assertions': [
 				'error',
 				{ assertionStyle: 'never' },

@@ -27,8 +27,9 @@ function IndividualReminder({
 }) {
 	const [open, setOpen] = useState(false)
 
-	// TODO: debounce and/or useTransition here
-	function updateNote(event: ChangeEvent<HTMLTextAreaElement>) {
+	const updateNote = debounce(function updateReminder(
+		event: ChangeEvent<HTMLTextAreaElement>,
+	) {
 		const textToSave = event.target.value
 
 		chrome.storage.local
@@ -36,7 +37,7 @@ function IndividualReminder({
 			.catch((err) => {
 				console.error(err)
 			})
-	}
+	}, 300)
 
 	return (
 		<li>
@@ -65,7 +66,7 @@ function IndividualReminder({
 								<Textarea
 									className='min-h-24 w-full'
 									defaultValue={reminder.notes}
-									onChange={debounce(updateNote, 300)}
+									onChange={updateNote}
 								/>
 							</form>
 						</div>

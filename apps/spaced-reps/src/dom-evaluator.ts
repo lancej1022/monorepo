@@ -26,7 +26,7 @@ const messagesFromExtensionListener = (
 	}
 
 	sendResponse(response)
-	return undefined // TODO: is this `return undefined` right?
+	return undefined
 }
 
 // Fired when a message is sent from either an extension process or a content script.

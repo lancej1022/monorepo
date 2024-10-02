@@ -31,7 +31,6 @@
 	"files.associations": {
 		"*.css": "css"
 	},
-	// TODO: this looks busted
 	"tailwindCSS.experimental.classRegex": [
 		["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
 		["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
