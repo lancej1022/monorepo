@@ -185,7 +185,7 @@ function getReminderInfo(tabs: chrome.tabs.Tab[]) {
 
 function RootComponent() {
 	return (
-		<TooltipProvider delayDuration={200}>
+		<TooltipProvider delayDuration={150}>
 			<Outlet />
 		</TooltipProvider>
 	)

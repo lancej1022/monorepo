@@ -91,6 +91,10 @@ export const base = defineConfig(
 			],
 			// Explicit type annotations add unnecessary verbosity to code and in some cases can prevent TypeScript from inferring a more specific literal type (e.g. `10` instead `number`)
 			'@typescript-eslint/no-inferrable-types': 'error',
+			'@typescript-eslint/restrict-template-expressions': [
+				'error',
+				{ allowNumber: true },
+			],
 
 			'@typescript-eslint/no-misused-promises': [
 				'error',
