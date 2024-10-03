@@ -5,6 +5,7 @@ import type { Reminder } from '../__root'
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
 import debounce from 'debounce'
 import { ChevronDown, ChevronUp, Clock, Trash2 } from 'lucide-react'
+import { toast } from 'sonner'
 
 import { Button } from '@monorepo/ui/button'
 import {
@@ -61,6 +62,9 @@ function IndividualReminder({
 		onError: (error) => {
 			console.error(error)
 		},
+		onSuccess: () => {
+			toast.success(`Notes for ${reminder.title} updated successfully`)
+		},
 	})
 
 	const debouncedNoteUpdate = debounce(updateMutation.mutate, 500)
@@ -73,7 +77,7 @@ function IndividualReminder({
 				}}
 				open={open}
 			>
-				<CollapsibleTrigger className='bg-secondary hover:bg-secondary/80 flex w-full items-center justify-between rounded-lg p-4 transition-colors'>
+				<CollapsibleTrigger className='flex w-full items-center justify-between rounded-lg bg-secondary p-4 transition-colors hover:bg-secondary/80'>
 					<div className='flex items-center space-x-2'>{reminder.title}</div>
 					<div className='flex items-center space-x-2'>
 						<span
@@ -82,7 +86,7 @@ function IndividualReminder({
 							{open ? (
 								<>
 									<input
-										className='mr-2 inline min-w-7 border-none bg-transparent p-0'
+										className='mr-1 inline min-w-7 rounded border-none bg-transparent p-0 text-sm'
 										defaultValue={reminder.daysUntilDue}
 										dir='rtl'
 										id={id}
@@ -113,7 +117,7 @@ function IndividualReminder({
 					</div>
 				</CollapsibleTrigger>
 
-				<CollapsibleContent className='bg-secondary/50 rounded-b-lg p-4 pt-2'>
+				<CollapsibleContent className='rounded-b-lg bg-secondary/50 p-4 pt-2'>
 					<div className='flex items-center space-x-2'>
 						<form className='w-full'>
 							<Textarea

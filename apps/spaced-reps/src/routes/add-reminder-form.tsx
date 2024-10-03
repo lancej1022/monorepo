@@ -1,6 +1,7 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { PlusCircle } from 'lucide-react'
+import { toast } from 'sonner'
 import * as v from 'valibot'
 
 import { Button, buttonVariants } from '@monorepo/ui/button'
@@ -49,11 +50,19 @@ const reminderSchema = v.object({
 	questionUrl: v.string(),
 })
 
-function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
+async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
 	event.preventDefault()
 
 	const form = event.target
-	if (!(form instanceof HTMLFormElement)) return
+	if (!(form instanceof HTMLFormElement)) {
+		return new Promise((_, reject) => {
+			reject(
+				Error(
+					'Form submissions rejected because the event received was not a form event!',
+				),
+			)
+		})
+	}
 
 	const formData = new FormData(form)
 	const { questionUrl, ...parsed } = v.parse(
@@ -66,22 +75,28 @@ function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
 		timestamp: new Date().toISOString(),
 	}
 
-	// TODO: use a `useMutation` here so we can get loading + error states
-	saveReminder(questionUrl, saveableReminder)
-		.then(() => {
-			form.reset()
-			// TODO: navigate back to the home page and show a success snackbar using `sonner`!
-		})
-		.catch((err) => {
-			console.error(err)
-			// TODO: show snackbar or something
-		})
+	return saveReminder(questionUrl, saveableReminder).then(() => {
+		form.reset()
+		toast.success(`Reminder for ${saveableReminder.title} saved`)
+	})
 }
 
 function AddReminderForm() {
+	const navigate = useNavigate({ from: '/add-reminder-form' })
 	const { data } = useSuspenseQuery(queries.getTabs())
-	const unformattedTitle = parseUrl(data?.questionUrl ?? '')
 
+	const mutation = useMutation({
+		mutationFn: handleFormSubmit,
+		onError: () => {
+			toast.error('There was a problem saving the reminder')
+		},
+		onSuccess: () => {
+			// note: the form reset and snackbar are tackled by `handleFormSubmit` since it has access to the necessary variable
+			void navigate({ to: '/' })
+		},
+	})
+
+	const unformattedTitle = parseUrl(data?.questionUrl ?? '')
 	const formattedTitle = createFormattedTitle(unformattedTitle)
 
 	return (
@@ -94,7 +109,7 @@ function AddReminderForm() {
 				</Typography>
 			</CardHeader>
 			<CardContent>
-				<form className='space-y-6' onSubmit={handleFormSubmit}>
+				<form className='space-y-6' onSubmit={mutation.mutate}>
 					<div className='space-y-2'>
 						<Label htmlFor='title'>
 							Reminder Name (this is automatically generated)

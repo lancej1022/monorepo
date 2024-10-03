@@ -2,6 +2,7 @@ import type { QueryClient } from '@tanstack/react-query'
 
 import { queryOptions } from '@tanstack/react-query'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
+import { Toaster } from 'sonner'
 import * as v from 'valibot'
 
 import { TooltipProvider } from '@monorepo/ui/tooltip'
@@ -187,6 +188,7 @@ function RootComponent() {
 	return (
 		<TooltipProvider delayDuration={150}>
 			<Outlet />
+			<Toaster />
 		</TooltipProvider>
 	)
 }
