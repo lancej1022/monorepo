@@ -4,7 +4,7 @@ import type { Reminder } from '../__root'
 
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
 import debounce from 'debounce'
-import { Bell, ChevronDown, ChevronUp, Trash2 } from 'lucide-react'
+import { Bell, ChevronDown, ChevronUp, Clock, Trash2 } from 'lucide-react'
 
 import { Button } from '@monorepo/ui/button'
 import {
@@ -23,6 +23,19 @@ import { Route } from '../index'
 function resizeTextArea(el: HTMLTextAreaElement) {
 	el.style.height = 'auto'
 	el.style.height = `${el.scrollHeight}px`
+}
+
+function getDueDateText(daysUntilDue: number) {
+	if (daysUntilDue === 0) return 'Due today'
+	if (daysUntilDue < 0)
+		return `${Math.abs(daysUntilDue)} day${Math.abs(daysUntilDue) !== 1 ? 's' : ''} overdue`
+	return `${daysUntilDue} day${daysUntilDue !== 1 ? 's' : ''} until due`
+}
+
+function getDueDateColor(daysUntilDue: number) {
+	if (daysUntilDue < 0) return 'text-red-500'
+	if (daysUntilDue === 0) return 'text-yellow-500'
+	return 'text-green-500'
 }
 
 function IndividualReminder({
@@ -64,11 +77,19 @@ function IndividualReminder({
 						<Bell className='size-5' />
 						<span>{reminder.title}</span>
 					</div>
-					{open ? (
-						<ChevronUp className='size-5' />
-					) : (
-						<ChevronDown className='size-5' />
-					)}
+					<div className='flex items-center space-x-2'>
+						<span
+							className={`text-sm ${getDueDateColor(reminder.daysUntilDue)}`}
+						>
+							<Clock className='mr-1 inline size-4' />
+							{getDueDateText(reminder.daysUntilDue)}
+						</span>
+						{open ? (
+							<ChevronUp className='size-5' />
+						) : (
+							<ChevronDown className='size-5' />
+						)}
+					</div>
 				</CollapsibleTrigger>
 
 				<CollapsibleContent className='bg-secondary/50 rounded-b-lg p-4 pt-2'>
