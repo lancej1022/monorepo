@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 
 import type { Reminder } from '../__root'
 
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
 import debounce from 'debounce'
-import { Bell, ChevronDown, ChevronUp, Clock, Trash2 } from 'lucide-react'
+import { ChevronDown, ChevronUp, Clock, Trash2 } from 'lucide-react'
 
 import { Button } from '@monorepo/ui/button'
 import {
@@ -45,6 +45,7 @@ function IndividualReminder({
 	reminder: Reminder
 	url: string
 }) {
+	const id = useId()
 	const [open, setOpen] = useState(false)
 	const deleteMutation = useMutation({
 		mutationFn: (_: unknown) => chrome.storage.local.remove(url),
@@ -73,17 +74,37 @@ function IndividualReminder({
 				open={open}
 			>
 				<CollapsibleTrigger className='bg-secondary hover:bg-secondary/80 flex w-full items-center justify-between rounded-lg p-4 transition-colors'>
-					<div className='flex items-center space-x-2'>
-						<Bell className='size-5' />
-						<span>{reminder.title}</span>
-					</div>
+					<div className='flex items-center space-x-2'>{reminder.title}</div>
 					<div className='flex items-center space-x-2'>
 						<span
 							className={`text-sm ${getDueDateColor(reminder.daysUntilDue)}`}
 						>
-							<Clock className='mr-1 inline size-4' />
-							{getDueDateText(reminder.daysUntilDue)}
+							{open ? (
+								<>
+									<input
+										className='mr-2 inline min-w-7 border-none bg-transparent p-0'
+										defaultValue={reminder.daysUntilDue}
+										dir='rtl'
+										id={id}
+										max='180'
+										min='0'
+										name='daysUntilDue'
+										onClick={(e) => {
+											e.preventDefault()
+										}}
+										required
+										type='number'
+									/>
+									<label htmlFor={id}>days until due</label>
+								</>
+							) : (
+								<>
+									<Clock className='mr-1 inline size-4' />
+									{getDueDateText(reminder.daysUntilDue)}
+								</>
+							)}
 						</span>
+
 						{open ? (
 							<ChevronUp className='size-5' />
 						) : (
