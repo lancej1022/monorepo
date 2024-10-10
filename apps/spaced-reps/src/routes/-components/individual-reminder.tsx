@@ -2,7 +2,7 @@ import { useId, useState } from 'react'
 
 import type { Reminder } from '../__root'
 
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import debounce from 'debounce'
 import { ChevronDown, ChevronUp, Clock, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
@@ -13,16 +13,10 @@ import {
 	CollapsibleContent,
 	CollapsibleTrigger,
 } from '@monorepo/ui/collapsible'
-import { ScrollArea } from '@monorepo/ui/scroll-area'
 import { Textarea } from '@monorepo/ui/textarea'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@monorepo/ui/tooltip'
 
-import {
-	dateDiffInDays,
-	queries,
-	sortByDaysRemainingBeforeReminder,
-} from '../__root'
-import { Route } from '../index'
+import { dateDiffInDays } from '../__root'
 
 /** Updates the text area height as the user types, ensuring that the user isnt forced to deal with a small textbox for a large note */
 function resizeTextArea(el: HTMLTextAreaElement) {
@@ -43,7 +37,7 @@ function getDueDateColor(daysUntilDue: number) {
 	return 'text-green-500'
 }
 
-function IndividualReminder({
+export function IndividualReminder({
 	reminder,
 	url,
 }: {
@@ -85,7 +79,7 @@ function IndividualReminder({
 				}}
 				open={open}
 			>
-				<CollapsibleTrigger className='bg-secondary hover:bg-secondary/80 flex w-full items-center justify-between rounded-lg p-4 transition-colors'>
+				<CollapsibleTrigger className='flex w-full items-center justify-between rounded-lg bg-secondary p-4 transition-colors hover:bg-secondary/80'>
 					<div className='flex items-center space-x-2 text-left'>
 						{reminder.title}
 					</div>
@@ -127,7 +121,7 @@ function IndividualReminder({
 					</div>
 				</CollapsibleTrigger>
 
-				<CollapsibleContent className='bg-secondary/50 rounded-b-lg p-4 pt-2'>
+				<CollapsibleContent className='rounded-b-lg bg-secondary/50 p-4 pt-2'>
 					<div className='flex items-center space-x-2'>
 						<form className='w-full'>
 							<Textarea
@@ -159,28 +153,5 @@ function IndividualReminder({
 				</CollapsibleContent>
 			</Collapsible>
 		</li>
-	)
-}
-
-export function ReminderList() {
-	const searchTerm = Route.useSearch({ select: (search) => search.searchTerm })
-	const { data } = useSuspenseQuery(queries.getReminders())
-
-	const reminders = sortByDaysRemainingBeforeReminder(data)
-
-	const filteredReminders = searchTerm
-		? reminders.filter(([_url, reminder]) =>
-				reminder.title.toLowerCase().includes(searchTerm.toLowerCase()),
-			)
-		: reminders
-
-	return (
-		<ScrollArea>
-			<ul className='space-y-4'>
-				{filteredReminders.map(([url, reminder]) => (
-					<IndividualReminder key={url} reminder={reminder} url={url} />
-				))}
-			</ul>
-		</ScrollArea>
 	)
 }

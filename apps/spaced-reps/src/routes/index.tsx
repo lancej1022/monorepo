@@ -9,7 +9,7 @@ import { cn } from '@monorepo/ui/cn'
 import { Input } from '@monorepo/ui/input'
 import { Label } from '@monorepo/ui/label'
 
-import { ReminderList } from './-components/reminder-card'
+import { ReminderList } from './-components/reminder-list'
 
 const searchSchema = v.object({
 	searchTerm: v.optional(v.string()),
