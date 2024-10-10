@@ -43,6 +43,7 @@
 		"@changesets/cli": "^2.27.7",
 		"@commitlint/cli": "^19.4.1",
 		"@commitlint/config-conventional": "^19.4.1",
+		"@commitlint/config-pnpm-scopes": "19.5.0",
 		"@commitlint/cz-commitlint": "^19.4.0",
 		"@ianvs/prettier-plugin-sort-imports": "^4.3.1",
 		"@monorepo/eslint": "workspace:^",

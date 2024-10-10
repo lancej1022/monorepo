@@ -43,8 +43,6 @@ const packageJsonSchema = v.object({
 	version: v.optional(v.string()),
 })
 
-// ------------------------------------------------------------------
-
 /**
  * Function to read and parse the root package.json
  * @param cwd the current working directory
@@ -58,8 +56,6 @@ export function getRootPackageJson(cwd: string): PackageJson {
 	const validated = v.parse(packageJsonSchema, rootPackageJson)
 	return validated
 }
-
-// ------------------------------------------------------------------
 
 /**
  * Function to get all workspace package paths.
@@ -81,8 +77,6 @@ export function getWorkspacePackagePaths(workspaces: string[]): string[] {
 	return workspacePackagePaths
 }
 
-// ------------------------------------------------------------------
-
 /**
  * Function to get package names from package.json files
  * @param packagePaths an array of package paths
@@ -102,8 +96,6 @@ export function getPackageNamesFromPaths(packagePaths: string[]): string[] {
 
 	return packageNames
 }
-
-// ------------------------------------------------------------------
 
 /**
  * Function to get all workspace package names
@@ -127,8 +119,6 @@ export function getWorkspacePackageNames(cwd: string): string[] {
 		...(rootPackageJson.name ? [rootPackageJson.name] : []),
 	]
 }
-
-// ------------------------------------------------------------------
 
 /**
  * Function to update all package.json files in the workspace
@@ -177,8 +167,6 @@ export async function updateWorkspacePackages(
 	)
 }
 
-// ------------------------------------------------------------------
-
 /**
  * Function to replace a string in a file
  * @param filePath path to the file
@@ -212,8 +200,6 @@ export async function replaceInFile(
 	}
 }
 
-// ------------------------------------------------------------------
-
 /**
  * Function to traverse a directory and call a callback on each file
  * @param directory the directory to traverse
@@ -244,8 +230,6 @@ export async function traverseDirectory(
 		console.error(`Error processing directory ${directory}:`, err)
 	}
 }
-
-// ------------------------------------------------------------------
 
 /**
  * Function to update the prettier.config.js file
