@@ -20,6 +20,7 @@ export const react = defineConfig(
 			'react/prop-types': 'off',
 			'react/no-unescaped-entities': 'off',
 			'react/jsx-sort-props': 'error',
+			'react/no-leaked-conditional-rendering': 'error',
 		},
 	},
 )

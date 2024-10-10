@@ -42,6 +42,7 @@ const individualReminderSchema = v.object({
 export type Reminder = v.InferOutput<typeof individualReminderSchema>
 
 const savedRemindersSchema = v.record(v.string(), individualReminderSchema)
+type SavedReminders = v.InferOutput<typeof savedRemindersSchema>
 
 export async function getAllStorageLocalData() {
 	// @ts-expect-error -- the TSDoc says `null` is valid, but the ts types seem to conflict with that?
@@ -49,17 +50,6 @@ export async function getAllStorageLocalData() {
 		const parsed = v.parse(savedRemindersSchema, res)
 		return parsed
 	})
-
-	// helpers.testSize(items);
-	// 		console.log('saved reminders', Object.entries(items))
-	// 		const itemsArr: [string, Record<string, unknown>][] =
-	// 			Object.entries(items)
-	// 		helpers.sortByDaysRemainingBeforeReminder(itemsArr)
-	// 		// Pass the data retrieved from storage down the promise chain.
-	// 		resolve(itemsArr)
-	// 	})
-	// 	// }
-	// })
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
@@ -134,6 +124,32 @@ async function getCurrentTabDetails() {
 				)
 			},
 		)
+	})
+}
+
+const millisecondsPerDay = 1000 * 60 * 60 * 24
+
+// TODO: is there a more performant way to wind up sorted the dates?
+export function dateDiffInDays(a: Date, b: Date) {
+	// Discard the time and time-zone information.
+	const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())
+	const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate())
+
+	return Math.floor((utc2 - utc1) / millisecondsPerDay)
+}
+
+export function sortByDaysRemainingBeforeReminder(reminders: SavedReminders) {
+	const array = Object.entries(reminders)
+
+	return array.sort((a, b) => {
+		const daysSinceA =
+			Number(a[1].daysUntilDue) -
+			dateDiffInDays(new Date(a[1].timestamp), new Date())
+		const daysSinceB =
+			Number(b[1].daysUntilDue) -
+			dateDiffInDays(new Date(b[1].timestamp), new Date())
+
+		return daysSinceA - daysSinceB
 	})
 }
 

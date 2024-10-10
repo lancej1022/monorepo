@@ -17,7 +17,11 @@ import { ScrollArea } from '@monorepo/ui/scroll-area'
 import { Textarea } from '@monorepo/ui/textarea'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@monorepo/ui/tooltip'
 
-import { queries } from '../__root'
+import {
+	dateDiffInDays,
+	queries,
+	sortByDaysRemainingBeforeReminder,
+} from '../__root'
 import { Route } from '../index'
 
 /** Updates the text area height as the user types, ensuring that the user isnt forced to deal with a small textbox for a large note */
@@ -55,7 +59,7 @@ function IndividualReminder({
 		},
 	})
 
-	const updateMutation = useMutation({
+	const updateNotesMutation = useMutation({
 		mutationFn: async (note: string) => {
 			return chrome.storage.local.set({ [url]: { ...reminder, notes: note } })
 		},
@@ -67,7 +71,11 @@ function IndividualReminder({
 		},
 	})
 
-	const debouncedNoteUpdate = debounce(updateMutation.mutate, 500)
+	const debouncedNoteUpdate = debounce(updateNotesMutation.mutate, 500)
+
+	const calculatedDaysUntilDue =
+		Number(reminder.daysUntilDue) -
+		dateDiffInDays(new Date(reminder.timestamp), new Date())
 
 	return (
 		<li>
@@ -77,17 +85,19 @@ function IndividualReminder({
 				}}
 				open={open}
 			>
-				<CollapsibleTrigger className='flex w-full items-center justify-between rounded-lg bg-secondary p-4 transition-colors hover:bg-secondary/80'>
-					<div className='flex items-center space-x-2'>{reminder.title}</div>
+				<CollapsibleTrigger className='bg-secondary hover:bg-secondary/80 flex w-full items-center justify-between rounded-lg p-4 transition-colors'>
+					<div className='flex items-center space-x-2 text-left'>
+						{reminder.title}
+					</div>
 					<div className='flex items-center space-x-2'>
 						<span
-							className={`text-sm ${getDueDateColor(reminder.daysUntilDue)}`}
+							className={`text-sm ${getDueDateColor(calculatedDaysUntilDue)}`}
 						>
 							{open ? (
 								<>
 									<input
 										className='mr-1 inline min-w-7 rounded border-none bg-transparent p-0 text-sm'
-										defaultValue={reminder.daysUntilDue}
+										defaultValue={calculatedDaysUntilDue}
 										dir='rtl'
 										id={id}
 										max='180'
@@ -104,7 +114,7 @@ function IndividualReminder({
 							) : (
 								<>
 									<Clock className='mr-1 inline size-4' />
-									{getDueDateText(reminder.daysUntilDue)}
+									{getDueDateText(calculatedDaysUntilDue)}
 								</>
 							)}
 						</span>
@@ -117,7 +127,7 @@ function IndividualReminder({
 					</div>
 				</CollapsibleTrigger>
 
-				<CollapsibleContent className='rounded-b-lg bg-secondary/50 p-4 pt-2'>
+				<CollapsibleContent className='bg-secondary/50 rounded-b-lg p-4 pt-2'>
 					<div className='flex items-center space-x-2'>
 						<form className='w-full'>
 							<Textarea
@@ -156,7 +166,7 @@ export function ReminderList() {
 	const searchTerm = Route.useSearch({ select: (search) => search.searchTerm })
 	const { data } = useSuspenseQuery(queries.getReminders())
 
-	const reminders = Object.entries(data)
+	const reminders = sortByDaysRemainingBeforeReminder(data)
 
 	const filteredReminders = searchTerm
 		? reminders.filter(([_url, reminder]) =>
