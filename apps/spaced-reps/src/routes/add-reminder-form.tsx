@@ -28,6 +28,7 @@ export function createFormattedTitle(unformattedTitle: string) {
 		.join(' ')
 }
 
+// TODO: pretty sure this is duplicated in multiple spots -- create a centralized interface so there isnt any drift over time
 interface Reminder {
 	daysUntilDue: number
 	notes?: string

@@ -7,31 +7,6 @@ import * as v from 'valibot'
 
 import { TooltipProvider } from '@monorepo/ui/tooltip'
 
-// /**
-//  * @description Promise-based wrapper around chrome.storage.local.remove. Permanently removes a reminder from the list of reminders.
-//  * @param key the name of the reminder, as a string
-//  * @returns void
-//  */
-// export function removeReminder(key: string): Promise<void> {
-// 	return new Promise((resolve, reject) => {
-// 		if (isLocal) {
-// 			resolve()
-// 		} else {
-// 			// TODO: we should do an optimistic delete that doesnt require refetching the entire storage
-// 			chrome.storage.local.remove(key, () => {
-// 				// Pass any observed errors down the promise chain.
-// 				if (chrome.runtime.lastError) {
-// 					console.log('chrome.runtime.lastError:', chrome.runtime.lastError)
-// 					reject(chrome.runtime.lastError)
-// 					return
-// 				}
-
-// 				resolve()
-// 			})
-// 		}
-// 	})
-// }
-
 const individualReminderSchema = v.object({
 	daysUntilDue: v.number(),
 	notes: v.optional(v.string()),

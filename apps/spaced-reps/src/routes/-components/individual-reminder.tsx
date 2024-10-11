@@ -65,6 +65,24 @@ export function IndividualReminder({
 		},
 	})
 
+	const updateDueDateMutation = useMutation({
+		mutationFn: async (newDaysUntilDue: string) => {
+			return chrome.storage.local.set({
+				[url]: {
+					...reminder,
+					daysUntilDue: Number(newDaysUntilDue), // TODO: before hitting the `return` here, make sure the `newDaysUntilDue` is a valid number!
+					timestamp: new Date().toISOString(),
+				},
+			})
+		},
+		onError: (error) => {
+			console.error(error)
+		},
+		onSuccess: () => {
+			toast.success(`Due date for ${reminder.title} updated successfully`)
+		},
+	})
+
 	const debouncedNoteUpdate = debounce(updateNotesMutation.mutate, 500)
 
 	const calculatedDaysUntilDue =
@@ -95,8 +113,10 @@ export function IndividualReminder({
 										dir='rtl'
 										id={id}
 										max='180'
-										min='0'
 										name='daysUntilDue'
+										onBlur={(e) => {
+											updateDueDateMutation.mutate(e.target.value)
+										}}
 										onClick={(e) => {
 											e.preventDefault()
 										}}
