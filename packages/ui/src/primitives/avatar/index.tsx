@@ -7,44 +7,44 @@ import * as AvatarPrimitive from '@radix-ui/react-avatar'
 import { cn } from '@/utils/cn'
 
 const Avatar = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
+	React.ElementRef<typeof AvatarPrimitive.Root>,
+	React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
 >(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Root
-    ref={ref}
-    className={cn(
-      'relative flex size-10 shrink-0 overflow-hidden rounded-full',
-      className,
-    )}
-    {...props}
-  />
+	<AvatarPrimitive.Root
+		className={cn(
+			'relative flex size-10 shrink-0 overflow-hidden rounded-full',
+			className,
+		)}
+		ref={ref}
+		{...props}
+	/>
 ))
 Avatar.displayName = AvatarPrimitive.Root.displayName
 
 const AvatarImage = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Image>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
+	React.ElementRef<typeof AvatarPrimitive.Image>,
+	React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
 >(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Image
-    ref={ref}
-    className={cn('aspect-[1_/_1] size-full', className)}
-    {...props}
-  />
+	<AvatarPrimitive.Image
+		className={cn('aspect-[1_/_1] size-full', className)}
+		ref={ref}
+		{...props}
+	/>
 ))
 AvatarImage.displayName = AvatarPrimitive.Image.displayName
 
 const AvatarFallback = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Fallback>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
+	React.ElementRef<typeof AvatarPrimitive.Fallback>,
+	React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
 >(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Fallback
-    ref={ref}
-    className={cn(
-      'flex size-full items-center justify-center rounded-full bg-muted text-muted-foreground',
-      className,
-    )}
-    {...props}
-  />
+	<AvatarPrimitive.Fallback
+		className={cn(
+			'flex size-full items-center justify-center rounded-full bg-muted text-muted-foreground',
+			className,
+		)}
+		ref={ref}
+		{...props}
+	/>
 ))
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
 

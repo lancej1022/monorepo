@@ -46,7 +46,7 @@ const FormExample = (props: ComponentProps<typeof Form>) => {
 
 	return (
 		<Form {...props} {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+			<form className='space-y-8' onSubmit={form.handleSubmit(onSubmit)}>
 				<FormField
 					control={form.control}
 					name='username'
@@ -66,7 +66,7 @@ const FormExample = (props: ComponentProps<typeof Form>) => {
 				<Button type='submit'>Submit</Button>
 			</form>
 			{username && (
-				<Typography variant='muted' className='mt-6'>
+				<Typography className='mt-6' variant='muted'>
 					You have submitted: {username}
 				</Typography>
 			)}

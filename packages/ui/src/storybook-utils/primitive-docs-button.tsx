@@ -9,28 +9,28 @@ import { Button } from '../primitives/button'
  * @returns The rendered component.
  */
 export function RadixPrimitiveDocsButton({ name }: { name: string }) {
-  return (
-    <div className='dark !mb-6 flex gap-4'>
-      <Button variant='outline' size='sm' asChild>
-        <a
-          href={`https://www.radix-ui.com/docs/primitives/components/${name}`}
-          className='!text-sm !text-gray-11'
-        >
-          <ExternalLinkIcon className='mr-2 size-3' />
-          Docs
-        </a>
-      </Button>
-      <Button variant='outline' size='sm' asChild>
-        <a
-          href={`https://www.radix-ui.com/docs/primitives/components/${name}#api-reference`}
-          className='!text-sm !text-gray-11'
-        >
-          <ExternalLinkIcon className='mr-2 size-3' />
-          API Reference
-        </a>
-      </Button>
-    </div>
-  )
+	return (
+		<div className='dark !mb-6 flex gap-4'>
+			<Button asChild size='sm' variant='outline'>
+				<a
+					className='!text-sm !text-gray-11'
+					href={`https://www.radix-ui.com/docs/primitives/components/${name}`}
+				>
+					<ExternalLinkIcon className='mr-2 size-3' />
+					Docs
+				</a>
+			</Button>
+			<Button asChild size='sm' variant='outline'>
+				<a
+					className='!text-sm !text-gray-11'
+					href={`https://www.radix-ui.com/docs/primitives/components/${name}#api-reference`}
+				>
+					<ExternalLinkIcon className='mr-2 size-3' />
+					API Reference
+				</a>
+			</Button>
+		</div>
+	)
 }
 
 /**
@@ -41,28 +41,28 @@ export function RadixPrimitiveDocsButton({ name }: { name: string }) {
  * @returns The rendered component.
  */
 export function PrimitiveDocsButton({
-  docsUrl,
-  apiReferenceUrl,
+	docsUrl,
+	apiReferenceUrl,
 }: {
-  docsUrl: string
-  apiReferenceUrl?: string
+	docsUrl: string
+	apiReferenceUrl?: string
 }) {
-  return (
-    <div className='dark !mb-6 flex gap-4'>
-      <Button variant='outline' size='sm' asChild>
-        <a href={docsUrl} className='!text-sm !text-gray-11'>
-          <ExternalLinkIcon className='mr-2 size-3' />
-          Docs
-        </a>
-      </Button>
-      {apiReferenceUrl && (
-        <Button variant='outline' size='sm' asChild>
-          <a href={apiReferenceUrl} className='!text-sm !text-gray-11'>
-            <ExternalLinkIcon className='mr-2 size-3' />
-            API Reference
-          </a>
-        </Button>
-      )}
-    </div>
-  )
+	return (
+		<div className='dark !mb-6 flex gap-4'>
+			<Button asChild size='sm' variant='outline'>
+				<a className='!text-sm !text-gray-11' href={docsUrl}>
+					<ExternalLinkIcon className='mr-2 size-3' />
+					Docs
+				</a>
+			</Button>
+			{apiReferenceUrl && (
+				<Button asChild size='sm' variant='outline'>
+					<a className='!text-sm !text-gray-11' href={apiReferenceUrl}>
+						<ExternalLinkIcon className='mr-2 size-3' />
+						API Reference
+					</a>
+				</Button>
+			)}
+		</div>
+	)
 }
