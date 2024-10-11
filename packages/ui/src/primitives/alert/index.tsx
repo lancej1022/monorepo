@@ -12,8 +12,7 @@ const alertVariants = cva(
 		variants: {
 			variant: {
 				default: 'bg-gray-2 text-foreground',
-				destructive:
-					'border-red-6 bg-red-2 text-destructive [&>svg]:text-destructive',
+				destructive: 'border-red-6 bg-red-2 text-destructive [&>svg]:text-destructive',
 			},
 		},
 		defaultVariants: {
@@ -53,11 +52,7 @@ const AlertDescription = React.forwardRef<
 	HTMLParagraphElement,
 	React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-	<div
-		className={cn('text-sm [&_p]:leading-relaxed', className)}
-		ref={ref}
-		{...props}
-	/>
+	<div className={cn('text-sm [&_p]:leading-relaxed', className)} ref={ref} {...props} />
 ))
 AlertDescription.displayName = 'AlertDescription'
 

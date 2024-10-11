@@ -1,9 +1,9 @@
 import { configs, defineConfig } from '@monorepo/eslint'
 
 export default defineConfig(
-  {
-    ignores: ['apps', 'packages'],
-  },
+	{
+		ignores: ['apps', 'packages'],
+	},
 
-  ...configs.base,
+	...configs.base,
 )

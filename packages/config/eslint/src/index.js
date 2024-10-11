@@ -11,9 +11,9 @@ export { defineConfig } from './utils.js'
  * (not only this file) otherwise ESLint will not be able to resolve the files.
  */
 export const configs = {
-  base,
-  playwright,
-  react,
-  next,
-  storybook,
+	base,
+	playwright,
+	react,
+	next,
+	storybook,
 }

@@ -125,10 +125,9 @@ As for the host use `app.posthog.com` or `eu.posthog.com` depending on your regi
 monorepo currently ships with two authentication providers, Google and Github. You will need to create an OAuth application on the respective platforms and input the values into the `.env.local` file.
 
 <Note>
-	Based on the environment variables set, authentication will be provided. For
-	example, setting `AUTH_GITHUB_ID` and `AUTH_GITHUB_SECRET` will make it so
-	that Github OAuth is then activated on the web application. The same is true
-	for Google OAuth.
+	Based on the environment variables set, authentication will be provided. For example,
+	setting `AUTH_GITHUB_ID` and `AUTH_GITHUB_SECRET` will make it so that Github OAuth is
+	then activated on the web application. The same is true for Google OAuth.
 </Note>
 
 <AccordionGroup>
@@ -139,17 +138,15 @@ monorepo currently ships with two authentication providers, Google and Github. Y
 			<li>Go to OAuth Apps.</li>
 			<li>Click on New OAuth App.</li>
 			<li>
-				Fill in the details, the homepage url should be `http://localhost:3000`
-				and the authorization callback url should be
+				Fill in the details, the homepage url should be `http://localhost:3000` and the
+				authorization callback url should be
 				`http://localhost:3000/login/github/callback`.
 			</li>
 			<li>Click on Register Application.</li>
+			<li>Copy the Client ID into the `AUTH_GITHUB_ID` environment variable.</li>
 			<li>
-				Copy the Client ID into the `AUTH_GITHUB_ID` environment variable.
-			</li>
-			<li>
-				Click on Generate a new client secret button and copy the client secret
-				into the `AUTH_GITHUB_SECRET` environment variable.
+				Click on Generate a new client secret button and copy the client secret into the
+				`AUTH_GITHUB_SECRET` environment variable.
 			</li>
 		</ol>
 	</Accordion>
@@ -160,22 +157,13 @@ monorepo currently ships with two authentication providers, Google and Github. Y
 			<li>Configure consent screen.</li>
 			<li>Create OAuth client ID.</li>
 			<li>
-				Fill in the details, add `http://localhost:3000` in the list of
-				Authorized JavaScript origins and
-				`http://localhost:3000/login/google/callback` in the list of Authorized
-				redirect URIs.
+				Fill in the details, add `http://localhost:3000` in the list of Authorized
+				JavaScript origins and `http://localhost:3000/login/google/callback` in the list
+				of Authorized redirect URIs.
 			</li>
-			<li>
-				Copy the Client ID into the `AUTH_GOOGLE_ID` environment variable.
-			</li>
-			<li>
-				Copy the Client Secret into the `AUTH_GOOGLE_SECRET` environment
-				variable.
-			</li>
-			<li>
-				For the `AUTH_SECRET` environment variable, you can put any random
-				string.
-			</li>
+			<li>Copy the Client ID into the `AUTH_GOOGLE_ID` environment variable.</li>
+			<li>Copy the Client Secret into the `AUTH_GOOGLE_SECRET` environment variable.</li>
+			<li>For the `AUTH_SECRET` environment variable, you can put any random string.</li>
 		</ol>
 	</Accordion>
 </AccordionGroup>

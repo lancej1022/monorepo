@@ -64,8 +64,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI) {
 				{
 					choices: ['React', 'Vanilla'],
 					default: 'React',
-					message:
-						"Is this a 'vanilla' TypeScript app, or a TypeScript and React app?",
+					message: "Is this a 'vanilla' TypeScript app, or a TypeScript and React app?",
 					name: 'type',
 					type: 'list',
 				},

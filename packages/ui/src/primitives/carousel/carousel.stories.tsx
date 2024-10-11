@@ -84,10 +84,7 @@ export const Spacing: Story = {
 			<Carousel {...args} className='w-full max-w-sm'>
 				<CarouselContent className='-ml-1'>
 					{Array.from({ length: 5 }).map((_, index) => (
-						<CarouselItem
-							className='pl-1 md:basis-1/2 lg:basis-1/3'
-							key={index}
-						>
+						<CarouselItem className='pl-1 md:basis-1/2 lg:basis-1/3' key={index}>
 							<div className='p-1'>
 								<Card>
 									<CardContent className='flex aspect-[1_/_1] items-center justify-center p-6'>

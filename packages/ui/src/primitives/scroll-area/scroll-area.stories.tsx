@@ -74,9 +74,7 @@ export const HorizontalScrolling: Story = {
 						</div>
 						<figcaption className='pt-2 text-xs text-gray-11'>
 							Photo by{' '}
-							<span className='font-semibold text-foreground'>
-								{artwork.artist}
-							</span>
+							<span className='font-semibold text-foreground'>{artwork.artist}</span>
 						</figcaption>
 					</figure>
 				))}

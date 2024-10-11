@@ -3,11 +3,7 @@
 import * as React from 'react'
 
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu'
-import {
-	CheckIcon,
-	ChevronRightIcon,
-	DotFilledIcon,
-} from '@radix-ui/react-icons'
+import { CheckIcon, ChevronRightIcon, DotFilledIcon } from '@radix-ui/react-icons'
 
 import { cn } from '@/utils/cn'
 
@@ -115,8 +111,7 @@ const ContextMenuCheckboxItem = React.forwardRef<
 		{children}
 	</ContextMenuPrimitive.CheckboxItem>
 ))
-ContextMenuCheckboxItem.displayName =
-	ContextMenuPrimitive.CheckboxItem.displayName
+ContextMenuCheckboxItem.displayName = ContextMenuPrimitive.CheckboxItem.displayName
 
 const ContextMenuRadioItem = React.forwardRef<
 	React.ElementRef<typeof ContextMenuPrimitive.RadioItem>,
@@ -176,10 +171,7 @@ const ContextMenuShortcut = ({
 }: React.HTMLAttributes<HTMLSpanElement>) => {
 	return (
 		<span
-			className={cn(
-				'ml-auto text-xs tracking-widest text-muted-foreground',
-				className,
-			)}
+			className={cn('ml-auto text-xs tracking-widest text-muted-foreground', className)}
 			{...props}
 		/>
 	)

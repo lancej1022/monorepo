@@ -21,22 +21,20 @@ const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
 )
 Pagination.displayName = 'Pagination'
 
-const PaginationContent = React.forwardRef<
-	HTMLUListElement,
-	React.ComponentProps<'ul'>
->(({ className, ...props }, ref) => (
-	<ul
-		className={cn('flex flex-row items-center gap-1', className)}
-		ref={ref}
-		{...props}
-	/>
-))
+const PaginationContent = React.forwardRef<HTMLUListElement, React.ComponentProps<'ul'>>(
+	({ className, ...props }, ref) => (
+		<ul
+			className={cn('flex flex-row items-center gap-1', className)}
+			ref={ref}
+			{...props}
+		/>
+	),
+)
 PaginationContent.displayName = 'PaginationContent'
 
-const PaginationItem = React.forwardRef<
-	HTMLLIElement,
-	React.ComponentProps<'li'>
->(({ ...props }, ref) => <li ref={ref} {...props} />)
+const PaginationItem = React.forwardRef<HTMLLIElement, React.ComponentProps<'li'>>(
+	({ ...props }, ref) => <li ref={ref} {...props} />,
+)
 PaginationItem.displayName = 'PaginationItem'
 
 type PaginationLinkProps = {
@@ -99,10 +97,7 @@ const PaginationNext = ({
 )
 PaginationNext.displayName = 'PaginationNext'
 
-const PaginationEllipsis = ({
-	className,
-	...props
-}: React.ComponentProps<'span'>) => (
+const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<'span'>) => (
 	<span
 		aria-hidden
 		className={cn('flex size-9 items-center justify-center', className)}

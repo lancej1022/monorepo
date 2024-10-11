@@ -12,13 +12,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/primitives/popover'
 import { cn } from '@/utils/cn'
 
 import { Calendar } from '.'
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '../select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../select'
 
 const meta: Meta<typeof Calendar> = {
 	component: Calendar,
@@ -88,8 +82,7 @@ const DateRangePickerExample = (props: ComponentProps<typeof Calendar>) => {
 						{date?.from ? (
 							date.to ? (
 								<>
-									{format(date.from, 'LLL dd, y')} -{' '}
-									{format(date.to, 'LLL dd, y')}
+									{format(date.from, 'LLL dd, y')} - {format(date.to, 'LLL dd, y')}
 								</>
 							) : (
 								format(date.from, 'LLL dd, y')
@@ -131,10 +124,7 @@ const WithPresetsExample = (props: ComponentProps<typeof Calendar>) => {
 					{date ? format(date, 'PPP') : <span>Pick a date</span>}
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent
-				align='start'
-				className='flex w-auto flex-col space-y-2 p-2'
-			>
+			<PopoverContent align='start' className='flex w-auto flex-col space-y-2 p-2'>
 				<Select
 					onValueChange={(value) => {
 						setDate(addDays(new Date(), parseInt(value)))
@@ -151,12 +141,7 @@ const WithPresetsExample = (props: ComponentProps<typeof Calendar>) => {
 					</SelectContent>
 				</Select>
 				<div className='rounded-md border'>
-					<Calendar
-						{...props}
-						mode='single'
-						onSelect={setDate}
-						selected={date}
-					/>
+					<Calendar {...props} mode='single' onSelect={setDate} selected={date} />
 				</div>
 			</PopoverContent>
 		</Popover>

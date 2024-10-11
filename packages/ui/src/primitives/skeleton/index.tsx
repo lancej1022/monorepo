@@ -6,16 +6,10 @@ import { cn } from '@/utils/cn'
  * @param props.className The className to apply to the skeleton.
  * @returns The skeleton component.
  */
-function Skeleton({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div
-      className={cn('animate-pulse rounded-md bg-accent', className)}
-      {...props}
-    />
-  )
+function Skeleton({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+	return (
+		<div className={cn('animate-pulse rounded-md bg-accent', className)} {...props} />
+	)
 }
 
 export { Skeleton }

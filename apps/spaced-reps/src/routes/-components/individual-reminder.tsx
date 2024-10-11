@@ -98,13 +98,9 @@ export function IndividualReminder({
 				open={open}
 			>
 				<CollapsibleTrigger className='flex w-full items-center justify-between rounded-lg bg-secondary p-4 transition-colors hover:bg-secondary/80'>
-					<div className='flex items-center space-x-2 text-left'>
-						{reminder.title}
-					</div>
+					<div className='flex items-center space-x-2 text-left'>{reminder.title}</div>
 					<div className='flex items-center space-x-2'>
-						<span
-							className={`text-sm ${getDueDateColor(calculatedDaysUntilDue)}`}
-						>
+						<span className={`text-sm ${getDueDateColor(calculatedDaysUntilDue)}`}>
 							{open ? (
 								<>
 									<input
@@ -144,11 +140,7 @@ export function IndividualReminder({
 							)}
 						</span>
 
-						{open ? (
-							<ChevronUp className='size-5' />
-						) : (
-							<ChevronDown className='size-5' />
-						)}
+						{open ? <ChevronUp className='size-5' /> : <ChevronDown className='size-5' />}
 					</div>
 				</CollapsibleTrigger>
 

@@ -7,11 +7,9 @@ import { TooltipProvider } from '@monorepo/ui/tooltip'
 
 import { parseUrl } from '../utils/parseUrl'
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
-	{
-		component: RootComponent,
-	},
-)
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+	component: RootComponent,
+})
 
 // TODO: move most of this logic directly into `parseUrl`
 function getReminderInfo(tabs: chrome.tabs.Tab[]) {

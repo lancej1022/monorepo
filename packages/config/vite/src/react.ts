@@ -3,5 +3,5 @@ import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export const reactConfig = defineConfig({
-  plugins: [react(), tsconfigPaths()],
+	plugins: [react(), tsconfigPaths()],
 })

@@ -7,13 +7,7 @@ import { toast } from 'sonner'
 import * as v from 'valibot'
 
 import { Button, buttonVariants } from '@monorepo/ui/button'
-import {
-	Card,
-	CardContent,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from '@monorepo/ui/card'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@monorepo/ui/card'
 import { cn } from '@monorepo/ui/cn'
 import { Input } from '@monorepo/ui/input'
 import { Label } from '@monorepo/ui/label'
@@ -60,10 +54,7 @@ async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
 	}
 
 	const formData = new FormData(form)
-	const { questionUrl, ...parsed } = v.parse(
-		reminderSchema,
-		Object.fromEntries(formData),
-	)
+	const { questionUrl, ...parsed } = v.parse(reminderSchema, Object.fromEntries(formData))
 
 	const saveableReminder = {
 		...parsed,
@@ -99,16 +90,14 @@ function AddReminderForm() {
 			<CardHeader>
 				<CardTitle className='text-2xl font-bold'>Add New Reminder</CardTitle>
 				<Typography>
-					This form only works if the browser page is on a neetcode, leetcode,
-					or greatfrontend problem URL.
+					This form only works if the browser page is on a neetcode, leetcode, or
+					greatfrontend problem URL.
 				</Typography>
 			</CardHeader>
 			<CardContent>
 				<form className='space-y-6' onSubmit={mutation.mutate}>
 					<div className='space-y-2'>
-						<Label htmlFor='title'>
-							Reminder Name (this is automatically generated)
-						</Label>
+						<Label htmlFor='title'>Reminder Name (this is automatically generated)</Label>
 						<Input
 							id='title'
 							name='title'
@@ -159,10 +148,7 @@ function AddReminderForm() {
 				</form>
 			</CardContent>
 			<CardFooter>
-				<Link
-					className={cn(buttonVariants({ variant: 'secondary' }), 'w-full')}
-					to='/'
-				>
+				<Link className={cn(buttonVariants({ variant: 'secondary' }), 'w-full')} to='/'>
 					Back to overview
 				</Link>
 			</CardFooter>

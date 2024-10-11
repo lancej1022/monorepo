@@ -50,9 +50,7 @@ const packageJsonSchema = v.object({
  */
 export function getRootPackageJson(cwd: string): PackageJson {
 	const rootPackageJsonPath = resolve(cwd, 'package.json')
-	const rootPackageJson: unknown = JSON.parse(
-		readFileSync(rootPackageJsonPath, 'utf-8'),
-	)
+	const rootPackageJson: unknown = JSON.parse(readFileSync(rootPackageJsonPath, 'utf-8'))
 	const validated = v.parse(packageJsonSchema, rootPackageJson)
 	return validated
 }
@@ -86,9 +84,7 @@ export function getPackageNamesFromPaths(packagePaths: string[]): string[] {
 	const packageNames = packagePaths
 		.map((pkgPath) => {
 			const packageJsonPath = join(pkgPath, 'package.json')
-			const packageJson: unknown = JSON.parse(
-				readFileSync(packageJsonPath, 'utf-8'),
-			)
+			const packageJson: unknown = JSON.parse(readFileSync(packageJsonPath, 'utf-8'))
 			const validated = v.parse(packageJsonSchema, packageJson)
 			return validated.name
 		})
@@ -109,15 +105,10 @@ export function getWorkspacePackageNames(cwd: string): string[] {
 		rootPackageJson.workspaces = ['apps/*', 'packages/*', 'packages/config/*']
 	}
 
-	const workspacePackagePaths = getWorkspacePackagePaths(
-		rootPackageJson.workspaces,
-	)
+	const workspacePackagePaths = getWorkspacePackagePaths(rootPackageJson.workspaces)
 	const packageNames = getPackageNamesFromPaths(workspacePackagePaths)
 
-	return [
-		...packageNames,
-		...(rootPackageJson.name ? [rootPackageJson.name] : []),
-	]
+	return [...packageNames, ...(rootPackageJson.name ? [rootPackageJson.name] : [])]
 }
 
 /**
@@ -141,9 +132,7 @@ export async function updateWorkspacePackages(
 		// throw new Error('No workspaces defined in the root package.json')
 	}
 
-	const workspacePackagePaths = getWorkspacePackagePaths(
-		rootPackageJson.workspaces,
-	)
+	const workspacePackagePaths = getWorkspacePackagePaths(rootPackageJson.workspaces)
 
 	if (includeRoot) {
 		workspacePackagePaths.push(cwd)
@@ -152,10 +141,7 @@ export async function updateWorkspacePackages(
 	await Promise.all(
 		workspacePackagePaths.map(async (pkgPath) => {
 			const packageJsonPath = join(pkgPath, 'package.json')
-			const packageJsonContent = await fsPromise.readFile(
-				packageJsonPath,
-				'utf-8',
-			)
+			const packageJsonContent = await fsPromise.readFile(packageJsonPath, 'utf-8')
 			const packageJson: unknown = JSON.parse(packageJsonContent)
 			const validated = v.parse(packageJsonSchema, packageJson)
 			const updatedPackageJson = await update(validated, pkgPath)
@@ -254,10 +240,7 @@ export async function updateNamespaceInPrettierConfig(
 		}
 
 		const beforeImportOrder = data.substring(0, importOrderStart)
-		const importOrderContent = data.substring(
-			importOrderStart,
-			importOrderEnd + 2,
-		) // Include '],'
+		const importOrderContent = data.substring(importOrderStart, importOrderEnd + 2) // Include '],'
 		const afterImportOrder = data.substring(importOrderEnd + 2)
 
 		const searchPattern = /'\^@\w+\/\(\.\*\)\$'/g
@@ -271,8 +254,7 @@ export async function updateNamespaceInPrettierConfig(
 		)
 
 		// Reconstruct the file content
-		const updatedData =
-			beforeImportOrder + updatedImportOrderContent + afterImportOrder
+		const updatedData = beforeImportOrder + updatedImportOrderContent + afterImportOrder
 
 		await fsPromise.writeFile(filePath, updatedData, 'utf8')
 		// eslint-disable-next-line no-console -- intentionally logging to the console

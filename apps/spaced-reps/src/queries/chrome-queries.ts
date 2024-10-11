@@ -67,10 +67,7 @@ async function getCurrentTabDetails() {
 					undefined,
 					// Callback executed when the content script sends a response
 					(response: DOMMessageResponse) => {
-						console.log(
-							'DomEvaluator response in getCurrentTabDetails:',
-							response,
-						)
+						console.log('DomEvaluator response in getCurrentTabDetails:', response)
 						// TODO: do we even need this any more?
 						resolve(returnObject)
 					},

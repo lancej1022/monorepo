@@ -12,13 +12,7 @@ import { compat, defineConfig } from '../utils.js'
 
 export const base = defineConfig(
 	{
-		ignores: [
-			'.next',
-			'.astro',
-			'dist',
-			'storybook-static',
-			'vite.config.ts.*',
-		],
+		ignores: ['.next', '.astro', 'dist', 'storybook-static', 'vite.config.ts.*'],
 	},
 
 	// Base JS/TS configs
