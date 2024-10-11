@@ -19,8 +19,9 @@ export const react = defineConfig(
 			'react/react-in-jsx-scope': 'off',
 			'react/prop-types': 'off',
 			'react/no-unescaped-entities': 'off',
+			// STYLISTIC
 			'react/jsx-sort-props': 'error',
-			'react/no-leaked-conditional-rendering': 'error',
+			'react/jsx-curly-brace-presence': ['error', 'never'],
 		},
 	},
 )
