@@ -30,13 +30,6 @@ export async function getAllStorageLocalData() {
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 	{
 		component: RootComponent,
-		loader: (opts) => {
-			// TODO: move this to the `index.tsx` loader so that we can at least pre-render some of the UI and a Skeleton
-			return Promise.allSettled([
-				opts.context.queryClient.ensureQueryData(queries.getTabs()),
-				opts.context.queryClient.ensureQueryData(queries.getReminders()),
-			])
-		},
 	},
 )
 

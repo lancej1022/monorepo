@@ -11,6 +11,7 @@ import { Input } from '@monorepo/ui/input'
 import { Label } from '@monorepo/ui/label'
 import { Typography } from '@monorepo/ui/typography'
 
+import { queries } from './__root'
 import { ReminderList } from './-components/reminder-list'
 
 const searchSchema = v.object({
@@ -20,6 +21,12 @@ const searchSchema = v.object({
 export const Route = createFileRoute('/')({
 	component: HomeComponent,
 	validateSearch: (search) => v.parse(searchSchema, search),
+	loader: (opts) => {
+		return Promise.allSettled([
+			opts.context.queryClient.ensureQueryData(queries.getTabs()),
+			opts.context.queryClient.ensureQueryData(queries.getReminders()),
+		])
+	},
 })
 
 function HomeComponent() {
