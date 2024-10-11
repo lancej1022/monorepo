@@ -108,13 +108,13 @@ export function IndividualReminder({
 							{open ? (
 								<>
 									<input
-										className='mr-1 inline min-w-7 rounded border-none bg-transparent p-0 text-sm'
+										className='mr-1 inline  max-w-8 rounded border-none bg-transparent p-0 text-sm'
 										defaultValue={calculatedDaysUntilDue}
 										dir='rtl'
 										id={id}
 										max='180'
 										name='daysUntilDue'
-										onBlur={(e) => {
+										onChange={(e) => {
 											updateDueDateMutation.mutate(e.target.value)
 										}}
 										onClick={(e) => {
@@ -123,7 +123,18 @@ export function IndividualReminder({
 										required
 										type='number'
 									/>
-									<label htmlFor={id}>days until due</label>
+									{/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- a label element is interactive!*/}
+									<label
+										htmlFor={id}
+										onClick={(e) => {
+											e.stopPropagation()
+										}}
+										onKeyDown={(e) => {
+											e.stopPropagation()
+										}}
+									>
+										days until due
+									</label>
 								</>
 							) : (
 								<>
