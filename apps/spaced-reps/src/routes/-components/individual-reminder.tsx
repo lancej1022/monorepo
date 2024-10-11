@@ -1,6 +1,6 @@
 import { useId, useState } from 'react'
 
-import type { Reminder } from '../__root'
+import type { Reminder } from 'src/queries/chrome-queries'
 
 import { useMutation } from '@tanstack/react-query'
 import debounce from 'debounce'
@@ -16,7 +16,7 @@ import {
 import { Textarea } from '@monorepo/ui/textarea'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@monorepo/ui/tooltip'
 
-import { dateDiffInDays } from '../__root'
+import { dateDiffInDays } from '../../utils/dateDiffInDays'
 
 /** Updates the text area height as the user types, ensuring that the user isnt forced to deal with a small textbox for a large note */
 function resizeTextArea(el: HTMLTextAreaElement) {

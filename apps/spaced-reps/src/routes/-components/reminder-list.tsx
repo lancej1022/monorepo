@@ -2,7 +2,8 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 
 import { ScrollArea } from '@monorepo/ui/scroll-area'
 
-import { queries, sortByDaysRemainingBeforeReminder } from '../__root'
+import { queries } from '../../queries/chrome-queries'
+import { sortByDaysRemainingBeforeReminder } from '../../utils/sortDaysRemaining'
 import { Route } from '../index'
 import { IndividualReminder } from './individual-reminder'
 

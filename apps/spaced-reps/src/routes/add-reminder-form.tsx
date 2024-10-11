@@ -1,3 +1,5 @@
+import type { Reminder } from '../queries/chrome-queries'
+
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { PlusCircle } from 'lucide-react'
@@ -18,22 +20,14 @@ import { Label } from '@monorepo/ui/label'
 import { Textarea } from '@monorepo/ui/textarea'
 import { Typography } from '@monorepo/ui/typography'
 
-import { parseUrl, queries } from './__root'
+import { queries } from '../queries/chrome-queries'
+import { parseUrl } from '../utils/parseUrl'
 
-// TODO: move this to centralized `helpers`
-export function createFormattedTitle(unformattedTitle: string) {
+function createFormattedTitle(unformattedTitle: string) {
 	return unformattedTitle
 		.split('-')
 		.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize first letter and lowercase the rest
 		.join(' ')
-}
-
-// TODO: pretty sure this is duplicated in multiple spots -- create a centralized interface so there isnt any drift over time
-interface Reminder {
-	daysUntilDue: number
-	notes?: string
-	title: string
-	timestamp: string
 }
 
 async function saveReminder(url: string, reminder: Reminder) {

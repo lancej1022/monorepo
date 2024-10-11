@@ -11,7 +11,7 @@ import { Input } from '@monorepo/ui/input'
 import { Label } from '@monorepo/ui/label'
 import { Typography } from '@monorepo/ui/typography'
 
-import { queries } from './__root'
+import { queries } from '../queries/chrome-queries'
 import { ReminderList } from './-components/reminder-list'
 
 const searchSchema = v.object({
