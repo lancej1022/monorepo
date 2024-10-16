@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from 'react'
+import { useId, useState } from 'react'
 
 import type { Reminder } from 'src/queries/chrome-queries'
 

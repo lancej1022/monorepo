@@ -17,15 +17,5 @@
 		"16": "/assets/rocket16.png",
 		"32": "/assets/rocket32.png",
 		"128": "/assets/rocket128.png"
-	},
-	"background": {
-		"service_worker": "background.js",
-		"type": "module"
-	},
-	"content_scripts": [
-		{
-			"matches": ["http://*/*", "https://*/*"],
-			"js": ["./assets/dom-evaluator.js"]
-		}
-	]
+	}
 }

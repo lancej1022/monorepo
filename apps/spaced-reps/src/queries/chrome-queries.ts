@@ -1,5 +1,4 @@
 import { queryOptions } from '@tanstack/react-query'
-import { type DOMMessageResponse } from 'src/dom-evaluator'
 import * as v from 'valibot'
 
 const individualReminderSchema = v.object({
@@ -27,8 +26,6 @@ async function getCurrentTabDetails() {
 		tabs: chrome.tabs.Tab[]
 		questionUrl: string
 	} | null>((resolve) => {
-		// We can't use "chrome.runtime.sendMessage" for sending messages from the `popup.html`.
-		// For sending messages from React we need to specify which tab to send it to.
 		chrome.tabs.query(
 			{
 				active: true,
@@ -43,28 +40,10 @@ async function getCurrentTabDetails() {
 
 				const questionUrl = (currentTab.url ?? '').replace('/submissions', '')
 
-				const returnObject = {
+				resolve({
 					tabs,
 					questionUrl,
-				}
-
-				/*
-				  Sends a single message to the content script(s) in the specified tab,
-				  with an optional callback to run when a response is sent back.
-				  The runtime.onMessage event registered in `DomEvaluator` is fired in each content script
-				  running in the specified tab for the current extension.
-				 */
-				chrome.tabs.sendMessage(
-					currentTab.id ?? 0, // Current tab ID
-					{ type: 'GET_DOM' }, // Message type,
-					undefined,
-					// Callback executed when the content script sends a response
-					(response: DOMMessageResponse) => {
-						console.log('DomEvaluator response in getCurrentTabDetails:', response)
-						// TODO: do we even need this any more?
-						resolve(returnObject)
-					},
-				)
+				})
 			},
 		)
 	})
