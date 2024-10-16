@@ -25,9 +25,7 @@ export async function getAllStorageLocalData() {
 async function getCurrentTabDetails() {
 	return new Promise<{
 		tabs: chrome.tabs.Tab[]
-		questionUrl?: string
-		problemTitle?: string
-		keyToSave?: string
+		questionUrl: string
 	} | null>((resolve) => {
 		// We can't use "chrome.runtime.sendMessage" for sending messages from the `popup.html`.
 		// For sending messages from React we need to specify which tab to send it to.
@@ -45,12 +43,7 @@ async function getCurrentTabDetails() {
 
 				const questionUrl = (currentTab.url ?? '').replace('/submissions', '')
 
-				const returnObject: {
-					tabs: chrome.tabs.Tab[]
-					questionUrl: string
-					problemTitle?: string
-					keyToSave?: string
-				} = {
+				const returnObject = {
 					tabs,
 					questionUrl,
 				}

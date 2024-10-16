@@ -82,7 +82,7 @@ function AddReminderForm() {
 		},
 	})
 
-	const unformattedTitle = parseUrl(data?.questionUrl ?? '')
+	const unformattedTitle = parseUrl(data?.questionUrl ?? '') ?? ''
 	const formattedTitle = createFormattedTitle(unformattedTitle)
 
 	return (
