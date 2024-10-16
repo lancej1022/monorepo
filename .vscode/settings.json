@@ -12,7 +12,7 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "explicit"
 	},
-	"eslint.rules.customizations": [{ "rule": "*", "fixable": true, "severity": "off" }],
+	"eslint.rules.customizations": [{ "rule": "*", "fixable": true, "severity": "warn" }],
 	"eslint.useFlatConfig": true,
 	"eslint.workingDirectories": [
 		{ "pattern": "apps/*/" },

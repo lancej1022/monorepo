@@ -1,10 +1,10 @@
-import { useId, useState } from 'react'
+import { useId, useRef, useState } from 'react'
 
 import type { Reminder } from 'src/queries/chrome-queries'
 
 import { useMutation } from '@tanstack/react-query'
 import debounce from 'debounce'
-import { ChevronDown, ChevronUp, Clock, Trash2 } from 'lucide-react'
+import { ChevronDown, ChevronUp, Clock, ExternalLink, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { Button } from '@monorepo/ui/button'
@@ -46,6 +46,7 @@ export function IndividualReminder({
 }) {
 	const id = useId()
 	const [open, setOpen] = useState(false)
+
 	const deleteMutation = useMutation({
 		mutationFn: (_: unknown) => chrome.storage.local.remove(url),
 		onError: (error) => {
@@ -156,22 +157,42 @@ export function IndividualReminder({
 								}}
 							/>
 						</form>
-						<Tooltip>
-							<TooltipTrigger asChild>
-								<Button
-									className='text-red-500 hover:bg-red-100 hover:text-red-700'
-									onClick={deleteMutation.mutate}
-									size='icon'
-									variant='ghost'
-								>
-									<Trash2 className='size-5' />
-									<span className='sr-only'>Delete reminder</span>
-								</Button>
-							</TooltipTrigger>
-							<TooltipContent>
-								<p>Delete reminder</p>
-							</TooltipContent>
-						</Tooltip>
+						<div className='max-w-min	'>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Button asChild size='icon' variant='ghost'>
+										<a
+											href={url}
+											referrerPolicy='no-referrer'
+											rel='noreferrer'
+											target='_blank'
+										>
+											<span className='sr-only'>Visit problem url</span>
+											<ExternalLink className='size-5' />
+										</a>
+									</Button>
+								</TooltipTrigger>
+								<TooltipContent>
+									<p>Visit url</p>
+								</TooltipContent>
+							</Tooltip>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Button
+										className='text-red-500 hover:bg-red-100 hover:text-red-700'
+										onClick={deleteMutation.mutate}
+										size='icon'
+										variant='ghost'
+									>
+										<Trash2 className='size-5' />
+										<span className='sr-only'>Delete reminder</span>
+									</Button>
+								</TooltipTrigger>
+								<TooltipContent>
+									<p>Delete reminder</p>
+								</TooltipContent>
+							</Tooltip>
+						</div>
 					</div>
 				</CollapsibleContent>
 			</Collapsible>
