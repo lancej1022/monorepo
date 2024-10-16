@@ -1,1 +1,1 @@
-pnpm turbo typecheck
+pnpm turbo typecheck lint
