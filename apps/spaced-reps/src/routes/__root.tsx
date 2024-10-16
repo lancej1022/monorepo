@@ -6,6 +6,8 @@ import { Toaster } from 'sonner'
 import { TooltipProvider } from '@monorepo/ui/tooltip'
 
 import { parseUrl } from '../utils/parseUrl'
+import { ThemeProvider } from './-components/theme-provider'
+import { ThemeToggle } from './-components/theme-toggle'
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
 	component: RootComponent,
@@ -34,9 +36,12 @@ function getReminderInfo(tabs: chrome.tabs.Tab[]) {
 
 function RootComponent() {
 	return (
-		<TooltipProvider delayDuration={150}>
-			<Outlet />
-			<Toaster />
-		</TooltipProvider>
+		<ThemeProvider defaultTheme='dark'>
+			<TooltipProvider delayDuration={150}>
+				<ThemeToggle />
+				<Outlet />
+				<Toaster />
+			</TooltipProvider>
+		</ThemeProvider>
 	)
 }
