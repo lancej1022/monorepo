@@ -69,36 +69,49 @@ async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
 
 function AddReminderForm() {
 	const navigate = useNavigate({ from: '/add-reminder-form' })
-	const { data } = useSuspenseQuery(queries.getTabs())
+	const { data: tabs } = useSuspenseQuery(queries.getTabs())
+	const { data: reminders } = useSuspenseQuery(queries.getReminders())
 
 	const mutation = useMutation({
 		mutationFn: handleFormSubmit,
 		onError: () => {
 			toast.error('There was a problem saving the reminder')
 		},
+		// the form reset and snackbar are tackled by `handleFormSubmit` since it has access to the necessary variables
 		onSuccess: () => {
-			// note: the form reset and snackbar are tackled by `handleFormSubmit` since it has access to the necessary variable
 			void navigate({ to: '/' })
 		},
 	})
 
-	const unformattedTitle = parseUrl(data?.questionUrl ?? '') ?? ''
+	const unformattedTitle = parseUrl(tabs?.questionUrl ?? '') ?? ''
 	const formattedTitle = createFormattedTitle(unformattedTitle)
+
+	const reminderAlreadyExists = String(tabs?.questionUrl) in reminders
 
 	return (
 		<Card className='size-full'>
 			<CardHeader>
 				<CardTitle className='text-2xl font-bold'>Add New Reminder</CardTitle>
-				<Typography>
-					This form only works if the browser page is on a neetcode, leetcode, or
-					greatfrontend problem URL.
-				</Typography>
+				{reminderAlreadyExists ? (
+					<Link to='/'>
+						<Typography className='font-bold text-red-500'>
+							You already have a saved reminder for this URL and cannot save a duplicate
+							one. Click here to return to the reminders list
+						</Typography>
+					</Link>
+				) : (
+					<Typography>
+						This form only works if the browser page is on a neetcode, leetcode, or
+						greatfrontend problem URL.
+					</Typography>
+				)}
 			</CardHeader>
 			<CardContent>
 				<form className='space-y-6' onSubmit={mutation.mutate}>
 					<div className='space-y-2'>
 						<Label htmlFor='title'>Reminder Name (this is automatically generated)</Label>
 						<Input
+							disabled={reminderAlreadyExists}
 							id='title'
 							name='title'
 							// TODO: we cant use `disabled` because `disabled` elements arent included during form submission so instead we use `readonly`
@@ -112,6 +125,7 @@ function AddReminderForm() {
 					<div className='space-y-2'>
 						<Label htmlFor='daysUntilDue'>Days Until Due</Label>
 						<Input
+							disabled={reminderAlreadyExists}
 							id='daysUntilDue'
 							max='180'
 							min='0'
@@ -130,6 +144,7 @@ function AddReminderForm() {
 						*/}
 						<Textarea
 							className='h-32'
+							disabled={reminderAlreadyExists}
 							id='notes'
 							name='notes'
 							placeholder='Enter any additional notes'
@@ -139,9 +154,9 @@ function AddReminderForm() {
 						name='questionUrl'
 						readOnly={true}
 						type='hidden'
-						value={data?.questionUrl}
+						value={tabs?.questionUrl}
 					/>
-					<Button className='w-full' type='submit'>
+					<Button className='w-full' disabled={reminderAlreadyExists} type='submit'>
 						<PlusCircle className='mr-2 size-4' />
 						Add Reminder
 					</Button>
