@@ -20,13 +20,12 @@ export const Route = createFileRoute('/')({
 	component: HomeComponent,
 	validateSearch: (search) => v.parse(searchSchema, search),
 	loader: (opts) => {
-		return Promise.allSettled([
-			opts.context.queryClient.ensureQueryData(queries.getTabs()),
-			opts.context.queryClient.ensureQueryData(queries.getReminders()),
-		])
+		void opts.context.queryClient.prefetchQuery(queries.getTabs())
+		void opts.context.queryClient.prefetchQuery(queries.getReminders())
 	},
 })
 
+// TODO: try using the profiler to understand what lag is causing this not to immediately render...
 function HomeComponent() {
 	const navigate = useNavigate({ from: Route.fullPath })
 

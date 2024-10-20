@@ -149,11 +149,14 @@ export function IndividualReminder({
 					<div className='flex items-center space-x-2'>
 						<form className='w-full'>
 							<Textarea
-								className='max-h-36 min-h-4 w-full'
+								className='max-h-48 min-h-4 w-full'
 								defaultValue={reminder.notes}
 								onChange={(e) => {
 									resizeTextArea(e.target)
 									debouncedNoteUpdate(e.target.value)
+								}}
+								onFocus={(e) => {
+									resizeTextArea(e.target)
 								}}
 							/>
 						</form>
