@@ -1,4 +1,4 @@
-import { useId, useState } from 'react'
+import { useId, useRef, useState } from 'react'
 
 import type { Reminder } from 'src/queries/chrome-queries'
 
@@ -46,6 +46,7 @@ export function IndividualReminder({
 }) {
 	const id = useId()
 	const [open, setOpen] = useState(false)
+	const elementToScrollTo = useRef<HTMLLIElement>(null)
 
 	const deleteMutation = useMutation({
 		mutationFn: (_: unknown) => chrome.storage.local.remove(url),
@@ -80,6 +81,7 @@ export function IndividualReminder({
 			console.error(error)
 		},
 		onSuccess: () => {
+			elementToScrollTo.current?.scrollIntoView()
 			toast.success(`Due date for ${reminder.title} updated successfully`)
 		},
 	})
@@ -91,47 +93,54 @@ export function IndividualReminder({
 		dateDiffInDays(new Date(reminder.timestamp), new Date())
 
 	return (
-		<li>
+		<li ref={elementToScrollTo}>
 			<Collapsible
 				onOpenChange={() => {
 					setOpen((prev) => !prev)
 				}}
 				open={open}
 			>
-				<CollapsibleTrigger className='flex w-full items-center justify-between rounded-lg bg-secondary p-4 transition-colors hover:bg-secondary/80'>
+				<CollapsibleTrigger className='bg-secondary hover:bg-secondary/80 flex w-full items-center justify-between rounded-lg p-4 transition-colors'>
 					<div className='flex items-center space-x-2 text-left'>{reminder.title}</div>
 					<div className='flex items-center space-x-2'>
 						<span className={`text-sm ${getDueDateColor(calculatedDaysUntilDue)}`}>
 							{open ? (
 								<>
-									<input
-										className='mr-1 inline  max-w-8 rounded border-none bg-transparent p-0 text-sm'
-										defaultValue={calculatedDaysUntilDue}
-										dir='rtl'
-										id={id}
-										max='180'
-										name='daysUntilDue'
-										onChange={(e) => {
-											updateDueDateMutation.mutate(e.target.value)
-										}}
-										onClick={(e) => {
-											e.preventDefault()
-										}}
-										required
-										type='number'
-									/>
-									{/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- a label element is interactive!*/}
-									<label
-										htmlFor={id}
-										onClick={(e) => {
-											e.stopPropagation()
-										}}
-										onKeyDown={(e) => {
-											e.stopPropagation()
-										}}
-									>
-										days until due
-									</label>
+									<div>
+										<input
+											className='mr-1 inline  max-w-8 rounded border-none bg-transparent p-0 text-sm'
+											defaultValue={calculatedDaysUntilDue}
+											dir='rtl'
+											id={id}
+											max='180'
+											name='daysUntilDue'
+											onChange={(e) => {
+												updateDueDateMutation.mutate(e.target.value)
+											}}
+											onClick={(e) => {
+												e.preventDefault()
+											}}
+											required
+											type='number'
+										/>
+										{/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- a label element is interactive!*/}
+										<label
+											htmlFor={id}
+											onClick={(e) => {
+												e.stopPropagation()
+											}}
+											onKeyDown={(e) => {
+												e.stopPropagation()
+											}}
+										>
+											{/* TODO: this needs to dynamically change based on the current value of the text input, so we need a controlled input */}
+											day{calculatedDaysUntilDue > 1 ? 's' : ''} until due
+										</label>
+									</div>
+									<div className='text-foreground'>
+										previous reminder: {reminder.daysUntilDue} day
+										{reminder.daysUntilDue > 1 ? 's' : ''}
+									</div>
 								</>
 							) : (
 								<>
@@ -145,7 +154,7 @@ export function IndividualReminder({
 					</div>
 				</CollapsibleTrigger>
 
-				<CollapsibleContent className='rounded-b-lg bg-secondary/50 p-4 pt-2'>
+				<CollapsibleContent className='bg-secondary/50 rounded-b-lg p-4 pt-2'>
 					<div className='flex items-center space-x-2'>
 						<form className='w-full'>
 							<Textarea
