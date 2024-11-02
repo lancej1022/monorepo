@@ -81,12 +81,21 @@ export function IndividualReminder({
 			console.error(error)
 		},
 		onSuccess: () => {
-			elementToScrollTo.current?.scrollIntoView()
+			// this seems to require a timeout because the element hasnt actually re-rendered into its new position when `onSuccess` triggers
+			// so by adding the timeout, we ensure the UI can re-render before we try to scroll
+			// TODO: how can we achieve the scroll without manually hardcoding a timeout?
+			setTimeout(() => {
+				elementToScrollTo.current?.scrollIntoView({
+					behavior: 'smooth',
+					block: 'center',
+				})
+			}, 100)
 			toast.success(`Due date for ${reminder.title} updated successfully`)
 		},
 	})
 
 	const debouncedNoteUpdate = debounce(updateNotesMutation.mutate, 500)
+	const debouncedDueDateUpdate = debounce(updateDueDateMutation.mutate, 500)
 
 	const calculatedDaysUntilDue =
 		Number(reminder.daysUntilDue) -
@@ -100,7 +109,7 @@ export function IndividualReminder({
 				}}
 				open={open}
 			>
-				<CollapsibleTrigger className='bg-secondary hover:bg-secondary/80 flex w-full items-center justify-between rounded-lg p-4 transition-colors'>
+				<CollapsibleTrigger className='flex w-full items-center justify-between rounded-lg bg-secondary p-4 transition-colors hover:bg-secondary/80'>
 					<div className='flex items-center space-x-2 text-left'>{reminder.title}</div>
 					<div className='flex items-center space-x-2'>
 						<span className={`text-sm ${getDueDateColor(calculatedDaysUntilDue)}`}>
@@ -115,7 +124,8 @@ export function IndividualReminder({
 											max='180'
 											name='daysUntilDue'
 											onChange={(e) => {
-												updateDueDateMutation.mutate(e.target.value)
+												// updateDueDateMutation.mutate(e.target.value)
+												debouncedDueDateUpdate(e.target.value)
 											}}
 											onClick={(e) => {
 												e.preventDefault()
@@ -154,7 +164,7 @@ export function IndividualReminder({
 					</div>
 				</CollapsibleTrigger>
 
-				<CollapsibleContent className='bg-secondary/50 rounded-b-lg p-4 pt-2'>
+				<CollapsibleContent className='rounded-b-lg bg-secondary/50 p-4 pt-2'>
 					<div className='flex items-center space-x-2'>
 						<form className='w-full'>
 							<Textarea
